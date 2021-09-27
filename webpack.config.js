@@ -36,15 +36,14 @@ module.exports = {
     externals: {
         chai: "chai",
         lokijs: "loki",
-        agentkeepalive: "NMSHD",
-        process: "NMSHD",
-        path: "NMSHD",
-        "fs-extra": "NMSHD",
-        fs: "NMSHD",
-        "graceful-fs": "NMSHD",
-        "@js-soft/node-logger": "NMSHDNodeLogger",
+        agentkeepalive: "NMSHDTransport",
+        process: "NMSHDTransport",
+        path: "NMSHDTransport",
+        "fs-extra": "NMSHDTransport",
+        fs: "NMSHDTransport",
+        "graceful-fs": "NMSHDTransport",
         "@nmshd/transport": "NMSHDTransport",
         "@nmshd/crypto": "NMSHDCrypto",
-        "@js-soft/ts-serval": "NMSHDTsServal"
+        "@js-soft/ts-serval": "TsServal"
     }
 }
