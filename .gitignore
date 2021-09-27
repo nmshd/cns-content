@@ -1,0 +1,11 @@
+node_modules
+dist-test
+lib-web
+dist
+*.log
+db/*.db
+db/*.db~
+_archive
+.idea
+coverage
+.nyc_output
