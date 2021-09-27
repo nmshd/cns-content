@@ -4,42 +4,24 @@
         {
             "dependencies": [
                 "logger.js",
-                "lokijs.min.js",
                 "tsserval.js",
                 "nmshd.crypto.js",
                 "nmshd.transport.js",
                 "nmshd.content.js",
                 "nmshd.content.test.js"
             ],
-            "globals": [
-                "Logger",
-                "loki",
-                "TSServal",
-                "NMSHDCrypto",
-                "NMSHDTransport",
-                "NMSHDContent",
-                "NMSHDContentTest"
-            ]
+            "globals": ["Logger", "TSServal", "NMSHDCrypto", "NMSHDTransport", "NMSHDContent", "NMSHDContentTest"]
         },
         {
             "dependencies": [
                 "logger.js",
-                "lokijs.min.js",
                 "tsserval.js",
                 "nmshd.crypto.min.js",
                 "nmshd.transport.min.js",
                 "nmshd.content.min.js",
                 "nmshd.content.test.js"
             ],
-            "globals": [
-                "Logger",
-                "loki",
-                "TSServal",
-                "NMSHDCrypto",
-                "NMSHDTransport",
-                "NMSHDContent",
-                "NMSHDContentTest"
-            ]
+            "globals": ["Logger", "TSServal", "NMSHDCrypto", "NMSHDTransport", "NMSHDContent", "NMSHDContentTest"]
         }
     ],
     "proxies": [

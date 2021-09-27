@@ -21,7 +21,6 @@ module.exports = {
     devtool: "source-map",
     externals: {
         chai: "chai",
-        lokijs: "loki",
         agentkeepalive: "NMSHDTransport",
         process: "NMSHDTransport",
         path: "NMSHDTransport",
