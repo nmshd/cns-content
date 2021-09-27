@@ -1,0 +1,70 @@
+{
+    "name": "@nmshd/content",
+    "version": "1.0.0",
+    "description": "The content library defines data structures that can be transmitted using the transport library.",
+    "homepage": "https://enmeshed.eu",
+    "repository": "github:nmshd/cns-content",
+    "license": "UNLICENSED",
+    "author": "j&s-soft GmbH",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "lib-web/nmshd.content.js",
+        "lib-web/nmshd.content.min.js",
+        "ui5.yaml"
+    ],
+    "scripts": {
+        "bt": "npm run test:node && npm run build:node && npm run build:test && npm run bundle && npm run test:web",
+        "build": "npm run build:node && npm run build:test && npm run bundle",
+        "build:ci": "npm run build:node && .ci/writeBuildInformation.sh && npm run build:test && npm run bundle",
+        "build:node": "tsc -p tsconfig.json && madge --circular dist",
+        "build:test": "tsc -p tsconfig.test.json",
+        "bundle": "npm run bundle:lib && npm run bundle:min && npm run bundle:test",
+        "bundle:lib": "webpack --stats-all --config webpack.config.js",
+        "bundle:min": "webpack --stats-all --config webpack.min.config.js",
+        "bundle:test": "webpack --stats-all --config webpack.test.config.js",
+        "cdep": "tsc && madge --circular dist",
+        "lint": "npm run lint:prettier && npm run lint:eslint && npm run lint:tsc",
+        "lint:eslint": "eslint --ext ts ./src ./test",
+        "lint:prettier": "prettier --check .",
+        "lint:tsc": "tsc --noEmit && tsc -p test/tsconfig.json --noEmit",
+        "test": "npm run test:node && npm run test:web",
+        "test:ci": "npm run test",
+        "test:local": "npm run test",
+        "test:local:node": "npm run test:node",
+        "test:node": "mocha -r ts-node/register -r tsconfig-paths/register ./test/index.ts --project ./test/tsconfig.json --exit",
+        "test:web": "browsertest-runner",
+        "test:web:debug": "browsertest-runner-debug"
+    },
+    "dependencies": {
+        "@js-soft/logging-abstractions": "^1.0.0"
+    },
+    "devDependencies": {
+        "@js-soft/eslint-config-ts": "1.3.3",
+        "@js-soft/license-check": "1.0.2",
+        "@js-soft/ts-serval": "1.0.0",
+        "@nmshd/crypto": "1.0.0",
+        "@nmshd/transport": "1.0.0",
+        "@types/chai": "^4.2.22",
+        "@types/luxon": "^2.0.4",
+        "@types/mocha": "^9.0.0",
+        "@types/node": "^16.10.1",
+        "bt-runner": "^1.0.17",
+        "chai": "^4.3.4",
+        "copy-webpack-plugin": "^9.0.1",
+        "eslint": "^7.32.0",
+        "madge": "^5.0.1",
+        "mocha": "^9.1.2",
+        "prettier": "^2.4.1",
+        "terser-webpack-plugin": "5.2.4",
+        "ts-node": "^10.2.1",
+        "tsconfig-paths": "^3.11.0",
+        "typescript": "^4.4.3",
+        "webpack": "^5.54.0",
+        "webpack-cli": "^4.8.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

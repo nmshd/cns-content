@@ -1,0 +1,44 @@
+{
+    "testFolder": "./lib-web",
+    "runners": [
+        {
+            "dependencies": [
+                "tsserval.js",
+                "nmshd.crypto.js",
+                "nmshd.transport.js",
+                "nmshd.content.js",
+                "nmshd.content.test.js"
+            ],
+            "globals": ["TSServal", "NMSHDCrypto", "NMSHDTransport", "NMSHDContent", "NMSHDContentTest"]
+        },
+        {
+            "dependencies": [
+                "tsserval.js",
+                "nmshd.crypto.min.js",
+                "nmshd.transport.min.js",
+                "nmshd.content.min.js",
+                "nmshd.content.test.js"
+            ],
+            "globals": ["TSServal", "NMSHDCrypto", "NMSHDTransport", "NMSHDContent", "NMSHDContentTest"]
+        }
+    ],
+    "proxies": [
+        {
+            "local": "/svc-local",
+            "remote": "localhost"
+        },
+        {
+            "local": "/svc-dev",
+            "remote": "http://dev.enmeshed.eu"
+        },
+        {
+            "local": "/svc-stage",
+            "remote": "https://stage.enmeshed.eu"
+        },
+        {
+            "local": "/svc-prod",
+            "remote": "https://prod.enmeshed.eu"
+        }
+    ],
+    "additionalScripts": []
+}
