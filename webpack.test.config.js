@@ -32,6 +32,6 @@ module.exports = {
         "@nmshd/transport": "NMSHDTransport",
         "@nmshd/content": "NMSHDContent",
         "@nmshd/crypto": "NMSHDCrypto",
-        "@js-soft/ts-serval": "TsServal"
+        "@js-soft/ts-serval": "TSServal"
     }
 }

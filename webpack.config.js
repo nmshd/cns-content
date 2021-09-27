@@ -41,6 +41,6 @@ module.exports = {
         "graceful-fs": "NMSHDTransport",
         "@nmshd/transport": "NMSHDTransport",
         "@nmshd/crypto": "NMSHDCrypto",
-        "@js-soft/ts-serval": "TsServal"
+        "@js-soft/ts-serval": "TSServal"
     }
 }
