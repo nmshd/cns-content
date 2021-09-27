@@ -11,8 +11,7 @@ module.exports = {
             patterns: [
                 { from: "./node_modules/@nmshd/transport/lib-web" },
                 { from: "./node_modules/@nmshd/crypto/lib-web" },
-                { from: "./node_modules/@js-soft/ts-serval/lib-web" },
-                { from: "./node_modules/js-logger/src/logger.js" }
+                { from: "./node_modules/@js-soft/ts-serval/lib-web" }
             ]
         })
     ],

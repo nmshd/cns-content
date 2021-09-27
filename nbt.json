@@ -3,25 +3,23 @@
     "runners": [
         {
             "dependencies": [
-                "logger.js",
                 "tsserval.js",
                 "nmshd.crypto.js",
                 "nmshd.transport.js",
                 "nmshd.content.js",
                 "nmshd.content.test.js"
             ],
-            "globals": ["Logger", "TSServal", "NMSHDCrypto", "NMSHDTransport", "NMSHDContent", "NMSHDContentTest"]
+            "globals": ["TSServal", "NMSHDCrypto", "NMSHDTransport", "NMSHDContent", "NMSHDContentTest"]
         },
         {
             "dependencies": [
-                "logger.js",
                 "tsserval.js",
                 "nmshd.crypto.min.js",
                 "nmshd.transport.min.js",
                 "nmshd.content.min.js",
                 "nmshd.content.test.js"
             ],
-            "globals": ["Logger", "TSServal", "NMSHDCrypto", "NMSHDTransport", "NMSHDContent", "NMSHDContentTest"]
+            "globals": ["TSServal", "NMSHDCrypto", "NMSHDTransport", "NMSHDContent", "NMSHDContentTest"]
         }
     ],
     "proxies": [
