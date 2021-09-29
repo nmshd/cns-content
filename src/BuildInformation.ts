@@ -8,7 +8,9 @@ export const buildInformation = {
     date: "{{date}}",
     commit: "{{commit}}",
     dependencies: "{{dependencies}}",
-    serval: servalBuildInformation,
-    crypto: cryptoBuildInformation,
-    transport: transportBuildInformation
+    libraries: {
+        serval: servalBuildInformation,
+        crypto: cryptoBuildInformation,
+        transport: transportBuildInformation
+    }
 }
