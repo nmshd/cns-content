@@ -20,4 +20,3 @@ export * from "./requests/ChallengeResponse"
 export * from "./requests/FormRequest"
 export * from "./requests/PrivacyStatement"
 export * from "./requests/Request"
-
