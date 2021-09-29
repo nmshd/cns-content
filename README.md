@@ -1,6 +1,6 @@
 # Content Library
 
-[![GitHub Actions CI](https://github.com/nmshd/content/workflows/Publish/badge.svg)](https://github.com/nmshd/content/actions?query=workflow%3APublish)
+[![GitHub Actions CI](https://github.com/nmshd/cns-content/workflows/Publish/badge.svg)](https://github.com/nmshd/cns-content/actions?query=workflow%3APublish)
 [![npm version](https://badge.fury.io/js/@nmshd%2fcontent.svg)](https://www.npmjs.com/package/@nmshd/content)
 
 The content library defines data structures that can be transmitted using the [transport library](https://www.npmjs.com/package/@nmshd/transport).
