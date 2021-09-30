@@ -45,7 +45,7 @@
         "@js-soft/license-check": "1.0.2",
         "@js-soft/ts-serval": "1.0.2",
         "@nmshd/crypto": "1.0.2",
-        "@nmshd/transport": "1.0.1",
+        "@nmshd/transport": "1.0.2",
         "@types/chai": "^4.2.22",
         "@types/luxon": "^2.0.4",
         "@types/mocha": "^9.0.0",
