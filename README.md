@@ -9,6 +9,12 @@ The content library defines data structures that can be transmitted using the [t
 
 The documentation for this project is currently under construction.
 
+## Feedback
+
+Please file any bugs or feature requests by creating an [issue](https://github.com/nmshd/feedback/issues).
+
+Share your feedback with the Enmeshed team by contributing to the [discussions](https://github.com/nmshd/feedback/discussions).
+
 ## Contribute
 
 Currently contribution to this project is not possible. This will change soon.
