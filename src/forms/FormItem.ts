@@ -16,8 +16,8 @@ export interface FormItemJSON extends ContentJSON {
 
 export interface FormItemVisibleJSON extends FormItemJSON {
     label: string
-    readonly: boolean
-    help: string
+    readonly?: boolean
+    help?: string
 }
 
 export interface IFormItem extends ISerializable {
@@ -25,7 +25,7 @@ export interface IFormItem extends ISerializable {
     type: FormType
 }
 
-export abstract class FormItem extends Serializable {
+export abstract class FormItem extends Serializable implements IFormItem {
     @serialize()
     @validate()
     public key: string
@@ -35,16 +35,21 @@ export abstract class FormItem extends Serializable {
     public type: FormType
 }
 
-export abstract class FormItemVisible extends FormItem {
+export interface IFormItemVisible extends IFormItem {
+    readonly?: boolean
+    help?: string
+}
+
+export abstract class FormItemVisible extends FormItem implements IFormItemVisible {
     @serialize()
     @validate()
     public label: string
 
     @serialize()
     @validate({ nullable: true })
-    public readonly: boolean
+    public readonly?: boolean
 
     @serialize()
     @validate({ nullable: true })
-    public help: string
+    public help?: string
 }

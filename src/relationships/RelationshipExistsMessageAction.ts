@@ -1,8 +1,11 @@
 import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
-import { ContentJSON } from "../ContentJSON"
-import { IRelationshipExistsAction, RelationshipExistsAction } from "./RelationshipExistsAction"
+import {
+    IRelationshipExistsAction,
+    RelationshipExistsAction,
+    RelationshipExistsActionJSON
+} from "./RelationshipExistsAction"
 
-export interface RelationshipExistMessageActionJSON extends ContentJSON {
+export interface RelationshipExistsMessageActionJSON extends RelationshipExistsActionJSON {
     content: any
 }
 

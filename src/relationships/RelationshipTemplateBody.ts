@@ -15,7 +15,11 @@ import {
 } from "../requests/AuthorizationGrantRequest"
 import { FormRequest, FormRequestJSON, IFormRequest } from "../requests/FormRequest"
 import { IPrivacyStatement, PrivacyStatement, PrivacyStatementJSON } from "../requests/PrivacyStatement"
-import { IRelationshipExistsAction, RelationshipExistsAction } from "./RelationshipExistsAction"
+import {
+    IRelationshipExistsAction,
+    RelationshipExistsAction,
+    RelationshipExistsActionJSON
+} from "./RelationshipExistsAction"
 
 export interface RelationshipTemplateBodyJSON extends ContentJSON {
     title?: string
@@ -30,7 +34,7 @@ export interface RelationshipTemplateBodyJSON extends ContentJSON {
     requestedAuthorizations?: AuthorizationGrantRequestJSON[]
     requestedForms?: FormRequestJSON[]
     privacyStatement?: PrivacyStatementJSON
-    relationshipExistsActions?: RelationshipExistsAction
+    relationshipExistsAction?: RelationshipExistsActionJSON
 }
 
 export interface IRelationshipTemplateBody extends ISerializableAsync {
@@ -46,7 +50,7 @@ export interface IRelationshipTemplateBody extends ISerializableAsync {
     requestedAuthorizations?: IAuthorizationGrantRequest[]
     requestedForms?: IFormRequest[]
     privacyStatement?: IPrivacyStatement
-    relationshipExistsActions?: IRelationshipExistsAction
+    relationshipExistsAction?: IRelationshipExistsAction
 }
 
 @type("RelationshipTemplateBody")
@@ -101,7 +105,7 @@ export class RelationshipTemplateBody extends SerializableAsync implements IRela
 
     @serialize()
     @validate({ nullable: true })
-    public relationshipExistsActions?: RelationshipExistsAction
+    public relationshipExistsAction?: RelationshipExistsAction
 
     public static async from(value: IRelationshipTemplateBody): Promise<RelationshipTemplateBody> {
         return (await super.from(value, RelationshipTemplateBody)) as RelationshipTemplateBody

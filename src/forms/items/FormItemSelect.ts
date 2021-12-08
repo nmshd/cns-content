@@ -1,9 +1,9 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { FormItemVisible, FormItemVisibleJSON } from "../FormItem"
-import { FormItemSelectedItemJSON, FormItemSelectItem } from "./FormItemSelectItem"
+import { FormItemSelectItem, FormItemSelectItemJSON } from "./FormItemSelectItem"
 
 export interface FormItemSelectJSON extends FormItemVisibleJSON {
-    items: FormItemSelectedItemJSON[]
+    items: FormItemSelectItemJSON[]
     selectedKey: string
 }
 
