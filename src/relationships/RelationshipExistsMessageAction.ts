@@ -2,7 +2,7 @@ import { ISerializableAsync, SerializableAsync, serialize, type, validate } from
 import { ContentJSON } from "../ContentJSON"
 import { IRelationshipExistsAction, RelationshipExistsAction } from "./RelationshipExistsAction"
 
-export interface RelationshipExistMessageActionJSON extends ContentJSON {
+export interface RelationshipExistsMessageActionJSON extends ContentJSON {
     content: any
 }
 
