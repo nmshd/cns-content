@@ -1,4 +1,4 @@
-import { ISerializable, Serializable, serialize, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
 import { FormItem, FormItemJSON, IFormItem } from "./FormItem"
 
@@ -14,6 +14,7 @@ export interface IForm extends ISerializable {
     items: IFormItem[]
 }
 
+@type("Form")
 export class Form extends Serializable {
     @serialize()
     @validate({ nullable: true })
