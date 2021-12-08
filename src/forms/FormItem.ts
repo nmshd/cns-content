@@ -1,4 +1,4 @@
-import { ISerializable, Serializable, serialize, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
 
 export enum FormType {
@@ -25,6 +25,7 @@ export interface IFormItem extends ISerializable {
     type: FormType
 }
 
+@type("FormItem")
 export abstract class FormItem extends Serializable implements IFormItem {
     @serialize()
     @validate()
@@ -40,6 +41,7 @@ export interface IFormItemVisible extends IFormItem {
     help?: string
 }
 
+@type("FormItemVisible")
 export abstract class FormItemVisible extends FormItem implements IFormItemVisible {
     @serialize()
     @validate()
