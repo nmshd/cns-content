@@ -7,6 +7,7 @@ export interface RequestJSON extends ContentJSON {
     key?: string
     reason?: string
     expiresAt?: string
+    impact?: string
 }
 
 export interface IRequest extends ISerializable {
@@ -30,6 +31,13 @@ export interface IRequest extends ISerializable {
      * @default undefined - the request won't expire
      */
     expiresAt?: ICoreDate
+
+    /**
+     * The impact of this request. This can be used to show the user what happens if the user does not accept the request.
+     *
+     * @default undefined - no specific impact
+     */
+    impact?: string
 }
 
 @type("Request")
@@ -49,4 +57,8 @@ export abstract class Request extends SerializableAsync {
     @serialize()
     @validate({ nullable: true })
     public expiresAt?: CoreDate
+
+    @serialize()
+    @validate({ nullable: true })
+    public impact?: string
 }
