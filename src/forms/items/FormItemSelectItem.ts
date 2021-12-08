@@ -1,7 +1,7 @@
 import { Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../../ContentJSON"
 
-export interface FormItemSelectedItemJSON extends ContentJSON {
+export interface FormItemSelectItemJSON extends ContentJSON {
     key: string
     label: string
 }
