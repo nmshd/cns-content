@@ -1,5 +1,5 @@
-import { serialize, type, validate } from "@js-soft/ts-serval";
-import { AbstractAttribute } from "../../AbstractAttribute";
+import { serialize, type, validate } from "@js-soft/ts-serval"
+import { AbstractAttribute } from "../../AbstractAttribute"
 
 /**
  * Soziales Geschlecht
@@ -8,5 +8,5 @@ import { AbstractAttribute } from "../../AbstractAttribute";
 export class Gender extends AbstractAttribute {
     @serialize()
     @validate()
-    public value: string;
+    public value: string
 }
