@@ -1,30 +1,62 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd/transport"
-import { ContentJSON } from "../ContentJSON"
+import { ContentJSON } from "src/ContentJSON"
+import { nameof } from "ts-simple-nameof"
+import { AbstractAttributeJSON } from "./AbstractAttribute"
 
 export interface AttributeJSON extends ContentJSON {
-    name: string
-    value: any
+    content: AbstractAttributeJSON
+    createdAt: string
+    tags?: string[]
+    attributeType: string
     validFrom?: string
     validTo?: string
+    metadataModifiedAt?: string
 }
 
 export interface IAttribute extends ICoreSerializable {
-    name: string
-    value: any
+    content: any
+    createdAt: ICoreDate
+    tags?: string[] | undefined
+    attributeType: string
     validFrom?: ICoreDate
     validTo?: ICoreDate
+    metadataModifiedAt?: ICoreDate
 }
 
 @type("Attribute")
 export class Attribute extends CoreSerializable implements IAttribute {
+    public readonly technicalProperties = [
+        "@type",
+        "@context",
+        nameof<Attribute>((r) => r.createdAt),
+        nameof<Attribute>((r) => r.attributeType)
+    ]
+
+    public readonly userdataProperties = [
+        nameof<Attribute>((r) => r.content),
+        nameof<Attribute>((r) => r.validFrom),
+        nameof<Attribute>((r) => r.validTo),
+        nameof<Attribute>((r) => r.tags)
+    ]
+
+    public readonly metadataProperties = [nameof<Attribute>((r) => r.metadataModifiedAt)]
+
+    @validate()
+    @serialize()
+    public content: any
+
+    @validate()
+    @serialize()
+    public createdAt: CoreDate
+
+    @serialize({ type: String })
+    @validate({ nullable: true })
+    public tags?: string[]
+
     @serialize()
     @validate()
-    public name: string
-
-    @serialize({ any: true })
-    @validate({ nullable: true })
-    public value: any
+    public attributeType: string
 
     @serialize()
     @validate({ nullable: true })
@@ -34,29 +66,23 @@ export class Attribute extends CoreSerializable implements IAttribute {
     @validate({ nullable: true })
     public validTo?: CoreDate
 
-    public get namespace(): string | undefined {
-        if (!this.name) return undefined
-        const ar = this.name.split(".")
-        if (ar.length <= 1) return undefined
-        return ar[0]
-    }
-
-    public get attribute(): string | undefined {
-        if (!this.name) return undefined
-        const ar = this.name.split(".")
-        return ar.pop()
-    }
+    @validate({ nullable: true })
+    @serialize()
+    public metadataModifiedAt?: CoreDate
 
     public static from(value: IAttribute): Attribute {
         return super.from(value, Attribute) as Attribute
     }
 
-    public static fromJSON(value: AttributeJSON): Attribute {
+    public static fromJSON(attribute: AttributeJSON): Attribute {
         return this.from({
-            name: value.name,
-            value: value.value,
-            validFrom: value.validFrom ? CoreDate.from(value.validFrom) : undefined,
-            validTo: value.validTo ? CoreDate.from(value.validTo) : undefined
+            content: attribute.content,
+            createdAt: CoreDate.utc(),
+            tags: attribute.tags,
+            attributeType: attribute.attributeType,
+            validFrom: attribute.validFrom ? CoreDate.from(attribute.validFrom) : undefined,
+            validTo: attribute.validTo ? CoreDate.from(attribute.validTo) : undefined,
+            metadataModifiedAt: CoreDate.utc()
         })
     }
 }
