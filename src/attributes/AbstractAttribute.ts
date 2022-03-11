@@ -1,5 +1,5 @@
 import { ISerializable, Serializable, type } from "@js-soft/ts-serval"
-import { ContentJSON } from ".."
+import { ContentJSON } from "../ContentJSON"
 
 export interface AbstractAttributeJSON extends ContentJSON {}
 

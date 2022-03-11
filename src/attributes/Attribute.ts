@@ -1,7 +1,7 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd/transport"
 import { nameof } from "ts-simple-nameof"
-import { ContentJSON } from "../../src/ContentJSON"
+import { ContentJSON } from "../ContentJSON"
 import { AbstractAttributeJSON } from "./AbstractAttribute"
 
 export interface AttributeJSON extends ContentJSON {
