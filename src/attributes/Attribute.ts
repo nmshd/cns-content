@@ -11,7 +11,6 @@ export interface AttributeJSON extends ContentJSON {
     attributeType: string
     validFrom?: string
     validTo?: string
-    metadataModifiedAt?: string
 }
 
 export interface IAttribute extends ICoreSerializable {
@@ -40,8 +39,6 @@ export class Attribute extends CoreSerializable implements IAttribute {
         nameof<Attribute>((r) => r.tags)
     ]
 
-    public readonly metadataProperties = [nameof<Attribute>((r) => r.metadataModifiedAt)]
-
     @validate()
     @serialize()
     public content: any
@@ -66,10 +63,6 @@ export class Attribute extends CoreSerializable implements IAttribute {
     @validate({ nullable: true })
     public validTo?: CoreDate
 
-    @validate({ nullable: true })
-    @serialize()
-    public metadataModifiedAt?: CoreDate
-
     public static from(value: IAttribute): Attribute {
         return super.from(value, Attribute) as Attribute
     }
@@ -81,8 +74,7 @@ export class Attribute extends CoreSerializable implements IAttribute {
             tags: attribute.tags,
             attributeType: attribute.attributeType,
             validFrom: attribute.validFrom ? CoreDate.from(attribute.validFrom) : undefined,
-            validTo: attribute.validTo ? CoreDate.from(attribute.validTo) : undefined,
-            metadataModifiedAt: CoreDate.utc()
+            validTo: attribute.validTo ? CoreDate.from(attribute.validTo) : undefined
         })
     }
 }
