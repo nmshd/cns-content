@@ -1,5 +1,4 @@
 export const attributeList = [
-    "Address",
     "City",
     "Country",
     "DeliveryBoxAddress",
@@ -17,12 +16,10 @@ export const attributeList = [
     "BirthPlace",
     "BirthState",
     "BirthYear",
-    "IDCard",
     "IDCardDE",
     "BirthName",
     "DisplayName",
     "GivenName",
-    "LegalName",
     "LegalNameDE",
     "Pseudonym",
     "Salutation",
