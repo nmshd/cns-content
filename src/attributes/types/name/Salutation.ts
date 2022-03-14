@@ -1,20 +1,23 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { AbstractAttribute } from "../../AbstractAttribute"
+import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { DisplayName } from "./DisplayName"
-import { LegalName } from "./LegalName"
+import { GivenName } from "./GivenName"
+import { Surname } from "./Surname"
 import { Title } from "./Title"
 
-// TODO: Herr/Frau/Ms./Mr.
-
 @type("Salutation")
-export class Salutation extends AbstractAttribute {
+export class Salutation extends AbstractAttributeValue {
     @serialize()
     @validate()
     public displayName: DisplayName
 
     @serialize()
     @validate({ nullable: true })
-    public legalName?: LegalName
+    public givenName?: GivenName
+
+    @serialize()
+    @validate({ nullable: true })
+    public surname?: Surname
 
     @serialize({ type: Title })
     @validate({ nullable: true })

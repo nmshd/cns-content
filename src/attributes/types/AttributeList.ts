@@ -1,4 +1,4 @@
-export const attributeList = [
+export const ATTRIBUTE_LIST = [
     "City",
     "Country",
     "DeliveryBoxAddress",

@@ -1,5 +1,15 @@
 import { SerializableAsync } from "@js-soft/ts-serval"
-import { Attribute, AttributesChangeRequest, AttributesShareRequest, Mail, Request, RequestMail } from "@nmshd/content"
+import {
+    AbstractAttributeValue,
+    Attribute,
+    AttributesChangeRequest,
+    AttributesShareRequest,
+    GivenName,
+    Mail,
+    Request,
+    RequestMail,
+    StreetAddress
+} from "@nmshd/content"
 import { CoreAddress, CoreId } from "@nmshd/transport"
 import { expect } from "chai"
 import { DateTime } from "luxon"
@@ -42,7 +52,6 @@ export class RequestMailTest extends AbstractTest {
                                     country: { value: "Atlantis" },
                                     state: { value: "Westatlantis" }
                                 },
-                                attributeType: "StreetAddress",
                                 tags: ["Delivery"],
                                 validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
                                 validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
@@ -50,7 +59,6 @@ export class RequestMailTest extends AbstractTest {
                             }),
                             Attribute.from({
                                 content: { "@type": "GivenName", value: "Max" },
-                                attributeType: "GivenName",
                                 validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
                                 validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
                                 createdAt: { date: DateTime.utc().toString() }
@@ -95,21 +103,27 @@ export class RequestMailTest extends AbstractTest {
                 const receivedRequest2 = mail.requests[1] as unknown as AttributesChangeRequest
                 expect(receivedRequest2.attributes).to.be.an("Array")
                 expect(receivedRequest2.attributes[0]).to.be.instanceOf(Attribute)
-                expect(receivedRequest2.attributes[0].attributeType).to.equal("StreetAddress")
-                expect(receivedRequest2.attributes[0].content).to.deep.equal({
-                    "@type": "StreetAddress",
-                    recipient: "Max Mustermann",
-                    street: { value: "Hauptstraße" },
-                    houseNo: { value: "1" },
-                    zipCode: { value: "123456" },
-                    city: { value: "Hauptstadt" },
-                    country: { value: "Atlantis" },
-                    state: { value: "Westatlantis" }
-                })
+                expect(receivedRequest2.attributes[0].content).to.be.instanceOf(StreetAddress)
+                if (receivedRequest2.attributes[0].content instanceof AbstractAttributeValue) {
+                    expect(receivedRequest2.attributes[0].content.toJSON()).to.deep.equal({
+                        "@type": "StreetAddress",
+                        recipient: "Max Mustermann",
+                        street: { value: "Hauptstraße" },
+                        houseNo: { value: "1" },
+                        zipCode: { value: "123456" },
+                        city: { value: "Hauptstadt" },
+                        country: { value: "Atlantis" },
+                        state: { value: "Westatlantis" }
+                    })
+                }
                 expect(receivedRequest2.attributes[1]).to.be.instanceOf(Attribute)
-                expect(receivedRequest2.attributes[1].attributeType).to.equal("GivenName")
-                expect(receivedRequest2.attributes[1].content).to.deep.equal({ "@type": "GivenName", value: "Max" })
-
+                expect(receivedRequest2.attributes[1].content).to.be.instanceOf(GivenName)
+                if (receivedRequest2.attributes[1].content instanceof AbstractAttributeValue) {
+                    expect(receivedRequest2.attributes[1].content.toJSON()).to.deep.equal({
+                        "@type": "GivenName",
+                        value: "Max"
+                    })
+                }
                 const json = mail.toJSON() as any
                 expect(json.to).to.be.an("Array")
                 expect(json.to[0]).to.equal(to.toString())

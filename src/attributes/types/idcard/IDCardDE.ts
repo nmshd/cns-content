@@ -3,10 +3,10 @@ import { StreetAddress } from "../address/StreetAddress"
 import { BirthDate } from "../birth/BirthDate"
 import { BirthPlace } from "../birth/BirthPlace"
 import { LegalNameDE } from "../name/LegalNameDE"
-import { IDCard } from "./IDCard"
+import { AbstractIDCard } from "./AbstractIDCard"
 
 @type("IDCardDE")
-export class IDCardDE extends IDCard {
+export class IDCardDE extends AbstractIDCard {
     @serialize()
     @validate()
     public legalName: LegalNameDE

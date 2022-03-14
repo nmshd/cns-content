@@ -1,8 +1,26 @@
 import { serialize, validate } from "@js-soft/ts-serval"
-import { AbstractAttribute } from "../AbstractAttribute"
+import { AbstractAttributeValue } from "../AbstractAttributeValue"
+/**
+ * Month value are continuously numbered: 1 (january) - 12 (december)
+ */
 
-export abstract class AbstractMonth extends AbstractAttribute {
+enum Month {
+    January = 1,
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December
+}
+
+export abstract class AbstractMonth extends AbstractAttributeValue {
     @serialize()
-    @validate()
-    public value: number
+    @validate({ customValidator: (v) => (!Month[v] ? "has invalid value" : undefined) })
+    public value: Month
 }

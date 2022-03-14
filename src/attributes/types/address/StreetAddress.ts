@@ -1,5 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { Address } from "./Address"
+import { AbstractAddress } from "./AbstractAddress"
 import { City } from "./City"
 import { Country } from "./Country"
 import { HouseNo } from "./HouseNo"
@@ -8,7 +8,7 @@ import { Street } from "./Street"
 import { ZipCode } from "./ZipCode"
 
 @type("StreetAddress")
-export class StreetAddress extends Address {
+export class StreetAddress extends AbstractAddress {
     @serialize()
     @validate()
     public street: Street
@@ -30,6 +30,6 @@ export class StreetAddress extends Address {
     public country: Country
 
     @serialize()
-    @validate()
-    public state: State
+    @validate({ nullable: true })
+    public state?: State
 }

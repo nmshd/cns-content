@@ -1,12 +1,12 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import { AbstractLegalName } from "./AbstractLegalName"
 import { BirthName } from "./BirthName"
 import { GivenName } from "./GivenName"
-import { LegalName } from "./LegalName"
 import { Pseudonym } from "./Pseudonym"
 import { Surname } from "./Surname"
 
 @type("LegalNameDE")
-export class LegalNameDE extends LegalName {
+export class LegalNameDE extends AbstractLegalName {
     @serialize()
     @validate()
     public surname: Surname
@@ -16,10 +16,10 @@ export class LegalNameDE extends LegalName {
     public givenNames: GivenName[]
 
     @serialize()
-    @validate()
-    public birthName: BirthName
+    @validate({ nullable: true })
+    public birthName?: BirthName
 
     @serialize()
-    @validate()
-    public pseudonym: Pseudonym
+    @validate({ nullable: true })
+    public pseudonym?: Pseudonym
 }

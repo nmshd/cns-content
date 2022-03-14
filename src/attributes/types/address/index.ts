@@ -1,4 +1,4 @@
-export * from "./Address"
+export * from "./AbstractAddress"
 export * from "./City"
 export * from "./Country"
 export * from "./DeliveryBoxAddress"
