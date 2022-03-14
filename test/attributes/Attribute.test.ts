@@ -1,7 +1,7 @@
 import { Attribute, BirthDate, BirthDay, BirthMonth, BirthYear } from "@nmshd/content"
 import { expect } from "chai"
 import { DateTime } from "luxon"
-import { AbstractTest } from "test/AbstractTest"
+import { AbstractTest } from "../AbstractTest"
 
 export class AttributeTest extends AbstractTest {
     public run(): void {
