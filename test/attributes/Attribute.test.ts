@@ -1,4 +1,4 @@
-import { Attribute, BirthDate, BirthDay, BirthMonth, BirthYear } from "@nmshd/content"
+import { Attribute, BirthDate, BirthDay, BirthMonth, BirthYear, PersonHeight } from "@nmshd/content"
 import { expect } from "chai"
 import { DateTime } from "luxon"
 import { AbstractTest } from "../AbstractTest"
@@ -25,6 +25,30 @@ export class AttributeTest extends AbstractTest {
                     expect(birthDate.content.month).to.be.instanceOf(BirthMonth)
                     expect(birthDate.content.year).to.be.instanceOf(BirthYear)
                 }
+            })
+
+            it("should allow to validate string values", function () {
+                const personHeight = Attribute.from({
+                    content: {
+                        "@type": "PersonHeight",
+                        unit: { value: "cm" },
+                        value: { value: 172 }
+                    },
+                    createdAt: { date: DateTime.utc().toString() }
+                })
+                expect(personHeight).to.be.instanceOf(Attribute)
+                expect(personHeight.content).to.be.instanceOf(PersonHeight)
+
+                expect(
+                    Attribute.from.bind(Attribute, {
+                        content: {
+                            "@type": "PersonHeight",
+                            unit: { value: "mm" },
+                            value: { value: 1720 }
+                        },
+                        createdAt: { date: DateTime.utc().toString() }
+                    })
+                ).to.throw("PersonHeight.unit:Object :: must be one of: CM")
             })
 
             it("should allow to create new attributes from JSON", function () {

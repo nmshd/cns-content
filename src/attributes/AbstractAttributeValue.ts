@@ -5,5 +5,5 @@ export interface AbstractAttributeValueJSON extends ContentJSON {}
 
 export interface IAbstractAttributeValue extends ISerializable {}
 
-@type("AbstractAttribute")
+@type("AbstractAttributeValue")
 export abstract class AbstractAttributeValue extends Serializable implements IAbstractAttributeValue {}
