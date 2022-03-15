@@ -51,17 +51,10 @@ export class Attribute extends CoreSerializable implements IAttribute {
     public validTo?: CoreDate
 
     public static from(value: IAttribute): Attribute {
-        value.content = CoreSerializable.fromUnknown(value.content)
-        return super.from(value, Attribute) as Attribute
+        return super.fromT<Attribute>(value, Attribute)
     }
 
     public static fromJSON(attribute: AttributeJSON): Attribute {
-        return this.from({
-            content: attribute.content,
-            createdAt: CoreDate.utc(),
-            tags: attribute.tags,
-            validFrom: attribute.validFrom ? CoreDate.from(attribute.validFrom) : undefined,
-            validTo: attribute.validTo ? CoreDate.from(attribute.validTo) : undefined
-        })
+        return super.fromT<Attribute>(attribute, Attribute)
     }
 }

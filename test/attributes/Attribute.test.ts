@@ -1,4 +1,5 @@
-import { Attribute, BirthDate, BirthDay, BirthMonth, BirthYear } from "@nmshd/content"
+import { Attribute, BirthDate, BirthDay, BirthMonth, BirthYear, GivenName } from "@nmshd/content"
+import { CoreDate } from "@nmshd/transport"
 import { expect } from "chai"
 import { DateTime } from "luxon"
 import { AbstractTest } from "../AbstractTest"
@@ -49,6 +50,19 @@ export class AttributeTest extends AbstractTest {
                     expect(birthDate.content.month).to.be.instanceOf(BirthMonth)
                     expect(birthDate.content.year).to.be.instanceOf(BirthYear)
                 }
+            })
+
+            it("should deserialize content", function () {
+                const attribute = Attribute.from({
+                    createdAt: CoreDate.utc(),
+                    content: {
+                        "@type": "GivenName",
+                        value: "John"
+                    }
+                })
+
+                expect(attribute).to.be.instanceOf(Attribute)
+                expect(attribute.content).to.be.instanceOf(GivenName)
             })
 
             it("should validate attribute values from JSON", function () {
