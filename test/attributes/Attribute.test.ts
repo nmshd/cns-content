@@ -61,6 +61,8 @@ export class AttributeTest extends AbstractTest {
                     }
                 })
 
+                expect((attribute.content as any).value).to.equal("John")
+
                 expect(attribute).to.be.instanceOf(Attribute)
                 expect(attribute.content).to.be.instanceOf(GivenName)
             })
