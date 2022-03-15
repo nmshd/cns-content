@@ -1,20 +1,13 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { LengthMeasurement, LengthUnit } from "../measurements/LengthMeasurement"
 
-type PersonHeightUnitType = LengthUnit.CM | LengthUnit.M
-const personHeightUnit: Record<PersonHeightUnitType, string> = {
-    [LengthUnit.CM]: LengthUnit["CM"],
-    [LengthUnit.M]: LengthUnit["M"]
-}
+const validUnits = [LengthUnit.CM, LengthUnit.M]
 
 @type("PersonHeight")
 export class PersonHeight extends LengthMeasurement {
     @serialize()
     @validate({
-        customValidator: (v) =>
-            !Object.values(personHeightUnit).includes(v)
-                ? `must be one of: ${Object.values(personHeightUnit)}`
-                : undefined
+        customValidator: (v) => (!validUnits.includes(v) ? `must be one of: ${validUnits}` : undefined)
     })
-    public unit: PersonHeightUnitType
+    public unit: LengthUnit.CM | LengthUnit.M
 }
