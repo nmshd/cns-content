@@ -48,7 +48,7 @@ export class AttributeTest extends AbstractTest {
                         },
                         createdAt: { date: DateTime.utc().toString() }
                     })
-                ).to.throw("PersonHeight.unit:Object :: must be one of: CM")
+                ).to.throw("PersonHeight.unit:Object :: must be one of: cm")
             })
 
             it("should allow to create new attributes from JSON", function () {
