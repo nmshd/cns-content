@@ -7,9 +7,9 @@ import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 export abstract class AbstractMeasurement extends AbstractAttributeValue {
     @serialize()
     @validate()
-    public unit: { value: string }
+    public unit: string
 
     @serialize()
     @validate()
-    public value: { value: number }
+    public value: number
 }

@@ -31,8 +31,8 @@ export class AttributeTest extends AbstractTest {
                 const personHeight = Attribute.from({
                     content: {
                         "@type": "PersonHeight",
-                        unit: { value: "cm" },
-                        value: { value: 172 }
+                        unit: "cm",
+                        value: 172
                     },
                     createdAt: { date: DateTime.utc().toString() }
                 })
@@ -43,12 +43,12 @@ export class AttributeTest extends AbstractTest {
                     Attribute.from.bind(Attribute, {
                         content: {
                             "@type": "PersonHeight",
-                            unit: { value: "mm" },
-                            value: { value: 1720 }
+                            unit: "mm",
+                            value: 1720
                         },
                         createdAt: { date: DateTime.utc().toString() }
                     })
-                ).to.throw("PersonHeight.unit:Object :: must be one of: cm")
+                ).to.throw("PersonHeight.unit:String :: must be one of: cm")
             })
 
             it("should allow to create new attributes from JSON", function () {

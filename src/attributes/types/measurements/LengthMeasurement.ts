@@ -21,7 +21,7 @@ export class LengthMeasurement extends AbstractMeasurement {
     @serialize()
     @validate({
         customValidator: (v) =>
-            !Object.values(LengthUnit).includes(v.value) ? `must be one of: ${Object.values(LengthUnit)}` : undefined
+            !Object.values(LengthUnit).includes(v) ? `must be one of: ${Object.values(LengthUnit)}` : undefined
     })
-    public unit: { value: LengthUnit }
+    public unit: LengthUnit
 }
