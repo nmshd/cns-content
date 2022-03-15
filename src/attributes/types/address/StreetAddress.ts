@@ -2,7 +2,7 @@ import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAddress } from "./AbstractAddress"
 import { City } from "./City"
 import { Country } from "./Country"
-import { HouseNo } from "./HouseNo"
+import { HouseNumber } from "./HouseNumber"
 import { State } from "./State"
 import { Street } from "./Street"
 import { ZipCode } from "./ZipCode"
@@ -15,7 +15,7 @@ export class StreetAddress extends AbstractAddress {
 
     @serialize()
     @validate()
-    public houseNo: HouseNo
+    public houseNo: HouseNumber
 
     @serialize()
     @validate()
