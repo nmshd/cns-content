@@ -1,7 +1,18 @@
 import { SerializableAsync } from "@js-soft/ts-serval"
-import { Attribute, AttributesChangeRequest, AttributesShareRequest, Mail, Request, RequestMail } from "@nmshd/content"
+import {
+    AbstractAttributeValue,
+    Attribute,
+    AttributesChangeRequest,
+    AttributesShareRequest,
+    GivenName,
+    Mail,
+    Request,
+    RequestMail,
+    StreetAddress
+} from "@nmshd/content"
 import { CoreAddress, CoreId } from "@nmshd/transport"
 import { expect } from "chai"
+import { DateTime } from "luxon"
 import { AbstractTest } from "../AbstractTest"
 
 export class RequestMailTest extends AbstractTest {
@@ -23,7 +34,7 @@ export class RequestMailTest extends AbstractTest {
                 const content = m.toJSON() as any
                 const request = await AttributesShareRequest.from({
                     id: await CoreId.generate("REQ"),
-                    attributes: ["Person.familyName", "Person.givenName"],
+                    attributes: ["StreetAddress", "GivenName"],
                     recipients: [from]
                 })
                 const changeAttributes = await AttributesChangeRequest.fromT(
@@ -31,15 +42,26 @@ export class RequestMailTest extends AbstractTest {
                         id: "REQ9928830039",
                         attributes: [
                             Attribute.from({
-                                name: "dc.languageAssessmentDe",
-                                value: JSON.stringify({
-                                    value: "B1",
-                                    source: "g.a.s.t."
-                                })
+                                content: {
+                                    "@type": "StreetAddress",
+                                    recipient: "Max Mustermann",
+                                    street: { value: "Hauptstraße" },
+                                    houseNo: { value: "1" },
+                                    zipCode: { value: "123456" },
+                                    city: { value: "Hauptstadt" },
+                                    country: { value: "Atlantis" },
+                                    state: { value: "Westatlantis" }
+                                },
+                                tags: ["Delivery"],
+                                validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
+                                validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
+                                createdAt: { date: DateTime.utc().toString() }
                             }),
                             Attribute.from({
-                                name: "Person.givenName",
-                                value: "someGivenName"
+                                content: { "@type": "GivenName", value: "Max" },
+                                validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
+                                validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
+                                createdAt: { date: DateTime.utc().toString() }
                             })
                         ]
                     },
@@ -72,8 +94,8 @@ export class RequestMailTest extends AbstractTest {
 
                 const receivedRequest = mail.requests[0] as unknown as AttributesShareRequest
                 expect(receivedRequest.attributes).to.be.an("Array")
-                expect(receivedRequest.attributes[0]).to.equal("Person.familyName")
-                expect(receivedRequest.attributes[1]).to.equal("Person.givenName")
+                expect(receivedRequest.attributes[0]).to.equal("StreetAddress")
+                expect(receivedRequest.attributes[1]).to.equal("GivenName")
                 expect(receivedRequest.recipients).to.be.an("Array")
                 expect(receivedRequest.recipients[0]).to.be.instanceOf(CoreAddress)
                 expect(receivedRequest.recipients[0].address).to.equal(from.toString())
@@ -81,17 +103,27 @@ export class RequestMailTest extends AbstractTest {
                 const receivedRequest2 = mail.requests[1] as unknown as AttributesChangeRequest
                 expect(receivedRequest2.attributes).to.be.an("Array")
                 expect(receivedRequest2.attributes[0]).to.be.instanceOf(Attribute)
-                expect(receivedRequest2.attributes[0].name).to.equal("dc.languageAssessmentDe")
-                expect(receivedRequest2.attributes[0].value).to.equal(
-                    JSON.stringify({
-                        value: "B1",
-                        source: "g.a.s.t."
+                expect(receivedRequest2.attributes[0].content).to.be.instanceOf(StreetAddress)
+                if (receivedRequest2.attributes[0].content instanceof AbstractAttributeValue) {
+                    expect(receivedRequest2.attributes[0].content.toJSON()).to.deep.equal({
+                        "@type": "StreetAddress",
+                        recipient: "Max Mustermann",
+                        street: { value: "Hauptstraße" },
+                        houseNo: { value: "1" },
+                        zipCode: { value: "123456" },
+                        city: { value: "Hauptstadt" },
+                        country: { value: "Atlantis" },
+                        state: { value: "Westatlantis" }
                     })
-                )
+                }
                 expect(receivedRequest2.attributes[1]).to.be.instanceOf(Attribute)
-                expect(receivedRequest2.attributes[1].name).to.equal("Person.givenName")
-                expect(receivedRequest2.attributes[1].value).to.equal("someGivenName")
-
+                expect(receivedRequest2.attributes[1].content).to.be.instanceOf(GivenName)
+                if (receivedRequest2.attributes[1].content instanceof AbstractAttributeValue) {
+                    expect(receivedRequest2.attributes[1].content.toJSON()).to.deep.equal({
+                        "@type": "GivenName",
+                        value: "Max"
+                    })
+                }
                 const json = mail.toJSON() as any
                 expect(json.to).to.be.an("Array")
                 expect(json.to[0]).to.equal(to.toString())
@@ -100,8 +132,8 @@ export class RequestMailTest extends AbstractTest {
                 expect(json.requests).to.be.an("Array")
                 expect(json.requests[0]).to.be.an("Object")
                 expect(json.requests[0].attributes).to.be.an("Array")
-                expect(json.requests[0].attributes[0]).to.equal("Person.familyName")
-                expect(json.requests[0].attributes[1]).to.equal("Person.givenName")
+                expect(json.requests[0].attributes[0]).to.equal("StreetAddress")
+                expect(json.requests[0].attributes[1]).to.equal("GivenName")
                 expect(json.requests[0].recipients).to.be.an("Array")
                 expect(json.requests[0].recipients[0]).to.equal(from.toString())
 
@@ -123,8 +155,8 @@ export class RequestMailTest extends AbstractTest {
 
                 const parsedRequest = mail.requests[0] as unknown as AttributesShareRequest
                 expect(parsedRequest.attributes).to.be.an("Array")
-                expect(parsedRequest.attributes[0]).to.equal("Person.familyName")
-                expect(parsedRequest.attributes[1]).to.equal("Person.givenName")
+                expect(parsedRequest.attributes[0]).to.equal("StreetAddress")
+                expect(parsedRequest.attributes[1]).to.equal("GivenName")
                 expect(parsedRequest.recipients).to.be.an("Array")
                 expect(parsedRequest.recipients[0]).to.be.instanceOf(CoreAddress)
                 expect(parsedRequest.recipients[0].address).to.equal(from.toString())
