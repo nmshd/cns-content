@@ -1,10 +1,11 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import { ContentJSON } from "@nmshd/content"
 import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd/transport"
 import { nameof } from "ts-simple-nameof"
-import { ContentJSON } from "../ContentJSON"
+import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "./AbstractAttributeValue"
 
 export interface AttributeJSON extends ContentJSON {
-    content: unknown
+    content: AbstractAttributeValueJSON
     createdAt: string
     tags?: string[]
     validFrom?: string
@@ -12,7 +13,7 @@ export interface AttributeJSON extends ContentJSON {
 }
 
 export interface IAttribute extends ICoreSerializable {
-    content: unknown
+    content: IAbstractAttributeValue
     createdAt: ICoreDate
     tags?: string[] | undefined
     validFrom?: ICoreDate
@@ -32,7 +33,7 @@ export class Attribute extends CoreSerializable implements IAttribute {
 
     @validate()
     @serialize()
-    public content: unknown
+    public content: AbstractAttributeValue
 
     @validate()
     @serialize()
@@ -51,17 +52,10 @@ export class Attribute extends CoreSerializable implements IAttribute {
     public validTo?: CoreDate
 
     public static from(value: IAttribute): Attribute {
-        value.content = CoreSerializable.fromUnknown(value.content)
-        return super.from(value, Attribute) as Attribute
+        return super.fromT<Attribute>(value, Attribute)
     }
 
     public static fromJSON(attribute: AttributeJSON): Attribute {
-        return this.from({
-            content: attribute.content,
-            createdAt: CoreDate.utc(),
-            tags: attribute.tags,
-            validFrom: attribute.validFrom ? CoreDate.from(attribute.validFrom) : undefined,
-            validTo: attribute.validTo ? CoreDate.from(attribute.validTo) : undefined
-        })
+        return super.fromT<Attribute>(attribute, Attribute)
     }
 }
