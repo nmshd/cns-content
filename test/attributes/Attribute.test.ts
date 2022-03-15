@@ -40,8 +40,8 @@ export class AttributeTest extends AbstractTest {
                 expect(personHeight).to.be.instanceOf(Attribute)
                 expect(personHeight.content).to.be.instanceOf(PersonHeight)
 
-                expect(
-                    Attribute.from.bind(Attribute, {
+                expect(() =>
+                    Attribute.from({
                         content: {
                             "@type": "PersonHeight",
                             unit: "mm",
