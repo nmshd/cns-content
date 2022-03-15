@@ -2,7 +2,8 @@ import { serialize, type, validate } from "@js-soft/ts-serval"
 import { LengthMeasurement } from "../measurements/LengthMeasurement"
 
 enum LengthUnit {
-    CM = "cm"
+    CM = "cm",
+    M = "m"
 }
 @type("PersonHeight")
 export class PersonHeight extends LengthMeasurement {

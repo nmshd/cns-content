@@ -31,7 +31,6 @@ export class AttributeTest extends AbstractTest {
                 const personHeight = Attribute.from({
                     content: {
                         "@type": "PersonHeight",
-                        unit: "cm",
                         value: 172
                     },
                     createdAt: { date: DateTime.utc().toString() }
