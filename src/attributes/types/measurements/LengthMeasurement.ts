@@ -1,7 +1,7 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractMeasurement } from "./AbstractMeasurement"
 
-enum LengthUnit {
+export enum LengthUnit {
     NM = "nm",
     UM = "um",
     MM = "mm",
