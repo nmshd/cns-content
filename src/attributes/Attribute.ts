@@ -1,10 +1,11 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import { ContentJSON } from "@nmshd/content"
 import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd/transport"
 import { nameof } from "ts-simple-nameof"
-import { ContentJSON } from "../ContentJSON"
+import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "./AbstractAttributeValue"
 
 export interface AttributeJSON extends ContentJSON {
-    content: unknown
+    content: AbstractAttributeValueJSON
     createdAt: string
     tags?: string[]
     validFrom?: string
@@ -12,7 +13,7 @@ export interface AttributeJSON extends ContentJSON {
 }
 
 export interface IAttribute extends ICoreSerializable {
-    content: unknown
+    content: IAbstractAttributeValue
     createdAt: ICoreDate
     tags?: string[] | undefined
     validFrom?: ICoreDate
@@ -32,7 +33,7 @@ export class Attribute extends CoreSerializable implements IAttribute {
 
     @validate()
     @serialize()
-    public content: unknown
+    public content: AbstractAttributeValue
 
     @validate()
     @serialize()
