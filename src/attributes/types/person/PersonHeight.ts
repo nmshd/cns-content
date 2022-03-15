@@ -1,12 +1,15 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { AbstractMeasurement } from "../AbstractMeasurement"
+import { LengthMeasurement } from "../measurements/LengthMeasurement"
 
 enum LengthUnit {
-    CM = 0
+    CM = "cm"
 }
 @type("PersonHeight")
-export class PersonHeight extends AbstractMeasurement {
+export class PersonHeight extends LengthMeasurement {
     @serialize()
-    @validate({ customValidator: (v) => (!LengthUnit[v] ? "has invalid value" : undefined) })
+    @validate({
+        customValidator: (v) =>
+            !Object.values(LengthUnit).includes(v) ? `must be one of: ${Object.values(LengthUnit)}` : undefined
+    })
     public unit: LengthUnit
 }
