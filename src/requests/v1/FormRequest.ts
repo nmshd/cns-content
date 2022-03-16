@@ -1,5 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { Form, FormJSON, IForm } from "../forms"
+import { Form, FormJSON, IForm } from "../../forms"
 import { IRequest, Request, RequestJSON } from "./Request"
 
 export interface FormRequestJSON extends RequestJSON {

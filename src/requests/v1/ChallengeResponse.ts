@@ -1,6 +1,6 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { ChallengeSigned, IChallengeSigned } from "@nmshd/transport"
-import { ContentJSON } from "../ContentJSON"
+import { ContentJSON } from "../../ContentJSON"
 import { IRequest, Request } from "./Request"
 
 export interface ChallengeResponseJSON extends ContentJSON {

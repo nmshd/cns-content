@@ -1,6 +1,6 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, CoreDate, CoreId, ICoreAddress } from "@nmshd/transport"
-import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
+import { Attribute, AttributeJSON, IAttribute } from "../../attributes/Attribute"
 import { IRequest, Request, RequestJSON } from "./Request"
 
 export interface AttributesChangeRequestJSON extends RequestJSON {

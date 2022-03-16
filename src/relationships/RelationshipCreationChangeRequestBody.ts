@@ -2,8 +2,8 @@ import { ISerializableAsync, SerializableAsync, serialize, type, validate } from
 import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
 import { Authorization, AuthorizationJSON, IAuthorization } from "../authorizations/Authorization"
 import { ContentJSON } from "../ContentJSON"
-import { FormRequest, FormRequestJSON, IFormRequest } from "../requests/FormRequest"
-import { IPrivacyStatement, PrivacyStatement, PrivacyStatementJSON } from "../requests/PrivacyStatement"
+import { FormRequest, FormRequestJSON, IFormRequest } from "../requests/v1/FormRequest"
+import { IPrivacyStatement, PrivacyStatement, PrivacyStatementJSON } from "../requests/v1/PrivacyStatement"
 
 export interface RelationshipCreationChangeRequestBodyJSON extends ContentJSON {
     title?: string

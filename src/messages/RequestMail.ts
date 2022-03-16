@@ -1,5 +1,5 @@
 import { SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
-import { IRequest, Request, RequestJSON } from "../requests/Request"
+import { IRequest, Request, RequestJSON } from "../requests/v1/Request"
 import { IMail, Mail, MailJSON } from "./Mail"
 
 export interface RequestMailJSON extends MailJSON {

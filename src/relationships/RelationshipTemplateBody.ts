@@ -6,15 +6,15 @@ import {
     AttributesChangeRequest,
     AttributesChangeRequestJSON,
     IAttributesChangeRequest
-} from "../requests/AttributesChangeRequest"
-import { AttributesRequest, AttributesRequestJSON, IAttributesRequest } from "../requests/AttributesRequest"
+} from "../requests/v1/AttributesChangeRequest"
+import { AttributesRequest, AttributesRequestJSON, IAttributesRequest } from "../requests/v1/AttributesRequest"
 import {
     AuthorizationGrantRequest,
     AuthorizationGrantRequestJSON,
     IAuthorizationGrantRequest
-} from "../requests/AuthorizationGrantRequest"
-import { FormRequest, FormRequestJSON, IFormRequest } from "../requests/FormRequest"
-import { IPrivacyStatement, PrivacyStatement, PrivacyStatementJSON } from "../requests/PrivacyStatement"
+} from "../requests/v1/AuthorizationGrantRequest"
+import { FormRequest, FormRequestJSON, IFormRequest } from "../requests/v1/FormRequest"
+import { IPrivacyStatement, PrivacyStatement, PrivacyStatementJSON } from "../requests/v1/PrivacyStatement"
 import {
     IRelationshipExistsAction,
     RelationshipExistsAction,
