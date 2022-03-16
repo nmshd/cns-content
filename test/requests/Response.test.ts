@@ -223,7 +223,7 @@ export class ResponseTest extends AbstractTest {
                     )
                 })
 
-                it("error response content message is mandatory", function () {
+                it("error response content message is mandatory", async function () {
                     const jsonWithMissingErrorCode = {
                         "@type": "Response",
                         requestId: "CNSREQ1",
@@ -239,8 +239,8 @@ export class ResponseTest extends AbstractTest {
                         ]
                     } as ResponseJSON
 
-                    expectThrows(
-                        () => Response.from(jsonWithMissingErrorCode),
+                    await expectThrowsAsync(
+                        async () => await Response.from(jsonWithMissingErrorCode),
                         "*ErrorContent.message*Value is not defined*"
                     )
                 })
