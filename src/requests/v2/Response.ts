@@ -1,4 +1,4 @@
-import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreId, ICoreId } from "@nmshd/transport"
 import { ContentJSON } from "../../ContentJSON"
 
@@ -66,7 +66,7 @@ export interface IResponseItemGroup extends ISerializable {
 
 // **********************************************Classes********************************************************* //
 @type("Response")
-export class Response extends Serializable {
+export class Response extends SerializableAsync {
     @serialize()
     @validate()
     public requestId: CoreId
@@ -75,16 +75,16 @@ export class Response extends Serializable {
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
     public items: (ResponseItemGroup | ResponseItem)[]
 
-    public static from(value: IResponse | ResponseJSON): Response {
-        return super.fromT<Response>(value, Response)
+    public static async from(value: IResponse | ResponseJSON): Promise<Response> {
+        return await SerializableAsync.fromT<Response>(value, Response)
     }
 }
 
 @type("AcceptContent")
-export class AcceptContent extends Serializable {}
+export class AcceptContent extends SerializableAsync {}
 
 @type("RejectContent")
-export class RejectContent extends Serializable {
+export class RejectContent extends SerializableAsync {
     @serialize()
     @validate()
     public code?: string
@@ -95,7 +95,7 @@ export class RejectContent extends Serializable {
 }
 
 @type("ErrorContent")
-export class ErrorContent extends Serializable {
+export class ErrorContent extends SerializableAsync {
     @serialize()
     @validate()
     public code: string
@@ -106,7 +106,7 @@ export class ErrorContent extends Serializable {
 }
 
 @type("ResponseItem")
-export class ResponseItem extends Serializable {
+export class ResponseItem extends SerializableAsync {
     @serialize()
     @validate()
     public status: ResponseItemStatus
@@ -121,7 +121,7 @@ export class ResponseItem extends Serializable {
 }
 
 @type("ResponseItemGroup")
-export class ResponseItemGroup extends Serializable {
+export class ResponseItemGroup extends SerializableAsync {
     @serialize()
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
     public items: ResponseItem[]
