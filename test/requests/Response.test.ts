@@ -20,7 +20,7 @@ import { expectThrows } from "../testUtils"
 export class ResponseTest extends AbstractTest {
     public run(): void {
         describe("Response", function () {
-            it("creates a Response and items from JSON", async function () {
+            it("creates a Response and items from JSON", function () {
                 const responseJSON = {
                     "@type": "Response",
                     requestId: "CNSREQ1",
@@ -41,7 +41,7 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as ResponseJSON
 
-                const response = await Response.from(responseJSON)
+                const response = Response.from(responseJSON)
 
                 expect(response).to.be.instanceOf(Response)
                 expect(response.items).to.have.lengthOf(2)
@@ -75,7 +75,7 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as IResponse
 
-                const response = await Response.from(responseInterface)
+                const response = Response.from(responseInterface)
 
                 expect(response).to.be.instanceOf(Response)
                 expect(response.items).to.have.lengthOf(2)
@@ -88,7 +88,7 @@ export class ResponseTest extends AbstractTest {
                 expect(responseItemGroup.items).to.have.lengthOf(1)
             })
 
-            it("keeps all properties during serialization and deserialization", async function () {
+            it("keeps all properties during serialization and deserialization", function () {
                 const responseJSON = {
                     "@type": "Response",
                     requestId: "CNSREQ1",
@@ -128,7 +128,7 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as ResponseJSON
 
-                const response = await Response.from(responseJSON)
+                const response = Response.from(responseJSON)
 
                 const serializedRequest = response.toJSON()
 
