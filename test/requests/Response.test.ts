@@ -9,7 +9,7 @@ import {
     ResponseItemGroup,
     ResponseItemGroupJSON,
     ResponseItemJSON,
-    ResponseItemStatus,
+    ResponseItemResult,
     ResponseJSON
 } from "@nmshd/content"
 import { CoreId } from "@nmshd/transport"
@@ -27,14 +27,14 @@ export class ResponseTest extends AbstractTest {
                     items: [
                         {
                             "@type": "ResponseItem",
-                            status: ResponseItemStatus.Accepted
+                            result: ResponseItemResult.Accepted
                         } as ResponseItemJSON,
                         {
                             "@type": "ResponseItemGroup",
                             items: [
                                 {
                                     "@type": "ResponseItem",
-                                    status: ResponseItemStatus.Accepted
+                                    result: ResponseItemResult.Accepted
                                 } as ResponseItemJSON
                             ]
                         } as ResponseItemGroupJSON
@@ -61,14 +61,14 @@ export class ResponseTest extends AbstractTest {
                     items: [
                         {
                             "@type": "ResponseItem",
-                            status: ResponseItemStatus.Accepted
+                            result: ResponseItemResult.Accepted
                         } as IResponseItem,
                         {
                             "@type": "ResponseItemGroup",
                             items: [
                                 {
                                     "@type": "ResponseItem",
-                                    status: ResponseItemStatus.Accepted
+                                    result: ResponseItemResult.Accepted
                                 } as IResponseItem
                             ]
                         } as IResponseItemGroup
@@ -95,7 +95,7 @@ export class ResponseTest extends AbstractTest {
                     items: [
                         {
                             "@type": "ResponseItem",
-                            status: ResponseItemStatus.Rejected,
+                            result: ResponseItemResult.Rejected,
                             content: {
                                 "@type": "RejectContent",
                                 code: "SOME_REJECTION_CODE",
@@ -113,7 +113,7 @@ export class ResponseTest extends AbstractTest {
                             items: [
                                 {
                                     "@type": "ResponseItem",
-                                    status: ResponseItemStatus.Failed,
+                                    result: ResponseItemResult.Failed,
                                     content: {
                                         "@type": "ErrorContent",
                                         code: "SOME_ERROR_CODE",
@@ -173,7 +173,7 @@ export class ResponseTest extends AbstractTest {
                         items: [
                             {
                                 "@type": "ResponseItem",
-                                status: ResponseItemStatus.Accepted
+                                result: ResponseItemResult.Accepted
                             } as ResponseItemJSON
                         ]
                     } as ResponseJSON
@@ -197,7 +197,7 @@ export class ResponseTest extends AbstractTest {
 
                     await expectThrowsAsync(
                         async () => await Response.from(responseJSON),
-                        "*ResponseItem.status*Value is not defined*"
+                        "*ResponseItem.result*Value is not defined*"
                     )
                 })
 
@@ -208,7 +208,7 @@ export class ResponseTest extends AbstractTest {
                         items: [
                             {
                                 "@type": "ResponseItem",
-                                status: ResponseItemStatus.Failed,
+                                result: ResponseItemResult.Failed,
                                 content: {
                                     "@type": "ErrorContent",
                                     message: "Some error message"
@@ -224,20 +224,20 @@ export class ResponseTest extends AbstractTest {
                 })
 
                 it("error response content message is mandatory", async function () {
-                    const jsonWithMissingErrorCode = {
+                    const jsonWithMissingErrorCode: ResponseJSON = {
                         "@type": "Response",
                         requestId: "CNSREQ1",
                         items: [
                             {
                                 "@type": "ResponseItem",
-                                status: ResponseItemStatus.Failed,
+                                result: ResponseItemResult.Failed,
                                 content: {
                                     "@type": "ErrorContent",
                                     code: "SOME_ERROR_CODE"
                                 } as ErrorContentJSON
                             } as ResponseItemJSON
                         ]
-                    } as ResponseJSON
+                    }
 
                     await expectThrowsAsync(
                         async () => await Response.from(jsonWithMissingErrorCode),
