@@ -1,4 +1,3 @@
-import { SerializableAsync } from "@js-soft/ts-serval"
 import {
     IRequestItemGroupV2,
     IRequestItemV2,
@@ -13,12 +12,12 @@ import {
 import { CoreDate, CoreId } from "@nmshd/transport"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
-import { expectThrowsAsync } from "../testUtils"
+import { expectThrows } from "../testUtils"
 
 export class RequestTest extends AbstractTest {
     public run(): void {
         describe("RequestV2", function () {
-            it("creates a Request and items from JSON", async function () {
+            it("creates a Request and items from JSON", function () {
                 const requestJSON = {
                     "@type": "RequestV2",
                     "@version": "2",
@@ -40,7 +39,7 @@ export class RequestTest extends AbstractTest {
                     ]
                 } as RequestV2JSON
 
-                const request = await RequestV2.from(requestJSON)
+                const request = RequestV2.from(requestJSON)
 
                 expect(request).to.be.instanceOf(RequestV2)
                 expect(request.items).to.have.lengthOf(2)
@@ -77,7 +76,7 @@ export class RequestTest extends AbstractTest {
                 } as IRequestV2
 
                 // const requestv2 = (await SerializableAsync.fromUnknown(requestInterface)) as RequestV2
-                const request = await RequestV2.from(requestInterface)
+                const request = RequestV2.from(requestInterface)
 
                 expect(request).to.be.instanceOf(RequestV2)
                 expect(request.items).to.have.lengthOf(2)
@@ -90,7 +89,7 @@ export class RequestTest extends AbstractTest {
                 expect(requestItemGroup.items).to.have.lengthOf(1)
             })
 
-            it("keeps all properties during serialization and deserialization", async function () {
+            it("keeps all properties during serialization and deserialization", function () {
                 const requestJSON = {
                     "@type": "RequestV2",
                     id: "CNSREQ1",
@@ -128,26 +127,23 @@ export class RequestTest extends AbstractTest {
                     ]
                 } as RequestV2JSON
 
-                const request = await RequestV2.from(requestJSON)
+                const request = RequestV2.from(requestJSON)
 
                 const serializedRequest = request.toJSON()
 
                 expect(serializedRequest).to.deep.equal(requestJSON)
             })
 
-            it("must have at least one item", async function () {
+            it("must have at least one item", function () {
                 const requestJSON = {
                     "@type": "RequestV2",
                     items: []
                 } as RequestV2JSON
 
-                await expectThrowsAsync(
-                    async () => await RequestV2.from(requestJSON),
-                    "*RequestV2.items*may not be empty"
-                )
+                expectThrows(() => RequestV2.from(requestJSON), "*RequestV2.items*may not be empty")
             })
 
-            it("groups must have at least one item", async function () {
+            it("groups must have at least one item", function () {
                 const requestJSON = {
                     "@type": "RequestV2",
                     id: "CNSREQ1",
@@ -165,13 +161,10 @@ export class RequestTest extends AbstractTest {
                     ]
                 } as RequestV2JSON
 
-                await expectThrowsAsync(
-                    async () => await RequestV2.from(requestJSON),
-                    "*RequestItemGroupV2.items*may not be empty*"
-                )
+                expectThrows(() => RequestV2.from(requestJSON), "*RequestItemGroupV2.items*may not be empty*")
             })
 
-            it("mustBeAccepted is mandatory", async function () {
+            it("mustBeAccepted is mandatory", function () {
                 const requestJSON = {
                     "@type": "RequestV2",
                     items: [
@@ -181,10 +174,7 @@ export class RequestTest extends AbstractTest {
                     ]
                 } as RequestV2JSON
 
-                await expectThrowsAsync(
-                    async () => await SerializableAsync.from(requestJSON),
-                    "RequestItemV2.mustBeAccepted*Value is not defined"
-                )
+                expectThrows(() => RequestV2.from(requestJSON), "RequestItemV2.mustBeAccepted*Value is not defined")
             })
         })
     }

@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreId, ICoreDate } from "@nmshd/transport"
 import { ContentJSON } from "../../ContentJSON"
 
@@ -102,7 +102,7 @@ export interface RequestItemGroupV2JSON extends ContentJSON {
 }
 
 // **********************************************Interfaces********************************************************* //
-export interface IRequestV2 extends ISerializableAsync {
+export interface IRequestV2 extends ISerializable {
     id?: CoreId
 
     /**
@@ -139,7 +139,7 @@ export interface IRequestV2 extends ISerializableAsync {
  *   reject the first item, while accepting the second one.
  * * visually group items on the UI and give the a common title/description
  */
-export interface IRequestItemGroupV2 extends ISerializableAsync {
+export interface IRequestItemGroupV2 extends ISerializable {
     /**
      * The human-readable title of this group.
      */
@@ -170,7 +170,7 @@ export interface IRequestItemGroupV2 extends ISerializableAsync {
     items: IRequestItemV2[]
 }
 
-export interface IRequestItemV2 extends ISerializableAsync {
+export interface IRequestItemV2 extends ISerializable {
     /**
      * The human-readable title of this item.
      */
@@ -202,7 +202,7 @@ export interface IRequestItemV2 extends ISerializableAsync {
 
 // **********************************************Classes********************************************************* //
 @type("RequestV2")
-export class RequestV2 extends SerializableAsync implements IRequestV2 {
+export class RequestV2 extends Serializable implements IRequestV2 {
     @serialize()
     @validate({ nullable: true })
     public id?: CoreId
@@ -215,13 +215,13 @@ export class RequestV2 extends SerializableAsync implements IRequestV2 {
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
     public items: (RequestItemGroupV2 | RequestItemV2)[]
 
-    public static async from(value: IRequestV2 | RequestV2JSON): Promise<RequestV2> {
-        return await SerializableAsync.fromT<RequestV2>(value, RequestV2)
+    public static from(value: IRequestV2 | RequestV2JSON): RequestV2 {
+        return Serializable.fromT<RequestV2>(value, RequestV2)
     }
 }
 
 @type("RequestItem")
-export class RequestItemV2 extends SerializableAsync {
+export class RequestItemV2 extends Serializable {
     @serialize()
     @validate({ nullable: true })
     public title?: string
@@ -239,7 +239,7 @@ export class RequestItemV2 extends SerializableAsync {
 }
 
 @type("RequestItemGroup")
-export class RequestItemGroupV2 extends SerializableAsync {
+export class RequestItemGroupV2 extends Serializable {
     @serialize()
     @validate({ nullable: true })
     public title?: string

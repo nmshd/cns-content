@@ -1,33 +1,23 @@
 import { expect } from "chai"
 
-export async function expectThrowsAsync(
-    method: Function | Promise<any>,
-    customExceptionMatcher?: (e: Error) => void
-): Promise<void>
+export function expectThrows(method: Function, customExceptionMatcher?: (e: Error) => void): void
 
-export async function expectThrowsAsync(
-    method: Function | Promise<any>,
-    errorMessagePatternOrRegexp: RegExp
-): Promise<void>
+export function expectThrows(method: Function, errorMessagePatternOrRegexp: RegExp): void
 
 /**
  *
  * @param method The function which should throw the exception
  * @param errorMessagePattern the pattern the error message should match (asterisks ('\*') are wildcards that correspond to '.\*' in regex)
  */
-export async function expectThrowsAsync(method: Function | Promise<any>, errorMessagePattern: string): Promise<void>
+export function expectThrows(method: Function, errorMessagePattern: string): void
 
-export async function expectThrowsAsync(
-    method: Function | Promise<any>,
+export function expectThrows(
+    method: Function,
     errorMessageRegexp: RegExp | string | ((e: Error) => void) | undefined
-): Promise<void> {
+): void {
     let error: Error | undefined
     try {
-        if (typeof method === "function") {
-            await method()
-        } else {
-            await method
-        }
+        method()
     } catch (err: unknown) {
         if (!(err instanceof Error)) throw err
 

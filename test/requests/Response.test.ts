@@ -15,7 +15,7 @@ import {
 import { CoreId } from "@nmshd/transport"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
-import { expectThrowsAsync } from "../testUtils"
+import { expectThrows } from "../testUtils"
 
 export class ResponseTest extends AbstractTest {
     public run(): void {
@@ -135,20 +135,17 @@ export class ResponseTest extends AbstractTest {
                 expect(serializedRequest).to.deep.equal(responseJSON)
             })
 
-            it("must have at least one item", async function () {
+            it("must have at least one item", function () {
                 const responseJSON = {
                     "@type": "Response",
                     requestId: "CNSREQ1",
                     items: []
                 } as ResponseJSON
 
-                await expectThrowsAsync(
-                    async () => await Response.from(responseJSON),
-                    "*Response.items*may not be empty*"
-                )
+                expectThrows(() => Response.from(responseJSON), "*Response.items*may not be empty*")
             })
 
-            it("groups must have at least one item", async function () {
+            it("groups must have at least one item", function () {
                 const responseJSON = {
                     "@type": "Response",
                     requestId: "CNSREQ1",
@@ -160,14 +157,11 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as ResponseJSON
 
-                await expectThrowsAsync(
-                    async () => await Response.from(responseJSON),
-                    "*ResponseItemGroup.items*may not be empty*"
-                )
+                expectThrows(() => Response.from(responseJSON), "*ResponseItemGroup.items*may not be empty*")
             })
 
             describe("Throws an error when a mandatory property is missing", function () {
-                it("throws on missing requestId", async function () {
+                it("throws on missing requestId", function () {
                     const responseJSON = {
                         "@type": "Response",
                         items: [
@@ -178,13 +172,10 @@ export class ResponseTest extends AbstractTest {
                         ]
                     } as ResponseJSON
 
-                    await expectThrowsAsync(
-                        async () => await Response.from(responseJSON),
-                        "*Response.requestId*Value is not defined*"
-                    )
+                    expectThrows(() => Response.from(responseJSON), "*Response.requestId*Value is not defined*")
                 })
 
-                it("throws on missing response item status", async function () {
+                it("response item status is mandatory", function () {
                     const responseJSON = {
                         "@type": "Response",
                         requestId: "CNSREQ1",
@@ -195,13 +186,10 @@ export class ResponseTest extends AbstractTest {
                         ]
                     } as ResponseJSON
 
-                    await expectThrowsAsync(
-                        async () => await Response.from(responseJSON),
-                        "*ResponseItem.status*Value is not defined*"
-                    )
+                    expectThrows(() => Response.from(responseJSON), "*ResponseItem.status*Value is not defined*")
                 })
 
-                it("throws on missing error response content properties", async function () {
+                it("error response content code is mandatory", function () {
                     const jsonWithMissingErrorCode = {
                         "@type": "Response",
                         requestId: "CNSREQ1",
@@ -217,8 +205,8 @@ export class ResponseTest extends AbstractTest {
                         ]
                     } as ResponseJSON
 
-                    await expectThrowsAsync(
-                        async () => await Response.from(jsonWithMissingErrorCode),
+                    expectThrows(
+                        () => Response.from(jsonWithMissingErrorCode),
                         "*ErrorContent.code*Value is not defined*"
                     )
                 })
