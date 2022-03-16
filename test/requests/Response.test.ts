@@ -210,6 +210,28 @@ export class ResponseTest extends AbstractTest {
                         "*ErrorContent.code*Value is not defined*"
                     )
                 })
+
+                it("error response content message is mandatory", function () {
+                    const jsonWithMissingErrorCode = {
+                        "@type": "Response",
+                        requestId: "CNSREQ1",
+                        items: [
+                            {
+                                "@type": "ResponseItem",
+                                status: ResponseItemStatus.Failed,
+                                content: {
+                                    "@type": "ErrorContent",
+                                    code: "SOME_ERROR_CODE"
+                                } as ErrorContentJSON
+                            } as ResponseItemJSON
+                        ]
+                    } as ResponseJSON
+
+                    expectThrows(
+                        () => Response.from(jsonWithMissingErrorCode),
+                        "*ErrorContent.message*Value is not defined*"
+                    )
+                })
             })
         })
     }
