@@ -38,7 +38,6 @@ export interface IResponseItem extends ISerializable {
     metadata?: object
 }
 
-@type("ResponseItemAcceptContent")
 export abstract class ResponseItemAcceptContent extends SerializableAsync {}
 
 @type("ResponseItemRejectContent")

@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializableAsync, SerializableAsync, serialize, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
 
 export interface RequestItemJSON extends ContentJSON {
@@ -63,7 +63,6 @@ export interface IRequestItem extends ISerializableAsync {
     mustBeAccepted: boolean
 }
 
-@type("RequestItem")
 export abstract class RequestItem extends SerializableAsync {
     @serialize()
     @validate({ nullable: true })
