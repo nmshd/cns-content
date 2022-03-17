@@ -1,6 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreSerializable, ICoreSerializable } from "@nmshd/transport"
-import { nameof } from "ts-simple-nameof"
 
 export interface IAttributeQuery extends ICoreSerializable {
     attributeType?: string
@@ -10,12 +9,6 @@ export interface IAttributeQuery extends ICoreSerializable {
 
 @type("AttributeQuery")
 export class AttributeQuery extends CoreSerializable implements IAttributeQuery {
-    public readonly technicalProperties = [
-        nameof<AttributeQuery>((r) => r.attributeType),
-        nameof<AttributeQuery>((r) => r.tags),
-        nameof<AttributeQuery>((r) => r.onlyValid)
-    ]
-
     @serialize()
     @validate()
     public onlyValid: boolean
