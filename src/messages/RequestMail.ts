@@ -3,12 +3,12 @@ import {
     AttributesChangeRequest,
     AttributesChangeRequestJSON,
     IAttributesChangeRequest
-} from "../requests/v1/AttributesChangeRequest"
+} from "../requests/AttributesChangeRequest"
 import {
     AttributesShareRequest,
     AttributesShareRequestJSON,
     IAttributesShareRequest
-} from "../requests/v1/AttributesShareRequest"
+} from "../requests/AttributesShareRequest"
 import { IMail, Mail, MailJSON } from "./Mail"
 
 export interface RequestMailJSON extends MailJSON {

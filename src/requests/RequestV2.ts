@@ -1,6 +1,6 @@
 import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreId, ICoreDate } from "@nmshd/transport"
-import { ContentJSON } from "../../ContentJSON"
+import { ContentJSON } from "../ContentJSON"
 import { IRequestItemGroupV2, RequestItemGroupV2, RequestItemGroupV2JSON } from "./RequestItemGroupV2"
 import { IRequestItemV2, RequestItemV2, RequestItemV2JSON } from "./RequestItemV2"
 

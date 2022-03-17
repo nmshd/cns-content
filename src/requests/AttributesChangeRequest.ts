@@ -1,7 +1,7 @@
 import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, CoreDate, CoreId, ICoreAddress, ICoreDate, ICoreId } from "@nmshd/transport"
-import { Attribute, AttributeJSON, IAttribute } from "../../attributes"
-import { ContentJSON } from "../../ContentJSON"
+import { Attribute, AttributeJSON, IAttribute } from "../attributes"
+import { ContentJSON } from "../ContentJSON"
 
 export interface AttributesChangeRequestJSON extends ContentJSON {
     id?: string

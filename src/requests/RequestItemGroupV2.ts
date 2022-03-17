@@ -1,5 +1,5 @@
 import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
-import { ContentJSON } from "../../ContentJSON"
+import { ContentJSON } from "../ContentJSON"
 import { IRequestItemV2, RequestItemV2, RequestItemV2JSON } from "./RequestItemV2"
 
 /**

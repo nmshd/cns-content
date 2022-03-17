@@ -1,5 +1,5 @@
 import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
-import { ContentJSON } from "../../ContentJSON"
+import { ContentJSON } from "../ContentJSON"
 import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
 
 export interface ResponseItemGroupJSON extends ContentJSON {
