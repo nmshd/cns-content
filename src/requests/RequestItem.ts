@@ -18,6 +18,7 @@ export interface RequestItemJSON extends ContentJSON {
      * the sender can use it to identify the group content as they receive the response.
      */
     responseMetadata?: object
+
     /**
      * If set to `true`, the recipient has to accept this group if he wants to accept the
      * Request.
@@ -48,6 +49,7 @@ export interface IRequestItem extends ISerializableAsync {
      * the sender can use it to identify the group content as they receive the response.
      */
     responseMetadata?: object
+
     /**
      * If set to `true`, the recipient has to accept this group if he wants to accept the
      * Request.
@@ -66,6 +68,7 @@ export abstract class RequestItem extends SerializableAsync {
     @serialize()
     @validate({ nullable: true })
     public title?: string
+
     @serialize()
     @validate({ nullable: true })
     public description?: string
