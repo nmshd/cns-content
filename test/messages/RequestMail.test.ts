@@ -6,7 +6,6 @@ import {
     AttributesShareRequest,
     GivenName,
     Mail,
-    Request,
     RequestMail,
     StreetAddress
 } from "@nmshd/content"
@@ -85,11 +84,9 @@ export class RequestMailTest extends AbstractTest {
                 expect(mail.body).to.equal("Please approve following requests")
                 expect(mail.requests).to.be.an("Array")
                 expect(mail.requests[0]).to.be.an("Object")
-                expect(mail.requests[0]).to.be.instanceOf(Request)
                 expect(mail.requests[0]).to.be.instanceOf(AttributesShareRequest)
 
                 expect(mail.requests[1]).to.be.an("Object")
-                expect(mail.requests[1]).to.be.instanceOf(Request)
                 expect(mail.requests[1]).to.be.instanceOf(AttributesChangeRequest)
 
                 const receivedRequest = mail.requests[0] as unknown as AttributesShareRequest
@@ -150,7 +147,6 @@ export class RequestMailTest extends AbstractTest {
                 expect(parsedMail.body).to.equal("Please approve following requests")
                 expect(parsedMail.requests).to.be.an("Array")
                 expect(parsedMail.requests[0]).to.be.an("Object")
-                expect(parsedMail.requests[0]).to.be.instanceOf(Request)
                 expect(parsedMail.requests[0]).to.be.instanceOf(AttributesShareRequest)
 
                 const parsedRequest = mail.requests[0] as unknown as AttributesShareRequest
