@@ -1,15 +1,15 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreId } from "@nmshd/transport"
-import { AttributeQueryContainer } from "../attributes"
+import { AttributeQuery } from ".."
 import { IRequest, Request, RequestJSON } from "./Request"
 
 export interface AttributesRequestJSON extends RequestJSON {
-    queries: AttributeQueryContainer[]
+    queries: AttributeQuery[]
     required: boolean
 }
 
 export interface IAttributesRequest extends IRequest {
-    queries: AttributeQueryContainer[]
+    queries: AttributeQuery[]
     /**
      * Whether or not this attribute request is required or optional
      * @default undefined - the attribute request is optional
@@ -19,9 +19,9 @@ export interface IAttributesRequest extends IRequest {
 
 @type("AttributesRequest")
 export class AttributesRequest extends Request implements IAttributesRequest {
-    @serialize({ type: AttributeQueryContainer })
+    @serialize({ type: AttributeQuery })
     @validate()
-    public queries: AttributeQueryContainer[]
+    public queries: AttributeQuery[]
 
     @serialize()
     @validate({ nullable: true })
