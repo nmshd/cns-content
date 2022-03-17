@@ -1,20 +1,29 @@
 import { SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
-import { IRequest, Request, RequestJSON } from "../requests/v1/Request"
+import {
+    AttributesChangeRequest,
+    AttributesChangeRequestJSON,
+    IAttributesChangeRequest
+} from "../requests/v1/AttributesChangeRequest"
+import {
+    AttributesShareRequest,
+    AttributesShareRequestJSON,
+    IAttributesShareRequest
+} from "../requests/v1/AttributesShareRequest"
 import { IMail, Mail, MailJSON } from "./Mail"
 
 export interface RequestMailJSON extends MailJSON {
-    requests: RequestJSON[]
+    requests: (AttributesChangeRequestJSON | AttributesShareRequestJSON)[]
 }
 
 export interface IRequestMail extends IMail {
-    requests: IRequest[]
+    requests: (IAttributesChangeRequest | IAttributesShareRequest)[]
 }
 
 @type("RequestMail")
 export class RequestMail extends Mail {
     @serialize()
     @validate()
-    public requests: Request[]
+    public requests: (AttributesChangeRequest | AttributesShareRequest)[]
 
     public static async from(value: IRequestMail): Promise<RequestMail> {
         return await super.fromT(value, RequestMail)
@@ -22,9 +31,18 @@ export class RequestMail extends Mail {
 
     public static async fromJSON(value: RequestMailJSON): Promise<RequestMail> {
         const mail: Mail = await Mail.fromJSON(value)
-        const requests: Request[] = (await Promise.all(
-            value.requests.map((request) => SerializableAsync.fromUnknown(request))
-        )) as Request[]
+        const requests = await Promise.all(
+            value.requests.map((request) => {
+                switch (request["@type"]) {
+                    case "AttributesChangeRequest":
+                        return SerializableAsync.fromT(request, AttributesChangeRequest)
+                    case "AttributesShareRequest":
+                        return SerializableAsync.fromT(request, AttributesShareRequest)
+                    default:
+                        throw new Error(`Unknown request type: ${request["@type"]}`)
+                }
+            })
+        )
 
         return await this.from({
             body: mail.body,
