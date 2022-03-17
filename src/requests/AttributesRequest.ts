@@ -1,6 +1,6 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreId } from "@nmshd/transport"
-import { AttributeQuery } from ".."
+import { AttributeQuery } from "../attributes"
 import { IRequest, Request, RequestJSON } from "./Request"
 
 export interface AttributesRequestJSON extends RequestJSON {
