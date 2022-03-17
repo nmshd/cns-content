@@ -1,6 +1,6 @@
+import { AttributeQuery, AttributeQueryContainer } from "@nmshd/content"
 import { expect } from "chai"
-import { AttributeQuery, AttributeQueryContainer } from "src/attributes"
-import { AbstractTest } from "test/AbstractTest"
+import { AbstractTest } from "../AbstractTest"
 
 export class AttributeQueryTest extends AbstractTest {
     public run(): void {
