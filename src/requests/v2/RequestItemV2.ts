@@ -62,7 +62,7 @@ export interface IRequestItemV2 extends ISerializableAsync {
 }
 
 @type("RequestItem")
-export class RequestItemV2 extends SerializableAsync {
+export abstract class RequestItemV2 extends SerializableAsync {
     @serialize()
     @validate({ nullable: true })
     public title?: string
