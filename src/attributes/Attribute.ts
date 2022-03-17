@@ -1,6 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd/transport"
-import { nameof } from "ts-simple-nameof"
 import { ContentJSON } from "../ContentJSON"
 import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "./AbstractAttributeValue"
 
@@ -22,15 +21,6 @@ export interface IAttribute extends ICoreSerializable {
 
 @type("Attribute")
 export class Attribute extends CoreSerializable implements IAttribute {
-    public readonly technicalProperties = ["@type", "@context", nameof<Attribute>((r) => r.createdAt)]
-
-    public readonly userdataProperties = [
-        nameof<Attribute>((r) => r.content),
-        nameof<Attribute>((r) => r.validFrom),
-        nameof<Attribute>((r) => r.validTo),
-        nameof<Attribute>((r) => r.tags)
-    ]
-
     @validate()
     @serialize()
     public content: AbstractAttributeValue
