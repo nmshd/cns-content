@@ -1,3 +1,5 @@
 export * from "./AbstractAttributeValue"
 export * from "./Attribute"
+export * from "./AttributeQuery"
+export * from "./AttributeQueryContainer"
 export * from "./types"
