@@ -2,47 +2,47 @@ import { ISerializable, SerializableAsync, serialize, type, validate } from "@js
 import { ContentJSON } from "../../ContentJSON"
 import { ResponseItemResult } from "./ResponseItemResult"
 
-export interface AcceptContentJSON extends ContentJSON {}
+export interface ResponseItemAcceptContentJSON extends ContentJSON {}
 
-export interface RejectContentJSON extends ContentJSON {
+export interface ResponseItemRejectContentJSON extends ContentJSON {
     code?: string
     message?: string
 }
 
-export interface ErrorContentJSON extends ContentJSON {
+export interface ResponseItemErrorContentJSON extends ContentJSON {
     code: string
     message: string
 }
 
 export interface ResponseItemJSON extends ContentJSON {
     result: ResponseItemResult
-    content?: AcceptContentJSON | RejectContentJSON | ErrorContentJSON
+    content?: ResponseItemAcceptContentJSON | ResponseItemRejectContentJSON | ResponseItemErrorContentJSON
     metadata?: object
 }
 
-export interface IAcceptContent extends ISerializable {}
+export interface IResponseItemAcceptContent extends ISerializable {}
 
-export interface IRejectContent extends ISerializable {
+export interface IResponseItemRejectContent extends ISerializable {
     code?: string
     message?: string
 }
 
-export interface IErrorContent extends ISerializable {
+export interface IResponseItemErrorContent extends ISerializable {
     code: string
     message: string
 }
 
 export interface IResponseItem extends ISerializable {
     result: ResponseItemResult
-    content?: IAcceptContent | IRejectContent | IErrorContent
+    content?: IResponseItemAcceptContent | IResponseItemRejectContent | IResponseItemErrorContent
     metadata?: object
 }
 
-@type("AcceptContent")
-export class AcceptContent extends SerializableAsync {}
+@type("ResponseItemAcceptContent")
+export class ResponseItemAcceptContent extends SerializableAsync {}
 
-@type("RejectContent")
-export class RejectContent extends SerializableAsync {
+@type("ResponseItemRejectContent")
+export class ResponseItemRejectContent extends SerializableAsync {
     @serialize()
     @validate()
     public code?: string
@@ -52,8 +52,8 @@ export class RejectContent extends SerializableAsync {
     public message?: string
 }
 
-@type("ErrorContent")
-export class ErrorContent extends SerializableAsync {
+@type("ResponseItemErrorContent")
+export class ResponseItemErrorContent extends SerializableAsync {
     @serialize()
     @validate()
     public code: string
@@ -69,9 +69,9 @@ export class ResponseItem extends SerializableAsync {
     @validate()
     public result: ResponseItemResult
 
-    @serialize({ unionTypes: [AcceptContent, RejectContent, ErrorContent] })
+    @serialize({ unionTypes: [ResponseItemAcceptContent, ResponseItemRejectContent, ResponseItemErrorContent] })
     @validate({ nullable: true })
-    public content?: AcceptContent | RejectContent | ErrorContent
+    public content?: ResponseItemAcceptContent | ResponseItemRejectContent | ResponseItemErrorContent
 
     @serialize()
     @validate({ nullable: true })

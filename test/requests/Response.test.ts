@@ -1,14 +1,14 @@
 import {
-    ErrorContentJSON,
     IResponse,
     IResponseItem,
     IResponseItemGroup,
-    RejectContentJSON,
     Response,
     ResponseItem,
+    ResponseItemErrorContentJSON,
     ResponseItemGroup,
     ResponseItemGroupJSON,
     ResponseItemJSON,
+    ResponseItemRejectContentJSON,
     ResponseItemResult,
     ResponseJSON
 } from "@nmshd/content"
@@ -97,10 +97,10 @@ export class ResponseTest extends AbstractTest {
                             "@type": "ResponseItem",
                             result: ResponseItemResult.Rejected,
                             content: {
-                                "@type": "RejectContent",
+                                "@type": "ResponseItemRejectContent",
                                 code: "SOME_REJECTION_CODE",
                                 message: "Some rejection message"
-                            } as RejectContentJSON,
+                            } as ResponseItemRejectContentJSON,
                             metadata: {
                                 aMetadataKey: "outer item - metadata value"
                             }
@@ -115,10 +115,10 @@ export class ResponseTest extends AbstractTest {
                                     "@type": "ResponseItem",
                                     result: ResponseItemResult.Failed,
                                     content: {
-                                        "@type": "ErrorContent",
+                                        "@type": "ResponseItemErrorContent",
                                         code: "SOME_ERROR_CODE",
                                         message: "Some error message"
-                                    } as ErrorContentJSON,
+                                    } as ResponseItemErrorContentJSON,
                                     metadata: {
                                         aMetadataKey: "inner item - metadata value"
                                     }
@@ -210,9 +210,9 @@ export class ResponseTest extends AbstractTest {
                                 "@type": "ResponseItem",
                                 result: ResponseItemResult.Failed,
                                 content: {
-                                    "@type": "ErrorContent",
+                                    "@type": "ResponseItemErrorContent",
                                     message: "Some error message"
-                                } as ErrorContentJSON
+                                } as ResponseItemErrorContentJSON
                             } as ResponseItemJSON
                         ]
                     } as ResponseJSON
@@ -232,9 +232,9 @@ export class ResponseTest extends AbstractTest {
                                 "@type": "ResponseItem",
                                 result: ResponseItemResult.Failed,
                                 content: {
-                                    "@type": "ErrorContent",
+                                    "@type": "ResponseItemErrorContent",
                                     code: "SOME_ERROR_CODE"
-                                } as ErrorContentJSON
+                                } as ResponseItemErrorContentJSON
                             } as ResponseItemJSON
                         ]
                     }
