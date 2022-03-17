@@ -1,9 +1,9 @@
 import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
-import { IRequestItemV2, RequestItemV2, RequestItemV2JSON } from "./RequestItemV2"
+import { IRequestItem, RequestItem, RequestItemJSON } from "./RequestItem"
 
 /**
- * A RequestItemGroup can be used to group one or more {@link RequestItemV2JSON RequestItems}. This is useful
+ * A RequestItemGroup can be used to group one or more {@link RequestItemJSON RequestItems}. This is useful
  * if you want to
  * * make sure that the items in the group can only be accepted together
  *
@@ -12,7 +12,7 @@ import { IRequestItemV2, RequestItemV2, RequestItemV2JSON } from "./RequestItemV
  *   reject the first item, while accepting the second one.
  * * visually group items on the UI and give the a common title/description
  */
-export interface RequestItemGroupV2JSON extends ContentJSON {
+export interface RequestItemGroupJSON extends ContentJSON {
     /**
      * The human-readable title of this group.
      */
@@ -40,11 +40,11 @@ export interface RequestItemGroupV2JSON extends ContentJSON {
     /**
      * The items of this group.
      */
-    items: RequestItemV2JSON[]
+    items: RequestItemJSON[]
 }
 
 /**
- * A RequestItemGroup can be used to group one or more {@link RequestItemV2 RequestItems}. This is useful
+ * A RequestItemGroup can be used to group one or more {@link RequestItem RequestItems}. This is useful
  * if you want to
  * * make sure that the items in the group can only be accepted together
  *
@@ -53,7 +53,7 @@ export interface RequestItemGroupV2JSON extends ContentJSON {
  *   reject the first item, while accepting the second one.
  * * visually group items on the UI and give the a common title/description
  */
-export interface IRequestItemGroupV2 extends ISerializableAsync {
+export interface IRequestItemGroup extends ISerializableAsync {
     /**
      * The human-readable title of this group.
      */
@@ -81,11 +81,11 @@ export interface IRequestItemGroupV2 extends ISerializableAsync {
     /**
      * The items of this group.
      */
-    items: IRequestItemV2[]
+    items: IRequestItem[]
 }
 
 @type("RequestItemGroup")
-export class RequestItemGroupV2 extends SerializableAsync {
+export class RequestItemGroup extends SerializableAsync {
     @serialize()
     @validate({ nullable: true })
     public title?: string
@@ -100,7 +100,7 @@ export class RequestItemGroupV2 extends SerializableAsync {
 
     @serialize()
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
-    public items: RequestItemV2[]
+    public items: RequestItem[]
 
     @serialize()
     @validate({ nullable: true })

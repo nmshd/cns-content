@@ -1,14 +1,14 @@
 import { SerializableAsync } from "@js-soft/ts-serval"
 import {
-    IRequestItemGroupV2,
-    IRequestItemV2,
-    IRequestV2,
-    RequestItemGroupV2,
-    RequestItemGroupV2JSON,
-    RequestItemV2,
-    RequestItemV2JSON,
-    RequestV2,
-    RequestV2JSON
+    IRequest,
+    IRequestItem,
+    IRequestItemGroup,
+    Request,
+    RequestItem,
+    RequestItemGroup,
+    RequestItemGroupJSON,
+    RequestItemJSON,
+    RequestJSON
 } from "@nmshd/content"
 import { CoreDate, CoreId } from "@nmshd/transport"
 import { expect } from "chai"
@@ -17,16 +17,16 @@ import { expectThrowsAsync } from "../testUtils"
 
 export class RequestTest extends AbstractTest {
     public run(): void {
-        describe("RequestV2", function () {
+        describe("Request", function () {
             it("creates a Request and items from JSON", async function () {
                 const requestJSON = {
-                    "@type": "RequestV2",
+                    "@type": "Request",
                     "@version": "2",
                     items: [
                         {
                             "@type": "RequestItem",
                             mustBeAccepted: true
-                        } as RequestItemV2JSON,
+                        } as RequestItemJSON,
                         {
                             "@type": "RequestItemGroup",
                             mustBeAccepted: true,
@@ -34,35 +34,35 @@ export class RequestTest extends AbstractTest {
                                 {
                                     "@type": "RequestItem",
                                     mustBeAccepted: true
-                                } as RequestItemV2JSON
+                                } as RequestItemJSON
                             ]
-                        } as RequestItemGroupV2JSON
+                        } as RequestItemGroupJSON
                     ]
-                } as RequestV2JSON
+                } as RequestJSON
 
-                const request = await RequestV2.from(requestJSON)
+                const request = await Request.from(requestJSON)
 
-                expect(request).to.be.instanceOf(RequestV2)
+                expect(request).to.be.instanceOf(Request)
                 expect(request.items).to.have.lengthOf(2)
 
-                const outerRequestItem = request.items[0] as RequestItemV2
-                const requestItemGroup = request.items[1] as RequestItemGroupV2
-                expect(outerRequestItem).to.be.instanceOf(RequestItemV2)
-                expect(requestItemGroup).to.be.instanceOf(RequestItemGroupV2)
+                const outerRequestItem = request.items[0] as RequestItem
+                const requestItemGroup = request.items[1] as RequestItemGroup
+                expect(outerRequestItem).to.be.instanceOf(RequestItem)
+                expect(requestItemGroup).to.be.instanceOf(RequestItemGroup)
 
                 expect(requestItemGroup.items).to.have.lengthOf(1)
             })
 
             it("creates a Request and items from serval interface", async function () {
                 const requestInterface = {
-                    "@type": "RequestV2",
+                    "@type": "Request",
                     id: await CoreId.generate(),
                     items: [
                         {
                             "@type": "RequestItem",
                             expiresAt: CoreDate.utc(),
                             mustBeAccepted: true
-                        } as IRequestItemV2,
+                        } as IRequestItem,
                         {
                             "@type": "RequestItemGroup",
                             mustBeAccepted: true,
@@ -70,29 +70,29 @@ export class RequestTest extends AbstractTest {
                                 {
                                     "@type": "RequestItem",
                                     mustBeAccepted: true
-                                } as IRequestItemV2
+                                } as IRequestItem
                             ]
-                        } as IRequestItemGroupV2
+                        } as IRequestItemGroup
                     ]
-                } as IRequestV2
+                } as IRequest
 
-                // const requestv2 = (await SerializableAsync.fromUnknown(requestInterface)) as RequestV2
-                const request = await RequestV2.from(requestInterface)
+                // const request = (await SerializableAsync.fromUnknown(requestInterface)) as Request
+                const request = await Request.from(requestInterface)
 
-                expect(request).to.be.instanceOf(RequestV2)
+                expect(request).to.be.instanceOf(Request)
                 expect(request.items).to.have.lengthOf(2)
 
-                const outerRequestItem = request.items[0] as RequestItemV2
-                const requestItemGroup = request.items[1] as RequestItemGroupV2
-                expect(outerRequestItem).to.be.instanceOf(RequestItemV2)
-                expect(requestItemGroup).to.be.instanceOf(RequestItemGroupV2)
+                const outerRequestItem = request.items[0] as RequestItem
+                const requestItemGroup = request.items[1] as RequestItemGroup
+                expect(outerRequestItem).to.be.instanceOf(RequestItem)
+                expect(requestItemGroup).to.be.instanceOf(RequestItemGroup)
 
                 expect(requestItemGroup.items).to.have.lengthOf(1)
             })
 
             it("keeps all properties during serialization and deserialization", async function () {
                 const requestJSON = {
-                    "@type": "RequestV2",
+                    "@type": "Request",
                     id: "CNSREQ1",
                     expiresAt: "2020-01-01T00:00:00.000Z",
                     items: [
@@ -104,7 +104,7 @@ export class RequestTest extends AbstractTest {
                             responseMetadata: {
                                 aMetadataKey: "outer item - metadata value"
                             }
-                        } as RequestItemV2JSON,
+                        } as RequestItemJSON,
                         {
                             "@type": "RequestItemGroup",
                             mustBeAccepted: true,
@@ -122,13 +122,13 @@ export class RequestTest extends AbstractTest {
                                     responseMetadata: {
                                         aMetadataKey: "inner item - metadata value"
                                     }
-                                } as RequestItemV2JSON
+                                } as RequestItemJSON
                             ]
-                        } as RequestItemGroupV2JSON
+                        } as RequestItemGroupJSON
                     ]
-                } as RequestV2JSON
+                } as RequestJSON
 
-                const request = await RequestV2.from(requestJSON)
+                const request = await Request.from(requestJSON)
 
                 const serializedRequest = request.toJSON()
 
@@ -137,53 +137,50 @@ export class RequestTest extends AbstractTest {
 
             it("must have at least one item", async function () {
                 const requestJSON = {
-                    "@type": "RequestV2",
+                    "@type": "Request",
                     items: []
-                } as RequestV2JSON
+                } as RequestJSON
 
-                await expectThrowsAsync(
-                    async () => await RequestV2.from(requestJSON),
-                    "*RequestV2.items*may not be empty"
-                )
+                await expectThrowsAsync(async () => await Request.from(requestJSON), "*Request.items*may not be empty")
             })
 
             it("groups must have at least one item", async function () {
                 const requestJSON = {
-                    "@type": "RequestV2",
+                    "@type": "Request",
                     id: "CNSREQ1",
                     expiresAt: "2020-01-01T00:00:00.000Z",
                     items: [
                         {
                             "@type": "RequestItem",
                             mustBeAccepted: true
-                        } as RequestItemV2JSON,
+                        } as RequestItemJSON,
                         {
                             "@type": "RequestItemGroup",
                             mustBeAccepted: true,
                             items: []
-                        } as RequestItemGroupV2JSON
+                        } as RequestItemGroupJSON
                     ]
-                } as RequestV2JSON
+                } as RequestJSON
 
                 await expectThrowsAsync(
-                    async () => await RequestV2.from(requestJSON),
-                    "*RequestItemGroupV2.items*may not be empty*"
+                    async () => await Request.from(requestJSON),
+                    "*RequestItemGroup.items*may not be empty*"
                 )
             })
 
             it("mustBeAccepted is mandatory", async function () {
                 const requestJSON = {
-                    "@type": "RequestV2",
+                    "@type": "Request",
                     items: [
                         {
                             "@type": "RequestItem"
                         }
                     ]
-                } as RequestV2JSON
+                } as RequestJSON
 
                 await expectThrowsAsync(
                     async () => await SerializableAsync.from(requestJSON),
-                    "RequestItemV2.mustBeAccepted*Value is not defined"
+                    "RequestItem.mustBeAccepted*Value is not defined"
                 )
             })
         })
