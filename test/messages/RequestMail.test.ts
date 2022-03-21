@@ -1,5 +1,10 @@
 import { SerializableAsync } from "@js-soft/ts-serval"
-import { Attribute, AttributesChangeRequest, AttributesShareRequest, Mail, Request, RequestMail } from "@nmshd/content"
+import {
+    Attribute,
+    AttributesChangeRequest,
+    AttributesShareRequest, Mail,
+    RequestMail
+} from "@nmshd/content"
 import { CoreAddress, CoreId } from "@nmshd/transport"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
@@ -63,11 +68,9 @@ export class RequestMailTest extends AbstractTest {
                 expect(mail.body).to.equal("Please approve following requests")
                 expect(mail.requests).to.be.an("Array")
                 expect(mail.requests[0]).to.be.an("Object")
-                expect(mail.requests[0]).to.be.instanceOf(Request)
                 expect(mail.requests[0]).to.be.instanceOf(AttributesShareRequest)
 
                 expect(mail.requests[1]).to.be.an("Object")
-                expect(mail.requests[1]).to.be.instanceOf(Request)
                 expect(mail.requests[1]).to.be.instanceOf(AttributesChangeRequest)
 
                 const receivedRequest = mail.requests[0] as unknown as AttributesShareRequest
@@ -118,7 +121,6 @@ export class RequestMailTest extends AbstractTest {
                 expect(parsedMail.body).to.equal("Please approve following requests")
                 expect(parsedMail.requests).to.be.an("Array")
                 expect(parsedMail.requests[0]).to.be.an("Object")
-                expect(parsedMail.requests[0]).to.be.instanceOf(Request)
                 expect(parsedMail.requests[0]).to.be.instanceOf(AttributesShareRequest)
 
                 const parsedRequest = mail.requests[0] as unknown as AttributesShareRequest
