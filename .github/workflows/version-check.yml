@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  version_check:
     runs-on: ubuntu-latest
     steps:
       - run: apt-get update && apt-get install jq -y
