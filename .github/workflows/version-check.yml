@@ -8,7 +8,7 @@ jobs:
   version_check:
     runs-on: ubuntu-latest
     steps:
-      - run: apt-get update && apt-get install jq -y
+      - run: sudo apt-get update && sudo apt-get install jq -y
       - run: |
           if [[ ${{ github.head_ref }} =~ ^release/.*$ ]]; then
             echo "Skipping version check for release branch"
