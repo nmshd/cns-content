@@ -2,9 +2,7 @@ name: Publish
 
 on:
   push:
-    branches:
-      - main
-      - release/**
+    branches-ignore: [main, release/**]
 
 jobs:
   publish-npm:
