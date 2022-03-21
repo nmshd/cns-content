@@ -1,10 +1,5 @@
 import { SerializableAsync } from "@js-soft/ts-serval"
-import {
-    Attribute,
-    AttributesChangeRequest,
-    AttributesShareRequest, Mail,
-    RequestMail
-} from "@nmshd/content"
+import { Attribute, AttributesChangeRequest, AttributesShareRequest, Mail, RequestMail } from "@nmshd/content"
 import { CoreAddress, CoreId } from "@nmshd/transport"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
