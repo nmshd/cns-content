@@ -4,5 +4,12 @@
     "parserOptions": {
         "project": ["./tsconfig.json", "./test/tsconfig.json"]
     },
-    "rules": {}
+    "rules": {
+        "jest/expect-expect": [
+            "error",
+            {
+                "assertFunctionNames": ["expect", "verify", "expectValid*", "expectThrows*"]
+            }
+        ]
+    }
 }
