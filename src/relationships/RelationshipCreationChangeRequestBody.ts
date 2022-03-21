@@ -2,8 +2,6 @@ import { ISerializableAsync, SerializableAsync, serialize, type, validate } from
 import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
 import { Authorization, AuthorizationJSON, IAuthorization } from "../authorizations/Authorization"
 import { ContentJSON } from "../ContentJSON"
-import { FormRequest, FormRequestJSON, IFormRequest } from "../requests/FormRequest"
-import { IPrivacyStatement, PrivacyStatement, PrivacyStatementJSON } from "../requests/PrivacyStatement"
 
 export interface RelationshipCreationChangeRequestBodyJSON extends ContentJSON {
     title?: string
@@ -12,8 +10,6 @@ export interface RelationshipCreationChangeRequestBodyJSON extends ContentJSON {
     sharedAttributes?: AttributeJSON[]
     sharedCertificates?: any[]
     sharedAuthorizations?: AuthorizationJSON[]
-    sharedForms?: FormRequestJSON[]
-    privacyStatementResponse?: PrivacyStatementJSON
 }
 
 export interface IRelationshipCreationChangeRequestBody extends ISerializableAsync {
@@ -23,8 +19,6 @@ export interface IRelationshipCreationChangeRequestBody extends ISerializableAsy
     sharedAttributes?: IAttribute[]
     sharedCertificates?: any[]
     sharedAuthorizations?: IAuthorization[]
-    sharedForms?: IFormRequest[]
-    privacyStatementResponse?: IPrivacyStatement
 }
 
 @type("RelationshipCreationChangeRequestBody")
@@ -55,14 +49,6 @@ export class RelationshipCreationChangeRequestBody
     @serialize({ type: Authorization })
     @validate({ nullable: true })
     public sharedAuthorizations?: Authorization[]
-
-    @serialize({ type: FormRequest })
-    @validate({ nullable: true })
-    public sharedForms?: FormRequest[]
-
-    @serialize()
-    @validate({ nullable: true })
-    public privacyStatementResponse?: PrivacyStatement
 
     public static async from(
         value: IRelationshipCreationChangeRequestBody
