@@ -10,9 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: sudo apt-get update && sudo apt-get install jq -y
-      - run: |
+      - name: Ensure valid package version
+        run: |
           HEAD_REF=${{ github.head_ref }}
 
+          # allow the merging from release branches
           if [[ $HEAD_REF =~ ^release/.*$ ]]; then
             echo "Skipping version check for release branch"
             exit 0
