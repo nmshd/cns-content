@@ -5,7 +5,8 @@ import {
     AttributesChangeRequest,
     AttributesShareRequest,
     GivenName,
-    Mail, RequestMail,
+    Mail,
+    RequestMail,
     StreetAddress
 } from "@nmshd/content"
 import { CoreAddress, CoreId } from "@nmshd/transport"
