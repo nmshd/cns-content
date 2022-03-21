@@ -8,8 +8,6 @@ fi
 
 VERSION=$(jq .version package.json -cr)
 
-npm set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
-
 case "$VERSION" in
 *-alpha*) npx enhanced-publish --if-possible --tag alpha ;;
 *-beta*) npx enhanced-publish --if-possible --tag beta ;;
