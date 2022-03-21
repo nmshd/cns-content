@@ -21,8 +21,8 @@ jobs:
           VERSION=$(jq .version package.json -cr)
 
           case "$VERSION" in
-          *-alpha*) echo "pre-id -alpha is not allowed when merging from $HEAD_REF" && exit 1 ;;
-          *-beta*) echo "pre-id -beta is not allowed when merging from $HEAD_REF" && exit 1 ;;
-          *-rc*) echo "pre-id -rc is not allowed when merging from $HEAD_REF" && exit 1 ;;
+          *-alpha*) echo "The PreID '-alpha' is not allowed when merging from $HEAD_REF." && exit 1 ;;
+          *-beta*) echo "The PreID '-beta' is not allowed when merging from $HEAD_REF." && exit 1 ;;
+          *-rc*) echo "The PreID '-rc' is not allowed when merging from $HEAD_REF." && exit 1 ;;
           *) exit 0 ;;
           esac
