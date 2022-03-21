@@ -1,6 +1,4 @@
-export * from "./attributes/Attribute"
-export * from "./attributes/AttributeName"
-export * from "./attributes/AttributeNamespace"
+export * from "./attributes"
 export * from "./authorizations/Authorization"
 export * from "./buildInformation"
 export * from "./ContentJSON"
