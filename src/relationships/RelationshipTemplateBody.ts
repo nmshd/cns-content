@@ -9,13 +9,6 @@ import {
 } from "../requests/AttributesChangeRequest"
 import { AttributesRequest, AttributesRequestJSON, IAttributesRequest } from "../requests/AttributesRequest"
 import {
-    AuthorizationGrantRequest,
-    AuthorizationGrantRequestJSON,
-    IAuthorizationGrantRequest
-} from "../requests/AuthorizationGrantRequest"
-import { FormRequest, FormRequestJSON, IFormRequest } from "../requests/FormRequest"
-import { IPrivacyStatement, PrivacyStatement, PrivacyStatementJSON } from "../requests/PrivacyStatement"
-import {
     IRelationshipExistsAction,
     RelationshipExistsAction,
     RelationshipExistsActionJSON
@@ -31,9 +24,6 @@ export interface RelationshipTemplateBodyJSON extends ContentJSON {
     requestedAttributesChanges?: AttributesChangeRequestJSON[]
     requestedAttributes?: AttributesRequestJSON[]
     requestedCertificates?: any[]
-    requestedAuthorizations?: AuthorizationGrantRequestJSON[]
-    requestedForms?: FormRequestJSON[]
-    privacyStatement?: PrivacyStatementJSON
     relationshipExistsAction?: RelationshipExistsActionJSON
 }
 
@@ -46,10 +36,6 @@ export interface IRelationshipTemplateBody extends ISerializableAsync {
     sharedAuthorizations?: IAuthorization[]
     requestedAttributesChanges?: IAttributesChangeRequest[]
     requestedAttributes?: IAttributesRequest[]
-    requestedCertificates?: IAttributesRequest[]
-    requestedAuthorizations?: IAuthorizationGrantRequest[]
-    requestedForms?: IFormRequest[]
-    privacyStatement?: IPrivacyStatement
     relationshipExistsAction?: IRelationshipExistsAction
 }
 
@@ -86,22 +72,6 @@ export class RelationshipTemplateBody extends SerializableAsync implements IRela
     @serialize({ type: AttributesRequest })
     @validate({ nullable: true })
     public requestedAttributes?: AttributesRequest[]
-
-    @serialize()
-    @validate({ nullable: true })
-    public requestedCertificates?: any[]
-
-    @serialize({ type: AuthorizationGrantRequest })
-    @validate({ nullable: true })
-    public requestedAuthorizations?: AuthorizationGrantRequest[]
-
-    @serialize({ type: FormRequest })
-    @validate({ nullable: true })
-    public requestedForms?: FormRequest[]
-
-    @serialize()
-    @validate({ nullable: true })
-    public privacyStatement?: PrivacyStatement
 
     @serialize()
     @validate({ nullable: true })
