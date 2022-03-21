@@ -15,6 +15,7 @@ jobs:
           HEAD_REF=${{ github.head_ref }}
 
           # allow the merging from release branches
+          # the version in package.json is updated after merging into main; therefore we need to be able to merge a -alpha/-beta/-rc version in that specific case
           if [[ $HEAD_REF =~ ^release/.*$ ]]; then
             echo "Skipping version check for release branch"
             exit 0
