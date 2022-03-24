@@ -2,12 +2,12 @@ import { ISerializableAsync, SerializableAsync, serialize, type, validate } from
 import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
 import { Authorization, AuthorizationJSON, IAuthorization } from "../authorizations/Authorization"
 import { ContentJSON } from "../ContentJSON"
-import { AttributesRequest, AttributesRequestJSON, IAttributesRequest } from "../requests/AttributesRequest"
 import {
     AttributesChangeRequest,
     AttributesChangeRequestJSON,
     IAttributesChangeRequest
 } from "../requests/old/AttributesChangeRequest"
+import { AttributesRequest, AttributesRequestJSON, IAttributesRequest } from "../requests/old/AttributesRequest"
 import {
     IRelationshipExistsAction,
     RelationshipExistsAction,

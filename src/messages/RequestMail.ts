@@ -1,14 +1,14 @@
 import { SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import {
-    AttributesShareRequest,
-    AttributesShareRequestJSON,
-    IAttributesShareRequest
-} from "../requests/AttributesShareRequest"
-import {
     AttributesChangeRequest,
     AttributesChangeRequestJSON,
     IAttributesChangeRequest
 } from "../requests/old/AttributesChangeRequest"
+import {
+    AttributesShareRequest,
+    AttributesShareRequestJSON,
+    IAttributesShareRequest
+} from "../requests/old/AttributesShareRequest"
 import { IMail, Mail, MailJSON } from "./Mail"
 
 export interface RequestMailJSON extends MailJSON {
