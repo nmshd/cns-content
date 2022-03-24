@@ -1,5 +1,5 @@
-import { SerializableAsync, type } from "@js-soft/ts-serval"
-import { IResponseItem, ResponseItemJSON } from "./ResponseItem"
+import { type } from "@js-soft/ts-serval"
+import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
 import { ResponseItemResult } from "./ResponseItemResult"
 
 export interface AcceptResponseItemJSON extends ResponseItemJSON {
@@ -11,6 +11,6 @@ export interface IAcceptResponseItem extends IResponseItem {
 }
 
 @type("AcceptResponseItem")
-export abstract class AcceptResponseItem extends SerializableAsync implements IAcceptResponseItem {
+export abstract class AcceptResponseItem extends ResponseItem implements IAcceptResponseItem {
     public result: ResponseItemResult.Accepted
 }
