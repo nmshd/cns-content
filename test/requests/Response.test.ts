@@ -3,6 +3,7 @@ import {
     AcceptResponseItem,
     AcceptResponseItemJSON,
     ErrorResponseItemJSON,
+    IAcceptResponseItem,
     IResponse,
     IResponseItem,
     IResponseItemGroup,
@@ -20,11 +21,19 @@ import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
 import { expectThrowsAsync } from "../testUtils"
 
+interface ITestAcceptResponseItem extends IAcceptResponseItem {
+    test: string
+}
+
 @type("TestAcceptResponseItem")
-class TestAcceptResponseItem extends AcceptResponseItem {
+class TestAcceptResponseItem extends AcceptResponseItem implements ITestAcceptResponseItem {
     @serialize()
     @validate()
     public test: string
+
+    public static async from(value: ITestAcceptResponseItem): Promise<TestAcceptResponseItem> {
+        return await super.fromT(value, TestAcceptResponseItem)
+    }
 }
 
 export class ResponseTest extends AbstractTest {
