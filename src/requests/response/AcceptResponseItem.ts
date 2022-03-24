@@ -11,6 +11,6 @@ export interface IAcceptResponseItem extends IResponseItem {
 }
 
 @type("AcceptResponseItem")
-export abstract class AcceptResponseItem extends ResponseItem implements IAcceptResponseItem {
+export class AcceptResponseItem extends ResponseItem implements IAcceptResponseItem {
     public result: ResponseItemResult.Accepted
 }
