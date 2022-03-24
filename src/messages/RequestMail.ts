@@ -1,4 +1,4 @@
-import { SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { serialize, type, validate } from "@js-soft/ts-serval"
 import {
     AttributesChangeRequest,
     AttributesChangeRequestJSON,
@@ -35,9 +35,9 @@ export class RequestMail extends Mail {
             value.requests.map((request) => {
                 switch (request["@type"]) {
                     case "AttributesChangeRequest":
-                        return SerializableAsync.fromT(request, AttributesChangeRequest)
+                        return super.fromT(request, AttributesChangeRequest)
                     case "AttributesShareRequest":
-                        return SerializableAsync.fromT(request, AttributesShareRequest)
+                        return super.fromT(request, AttributesShareRequest)
                     default:
                         throw new Error(`Unknown request type: ${request["@type"]}`)
                 }

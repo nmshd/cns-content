@@ -1,4 +1,4 @@
-import { SerializableAsync, type } from "@js-soft/ts-serval"
+import { type } from "@js-soft/ts-serval"
 import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
 import { ResponseItemResult } from "./ResponseItemResult"
 
@@ -15,6 +15,6 @@ export class AcceptResponseItem extends ResponseItem implements IAcceptResponseI
     public result: ResponseItemResult.Accepted
 
     public static async from(value: IAcceptResponseItem | AcceptResponseItemJSON): Promise<AcceptResponseItem> {
-        return await SerializableAsync.fromT<AcceptResponseItem>(value, AcceptResponseItem)
+        return await super.fromT(value, AcceptResponseItem)
     }
 }

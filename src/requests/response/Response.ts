@@ -25,6 +25,6 @@ export class Response extends SerializableAsync {
     public items: (ResponseItemGroup | ResponseItem)[]
 
     public static async from(value: IResponse | ResponseJSON): Promise<Response> {
-        return await SerializableAsync.fromT<Response>(value, Response)
+        return await super.fromT(value, Response)
     }
 }

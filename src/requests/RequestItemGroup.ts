@@ -107,6 +107,6 @@ export class RequestItemGroup extends SerializableAsync {
     public responseMetadata?: object
 
     public static async from(value: IRequestItemGroup | RequestItemGroupJSON): Promise<RequestItemGroup> {
-        return await SerializableAsync.fromT<RequestItemGroup>(value, RequestItemGroup)
+        return await super.fromT(value, RequestItemGroup)
     }
 }
