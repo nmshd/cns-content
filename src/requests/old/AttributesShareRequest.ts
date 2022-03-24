@@ -1,19 +1,18 @@
 import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, CoreDate, CoreId, ICoreAddress, ICoreDate, ICoreId } from "@nmshd/transport"
-import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
-import { ContentJSON } from "../ContentJSON"
+import { ContentJSON } from "../../ContentJSON"
 
-export interface AttributesChangeRequestJSON extends ContentJSON {
+export interface AttributesShareRequestJSON extends ContentJSON {
     id?: string
     key?: string
     reason?: string
     expiresAt?: string
     impact?: string
-    attributes: AttributeJSON[]
-    applyTo?: string
+    attributes: string[]
+    recipients: string[]
 }
 
-export interface IAttributesChangeRequest extends ISerializable {
+export interface IAttributesShareRequest extends ISerializable {
     id?: ICoreId
     /**
      * The technial key of the request which is submitted back with the answer. This can be used
@@ -42,12 +41,12 @@ export interface IAttributesChangeRequest extends ISerializable {
      */
     impact?: string
 
-    attributes: IAttribute[]
-    applyTo?: ICoreAddress
+    attributes: string[]
+    recipients: ICoreAddress[]
 }
 
-@type("AttributesChangeRequest")
-export class AttributesChangeRequest extends SerializableAsync implements IAttributesChangeRequest {
+@type("AttributesShareRequest")
+export class AttributesShareRequest extends SerializableAsync implements IAttributesShareRequest {
     @serialize()
     @validate({ nullable: true })
     public id?: CoreId
@@ -68,27 +67,15 @@ export class AttributesChangeRequest extends SerializableAsync implements IAttri
     @validate({ nullable: true })
     public impact?: string
 
-    @serialize({ type: Attribute })
+    @serialize({ type: String })
     @validate()
-    public attributes: Attribute[]
+    public attributes: string[]
 
-    @serialize()
-    @validate({ nullable: true })
-    public applyTo?: CoreAddress
+    @serialize({ type: CoreAddress })
+    @validate()
+    public recipients: CoreAddress[]
 
-    public static async from(value: IAttributesChangeRequest): Promise<AttributesChangeRequest> {
-        return (await super.from(value, AttributesChangeRequest)) as AttributesChangeRequest
-    }
-
-    public static async fromJSON(value: AttributesChangeRequestJSON): Promise<AttributesChangeRequest> {
-        const parsedAttributes = await Promise.all(value.attributes.map((attribute) => Attribute.fromJSON(attribute)))
-        return await this.from({
-            id: value.id ? CoreId.from(value.id) : undefined,
-            attributes: parsedAttributes,
-            applyTo: value.applyTo ? CoreAddress.from(value.applyTo) : undefined,
-            expiresAt: value.expiresAt ? CoreDate.from(value.expiresAt) : undefined,
-            key: value.key,
-            reason: value.reason
-        })
+    public static async from(value: IAttributesShareRequest): Promise<AttributesShareRequest> {
+        return await super.fromT(value, AttributesShareRequest)
     }
 }

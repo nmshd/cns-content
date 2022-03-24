@@ -1,5 +1,5 @@
 import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
-import { ContentJSON } from "../ContentJSON"
+import { ContentJSON } from "../../ContentJSON"
 import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
 
 export interface ResponseItemGroupJSON extends ContentJSON {
@@ -21,4 +21,8 @@ export class ResponseItemGroup extends SerializableAsync {
     @serialize()
     @validate({ nullable: true })
     public metadata?: object
+
+    public static async from(value: IResponseItemGroup | ResponseItemGroupJSON): Promise<ResponseItemGroup> {
+        return await super.fromT(value, ResponseItemGroup)
+    }
 }

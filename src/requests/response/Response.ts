@@ -1,6 +1,6 @@
 import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreId, ICoreId } from "@nmshd/transport"
-import { ContentJSON } from "../ContentJSON"
+import { ContentJSON } from "../../ContentJSON"
 import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
 import { IResponseItemGroup, ResponseItemGroup, ResponseItemGroupJSON } from "./ResponseItemGroup"
 
@@ -25,6 +25,6 @@ export class Response extends SerializableAsync {
     public items: (ResponseItemGroup | ResponseItem)[]
 
     public static async from(value: IResponse | ResponseJSON): Promise<Response> {
-        return await SerializableAsync.fromT<Response>(value, Response)
+        return await super.fromT(value, Response)
     }
 }

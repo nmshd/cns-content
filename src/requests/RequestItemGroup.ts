@@ -105,4 +105,8 @@ export class RequestItemGroup extends SerializableAsync {
     @serialize()
     @validate({ nullable: true })
     public responseMetadata?: object
+
+    public static async from(value: IRequestItemGroup | RequestItemGroupJSON): Promise<RequestItemGroup> {
+        return await super.fromT(value, RequestItemGroup)
+    }
 }

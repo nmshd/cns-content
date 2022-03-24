@@ -6,8 +6,8 @@ import {
     AttributesChangeRequest,
     AttributesChangeRequestJSON,
     IAttributesChangeRequest
-} from "../requests/AttributesChangeRequest"
-import { AttributesRequest, AttributesRequestJSON, IAttributesRequest } from "../requests/AttributesRequest"
+} from "../requests/old/AttributesChangeRequest"
+import { AttributesRequest, AttributesRequestJSON, IAttributesRequest } from "../requests/old/AttributesRequest"
 import {
     IRelationshipExistsAction,
     RelationshipExistsAction,
