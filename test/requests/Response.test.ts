@@ -1,14 +1,16 @@
 import {
+    AcceptResponseItem,
+    AcceptResponseItemJSON,
+    ErrorResponseItemJSON,
     IResponse,
     IResponseItem,
     IResponseItemGroup,
+    RejectResponseItemJSON,
     Response,
     ResponseItem,
-    ResponseItemErrorContentJSON,
     ResponseItemGroup,
     ResponseItemGroupJSON,
     ResponseItemJSON,
-    ResponseItemRejectContentJSON,
     ResponseItemResult,
     ResponseJSON
 } from "@nmshd/content"
@@ -26,14 +28,14 @@ export class ResponseTest extends AbstractTest {
                     requestId: "CNSREQ1",
                     items: [
                         {
-                            "@type": "ResponseItem",
+                            "@type": "AcceptResponseItem",
                             result: ResponseItemResult.Accepted
                         } as ResponseItemJSON,
                         {
                             "@type": "ResponseItemGroup",
                             items: [
                                 {
-                                    "@type": "ResponseItem",
+                                    "@type": "AcceptResponseItem",
                                     result: ResponseItemResult.Accepted
                                 } as ResponseItemJSON
                             ]
@@ -49,6 +51,7 @@ export class ResponseTest extends AbstractTest {
                 const outerResponseItem = response.items[0] as ResponseItem
                 const responseItemGroup = response.items[1] as ResponseItemGroup
                 expect(outerResponseItem).to.be.instanceOf(ResponseItem)
+                expect(outerResponseItem).to.be.instanceOf(AcceptResponseItem)
                 expect(responseItemGroup).to.be.instanceOf(ResponseItemGroup)
 
                 expect(responseItemGroup.items).to.have.lengthOf(1)
@@ -60,14 +63,14 @@ export class ResponseTest extends AbstractTest {
                     requestId: await CoreId.generate(),
                     items: [
                         {
-                            "@type": "ResponseItem",
+                            "@type": "AcceptResponseItem",
                             result: ResponseItemResult.Accepted
                         } as IResponseItem,
                         {
                             "@type": "ResponseItemGroup",
                             items: [
                                 {
-                                    "@type": "ResponseItem",
+                                    "@type": "AcceptResponseItem",
                                     result: ResponseItemResult.Accepted
                                 } as IResponseItem
                             ]
@@ -83,6 +86,7 @@ export class ResponseTest extends AbstractTest {
                 const outerResponseItem = response.items[0] as ResponseItem
                 const responseItemGroup = response.items[1] as ResponseItemGroup
                 expect(outerResponseItem).to.be.instanceOf(ResponseItem)
+                expect(outerResponseItem).to.be.instanceOf(AcceptResponseItem)
                 expect(responseItemGroup).to.be.instanceOf(ResponseItemGroup)
 
                 expect(responseItemGroup.items).to.have.lengthOf(1)
@@ -94,17 +98,14 @@ export class ResponseTest extends AbstractTest {
                     requestId: "CNSREQ1",
                     items: [
                         {
-                            "@type": "ResponseItem",
+                            "@type": "RejectResponseItem",
                             result: ResponseItemResult.Rejected,
-                            content: {
-                                "@type": "ResponseItemRejectContent",
-                                code: "SOME_REJECTION_CODE",
-                                message: "Some rejection message"
-                            } as ResponseItemRejectContentJSON,
+                            code: "SOME_REJECTION_CODE",
+                            message: "Some rejection message",
                             metadata: {
                                 aMetadataKey: "outer item - metadata value"
                             }
-                        } as ResponseItemJSON,
+                        } as RejectResponseItemJSON,
                         {
                             "@type": "ResponseItemGroup",
                             metadata: {
@@ -112,17 +113,14 @@ export class ResponseTest extends AbstractTest {
                             },
                             items: [
                                 {
-                                    "@type": "ResponseItem",
+                                    "@type": "ErrorResponseItem",
                                     result: ResponseItemResult.Failed,
-                                    content: {
-                                        "@type": "ResponseItemErrorContent",
-                                        code: "SOME_ERROR_CODE",
-                                        message: "Some error message"
-                                    } as ResponseItemErrorContentJSON,
+                                    code: "SOME_ERROR_CODE",
+                                    message: "Some error message",
                                     metadata: {
                                         aMetadataKey: "inner item - metadata value"
                                     }
-                                } as ResponseItemJSON
+                                } as ErrorResponseItemJSON
                             ]
                         } as ResponseItemGroupJSON
                     ]
@@ -172,9 +170,9 @@ export class ResponseTest extends AbstractTest {
                         "@type": "Response",
                         items: [
                             {
-                                "@type": "ResponseItem",
+                                "@type": "AcceptResponseItem",
                                 result: ResponseItemResult.Accepted
-                            } as ResponseItemJSON
+                            } as AcceptResponseItemJSON
                         ]
                     } as ResponseJSON
 
@@ -190,7 +188,7 @@ export class ResponseTest extends AbstractTest {
                         requestId: "CNSREQ1",
                         items: [
                             {
-                                "@type": "ResponseItem"
+                                "@type": "AcceptResponseItem"
                             } as ResponseItemJSON
                         ]
                     } as ResponseJSON
@@ -207,19 +205,16 @@ export class ResponseTest extends AbstractTest {
                         requestId: "CNSREQ1",
                         items: [
                             {
-                                "@type": "ResponseItem",
+                                "@type": "ErrorResponseItem",
                                 result: ResponseItemResult.Failed,
-                                content: {
-                                    "@type": "ResponseItemErrorContent",
-                                    message: "Some error message"
-                                } as ResponseItemErrorContentJSON
-                            } as ResponseItemJSON
+                                message: "Some error message"
+                            } as ErrorResponseItemJSON
                         ]
                     } as ResponseJSON
 
                     await expectThrowsAsync(
                         async () => await Response.from(jsonWithMissingErrorCode),
-                        "*ErrorContent.code*Value is not defined*"
+                        "*ErrorResponseItem.code*Value is not defined*"
                     )
                 })
 
@@ -229,19 +224,16 @@ export class ResponseTest extends AbstractTest {
                         requestId: "CNSREQ1",
                         items: [
                             {
-                                "@type": "ResponseItem",
+                                "@type": "ErrorResponseItem",
                                 result: ResponseItemResult.Failed,
-                                content: {
-                                    "@type": "ResponseItemErrorContent",
-                                    code: "SOME_ERROR_CODE"
-                                } as ResponseItemErrorContentJSON
-                            } as ResponseItemJSON
+                                code: "SOME_ERROR_CODE"
+                            } as ErrorResponseItemJSON
                         ]
                     }
 
                     await expectThrowsAsync(
                         async () => await Response.from(jsonWithMissingErrorCode),
-                        "*ErrorContent.message*Value is not defined*"
+                        "*ErrorResponseItem.message*Value is not defined*"
                     )
                 })
             })
