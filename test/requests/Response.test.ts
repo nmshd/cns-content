@@ -195,7 +195,7 @@ export class ResponseTest extends AbstractTest {
                 expect(responseItem).to.be.instanceOf(AcceptResponseItem)
                 expect(responseItem).to.be.instanceOf(TestAcceptResponseItem)
 
-                expect((responseItem as any).test).to.equal("test")
+                expect((responseItem as TestAcceptResponseItem).test).to.equal("test")
             })
 
             describe("Throws an error when a mandatory property is missing", function () {
