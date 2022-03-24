@@ -1,3 +1,4 @@
+import { serialize, type, validate } from "@js-soft/ts-serval"
 import {
     AcceptResponseItem,
     AcceptResponseItemJSON,
@@ -18,6 +19,13 @@ import { CoreId } from "@nmshd/transport"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
 import { expectThrowsAsync } from "../testUtils"
+
+@type("TestAcceptResponseItem")
+class TestAcceptResponseItem extends AcceptResponseItem {
+    @serialize()
+    @validate()
+    public test: string
+}
 
 export class ResponseTest extends AbstractTest {
     public run(): void {
@@ -162,6 +170,30 @@ export class ResponseTest extends AbstractTest {
                     async () => await Response.from(responseJSON),
                     "*ResponseItemGroup.items*may not be empty*"
                 )
+            })
+
+            it("creates a Response and a TestAcceptResponseItem from JSON", async function () {
+                const responseJSON = {
+                    "@type": "Response",
+                    requestId: "CNSREQ1",
+                    items: [
+                        {
+                            "@type": "TestAcceptResponseItem",
+                            result: ResponseItemResult.Accepted,
+                            test: "test"
+                        } as ResponseItemJSON
+                    ]
+                } as ResponseJSON
+
+                const response = await Response.from(responseJSON)
+
+                expect(response).to.be.instanceOf(Response)
+                expect(response.items).to.have.lengthOf(1)
+
+                const responseItem = response.items[0] as ResponseItem
+                expect(responseItem).to.be.instanceOf(ResponseItem)
+                expect(responseItem).to.be.instanceOf(AcceptResponseItem)
+                expect(responseItem).to.be.instanceOf(TestAcceptResponseItem)
             })
 
             describe("Throws an error when a mandatory property is missing", function () {
