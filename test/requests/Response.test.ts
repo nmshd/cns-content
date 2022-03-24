@@ -172,7 +172,7 @@ export class ResponseTest extends AbstractTest {
                 )
             })
 
-            it("creates a Response and a TestAcceptResponseItem from JSON", async function () {
+            it("allows an inherited AcceptResponseItem in the items", async function () {
                 const responseJSON = {
                     "@type": "Response",
                     requestId: "CNSREQ1",
@@ -194,6 +194,8 @@ export class ResponseTest extends AbstractTest {
                 expect(responseItem).to.be.instanceOf(ResponseItem)
                 expect(responseItem).to.be.instanceOf(AcceptResponseItem)
                 expect(responseItem).to.be.instanceOf(TestAcceptResponseItem)
+
+                expect((responseItem as any).test).to.equal("test")
             })
 
             describe("Throws an error when a mandatory property is missing", function () {
