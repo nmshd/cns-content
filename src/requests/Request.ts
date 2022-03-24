@@ -55,6 +55,6 @@ export class Request extends SerializableAsync implements IRequest {
     public items: (RequestItemGroup | RequestItem)[]
 
     public static async from(value: IRequest | RequestJSON): Promise<Request> {
-        return await SerializableAsync.fromT<Request>(value, Request)
+        return await super.fromT(value, Request)
     }
 }
