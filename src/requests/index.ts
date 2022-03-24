@@ -1,4 +1,5 @@
 export * from "./old/AttributesChangeRequest"
+export * from "./old/AttributesRequest"
 export * from "./old/AttributesShareRequest"
 export * from "./Request"
 export * from "./RequestItem"
