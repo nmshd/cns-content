@@ -1,4 +1,4 @@
-import { serialize, type, validate } from "@js-soft/ts-serval"
+import { SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
 import { ResponseItemResult } from "./ResponseItemResult"
 
@@ -25,4 +25,8 @@ export class ErrorResponseItem extends ResponseItem implements IErrorResponseIte
     @serialize()
     @validate()
     public message: string
+
+    public static async from(value: IErrorResponseItem | ErrorResponseItemJSON): Promise<ErrorResponseItem> {
+        return await SerializableAsync.fromT<ErrorResponseItem>(value, ErrorResponseItem)
+    }
 }

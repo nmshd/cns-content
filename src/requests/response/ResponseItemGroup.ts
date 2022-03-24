@@ -21,4 +21,8 @@ export class ResponseItemGroup extends SerializableAsync {
     @serialize()
     @validate({ nullable: true })
     public metadata?: object
+
+    public static async from(value: IResponseItemGroup | ResponseItemGroupJSON): Promise<ResponseItemGroup> {
+        return await SerializableAsync.fromT<ResponseItemGroup>(value, ResponseItemGroup)
+    }
 }
