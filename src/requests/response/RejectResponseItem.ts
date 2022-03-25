@@ -19,11 +19,11 @@ export class RejectResponseItem extends ResponseItem implements IRejectResponseI
     public result: ResponseItemResult.Rejected
 
     @serialize()
-    @validate()
+    @validate({ nullable: true })
     public code?: string
 
     @serialize()
-    @validate()
+    @validate({ nullable: true })
     public message?: string
 
     public static async from(value: IRejectResponseItem | RejectResponseItemJSON): Promise<RejectResponseItem> {
