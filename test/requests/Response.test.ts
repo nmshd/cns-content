@@ -14,7 +14,8 @@ import {
     ResponseItemGroupJSON,
     ResponseItemJSON,
     ResponseItemResult,
-    ResponseJSON
+    ResponseJSON,
+    ResponseResult
 } from "@nmshd/content"
 import { CoreId } from "@nmshd/transport"
 import { expect } from "chai"
@@ -42,6 +43,7 @@ export class ResponseTest extends AbstractTest {
             it("creates a Response and items from JSON", async function () {
                 const responseJSON = {
                     "@type": "Response",
+                    result: ResponseResult.Accepted,
                     requestId: "CNSREQ1",
                     items: [
                         {
@@ -77,6 +79,7 @@ export class ResponseTest extends AbstractTest {
             it("creates a Response and items from interface object", async function () {
                 const responseInterface = {
                     "@type": "Response",
+                    result: ResponseResult.Accepted,
                     requestId: await CoreId.generate(),
                     items: [
                         {
@@ -112,6 +115,7 @@ export class ResponseTest extends AbstractTest {
             it("keeps all properties during serialization and deserialization", async function () {
                 const responseJSON = {
                     "@type": "Response",
+                    result: ResponseResult.Accepted,
                     requestId: "CNSREQ1",
                     items: [
                         {
@@ -153,6 +157,7 @@ export class ResponseTest extends AbstractTest {
             it("must have at least one item", async function () {
                 const responseJSON = {
                     "@type": "Response",
+                    result: ResponseResult.Accepted,
                     requestId: "CNSREQ1",
                     items: []
                 } as ResponseJSON
@@ -166,6 +171,7 @@ export class ResponseTest extends AbstractTest {
             it("groups must have at least one item", async function () {
                 const responseJSON = {
                     "@type": "Response",
+                    result: ResponseResult.Accepted,
                     requestId: "CNSREQ1",
                     items: [
                         {
@@ -184,6 +190,7 @@ export class ResponseTest extends AbstractTest {
             it("allows an inherited AcceptResponseItem in the items", async function () {
                 const responseJSON = {
                     "@type": "Response",
+                    result: ResponseResult.Accepted,
                     requestId: "CNSREQ1",
                     items: [
                         {
@@ -211,6 +218,7 @@ export class ResponseTest extends AbstractTest {
                 it("throws on missing requestId", async function () {
                     const responseJSON = {
                         "@type": "Response",
+                        result: ResponseResult.Accepted,
                         items: [
                             {
                                 "@type": "AcceptResponseItem",
@@ -228,6 +236,7 @@ export class ResponseTest extends AbstractTest {
                 it("throws on missing response item status", async function () {
                     const responseJSON = {
                         "@type": "Response",
+                        result: ResponseResult.Accepted,
                         requestId: "CNSREQ1",
                         items: [
                             {
@@ -245,6 +254,7 @@ export class ResponseTest extends AbstractTest {
                 it("throws on missing error response content properties", async function () {
                     const jsonWithMissingErrorCode = {
                         "@type": "Response",
+                        result: ResponseResult.Accepted,
                         requestId: "CNSREQ1",
                         items: [
                             {
@@ -264,6 +274,7 @@ export class ResponseTest extends AbstractTest {
                 it("error response content message is mandatory", async function () {
                     const jsonWithMissingErrorCode: ResponseJSON = {
                         "@type": "Response",
+                        result: ResponseResult.Accepted,
                         requestId: "CNSREQ1",
                         items: [
                             {
