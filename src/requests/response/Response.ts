@@ -4,18 +4,29 @@ import { ContentJSON } from "../../ContentJSON"
 import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
 import { IResponseItemGroup, ResponseItemGroup, ResponseItemGroupJSON } from "./ResponseItemGroup"
 
+export enum ResponseResult {
+    Accepted = "Accepted",
+    Rejected = "Rejected"
+}
+
 export interface ResponseJSON extends ContentJSON {
+    result: ResponseResult
     requestId: string
     items: (ResponseItemGroupJSON | ResponseItemJSON)[]
 }
 
 export interface IResponse extends ISerializable {
+    result: ResponseResult
     requestId: ICoreId
     items: (IResponseItemGroup | IResponseItem)[]
 }
 
 @type("Response")
 export class Response extends SerializableAsync {
+    @serialize()
+    @validate()
+    public result: ResponseResult
+
     @serialize()
     @validate()
     public requestId: CoreId
