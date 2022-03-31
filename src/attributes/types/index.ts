@@ -1,5 +1,6 @@
 export * from "./address"
 export * from "./birth"
+export * from "./DeprecatedAttribute"
 export * from "./idcard"
 export * from "./measurements"
 export * from "./name"

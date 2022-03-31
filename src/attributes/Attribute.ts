@@ -42,10 +42,26 @@ export class Attribute extends CoreSerializable implements IAttribute {
     public validTo?: CoreDate
 
     public static from(value: IAttribute): Attribute {
+        if (value.content.name) {
+            value.content["@type"] = "DeprecatedAttribute"
+            if (value.tags) {
+                value.tags = []
+            }
+            value.tags?.push(JSON.stringify(value.content.name))
+        }
+
         return super.fromT<Attribute>(value, Attribute)
     }
 
     public static fromJSON(attribute: AttributeJSON): Attribute {
+        if (attribute.content.name) {
+            attribute.content["@type"] = "DeprecatedAttribute"
+            if (attribute.tags) {
+                attribute.tags = []
+            }
+            attribute.tags?.push(JSON.stringify(attribute.content.name))
+        }
+
         return super.fromT<Attribute>(attribute, Attribute)
     }
 }

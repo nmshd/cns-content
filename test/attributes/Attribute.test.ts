@@ -4,6 +4,7 @@ import {
     BirthDay,
     BirthMonth,
     BirthYear,
+    DeprecatedAttribute,
     GivenName,
     LengthUnit,
     PersonHeight
@@ -140,6 +141,15 @@ export class AttributeTest extends AbstractTest {
                         createdAt: { date: DateTime.utc().toString() }
                     })
                 ).to.throw("BirthMonth.value:Number :: has invalid value")
+            })
+
+            it("should allow to convert deprecated attribute values", function () {
+                const deprecatedAttribute = Attribute.from({
+                    name: "Person.givenName",
+                    value: "Martina"
+                })
+
+                expect(deprecatedAttribute).instanceOf(DeprecatedAttribute)
             })
         })
     }
