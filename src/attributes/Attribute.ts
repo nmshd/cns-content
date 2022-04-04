@@ -4,7 +4,7 @@ import { ContentJSON } from "../ContentJSON"
 import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "./AbstractAttributeValue"
 
 export interface AttributeJSON extends ContentJSON {
-    content?: AbstractAttributeValueJSON
+    content: AbstractAttributeValueJSON
     createdAt: string
     tags?: string[]
     validFrom?: string
@@ -12,9 +12,7 @@ export interface AttributeJSON extends ContentJSON {
 }
 
 export interface IAttribute extends ICoreSerializable {
-    name?: string
-    value?: any
-    content?: IAbstractAttributeValue
+    content: IAbstractAttributeValue
     createdAt: ICoreDate
     tags?: string[] | undefined
     validFrom?: ICoreDate
@@ -24,16 +22,8 @@ export interface IAttribute extends ICoreSerializable {
 @type("Attribute")
 export class Attribute extends CoreSerializable implements IAttribute {
     @serialize()
-    @validate({ nullable: true })
-    public name?: string
-
-    @serialize()
-    @validate({ nullable: true })
-    public value?: string
-
-    @serialize()
-    @validate({ nullable: true })
-    public content?: AbstractAttributeValue
+    @validate()
+    public content: AbstractAttributeValue
 
     @validate()
     @serialize()
@@ -51,19 +41,27 @@ export class Attribute extends CoreSerializable implements IAttribute {
     @validate({ nullable: true })
     public validTo?: CoreDate
 
-    public static from(value: IAttribute): Attribute {
-        if (value.name) {
-            if (!value.content) {
-                value.content = {}
-            }
-            value.content["@type"] = "DeprecatedAttribute"
-            value.content.value = value.value
-            if (value.tags) {
-                value.tags = []
-            }
-            value.tags?.push(JSON.stringify(value.name))
+    private static convertDeprecatedAttribute(attribute: any): any {
+        if (!attribute.content) {
+            attribute.content = {}
+        }
+        attribute.content["@type"] = "DeprecatedAttribute"
+        attribute.content.value = attribute.value
+
+        if (attribute.tags) {
+            attribute.tags = []
+        }
+        attribute.tags?.push(JSON.stringify(attribute.name))
+        delete attribute.name
+        delete attribute.value
+    }
+
+    public static from(attribute: IAttribute): Attribute {
+        let attributeAny: any = attribute
+        if (attributeAny.name) {
+            attributeAny = this.convertDeprecatedAttribute(attributeAny)
         }
 
-        return super.fromT<Attribute>(value, Attribute)
+        return super.fromT<Attribute>(attributeAny, Attribute)
     }
 }
