@@ -108,7 +108,7 @@ export class AttributeTest extends AbstractTest {
                 expect(attribute.content).to.exist
                 expect(attribute).to.be.instanceOf(Attribute)
                 expect(attribute.content).to.be.instanceOf(GivenName)
-                expect(attribute.content?.value).to.equal("John")
+                expect(attribute.content.value).to.equal("John")
             })
 
             it("should validate attribute values from JSON", function () {
@@ -142,12 +142,13 @@ export class AttributeTest extends AbstractTest {
             })
 
             it("should allow to convert deprecated attribute values", function () {
-                const deprecatedAttribute = Attribute.from({
+                const attribute: any = {
                     name: "Person.givenName",
                     value: "Martina",
                     createdAt: { date: DateTime.utc().toString() }
-                })
+                }
 
+                const deprecatedAttribute = Attribute.from(attribute)
                 expect(deprecatedAttribute.content).instanceOf(DeprecatedAttribute)
             })
         })

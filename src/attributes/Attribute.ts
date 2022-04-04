@@ -41,27 +41,28 @@ export class Attribute extends CoreSerializable implements IAttribute {
     @validate({ nullable: true })
     public validTo?: CoreDate
 
-    private static convertDeprecatedAttribute(attribute: any): any {
+    private static convertDeprecatedAttribute(attribute: any): Attribute {
         if (!attribute.content) {
             attribute.content = {}
         }
         attribute.content["@type"] = "DeprecatedAttribute"
         attribute.content.value = attribute.value
 
-        if (attribute.tags) {
+        if (!attribute.tags) {
             attribute.tags = []
         }
         attribute.tags?.push(JSON.stringify(attribute.name))
         delete attribute.name
         delete attribute.value
+        return attribute as Attribute
     }
 
     public static from(attribute: IAttribute): Attribute {
-        let attributeAny: any = attribute
+        const attributeAny: any = attribute
         if (attributeAny.name) {
-            attributeAny = this.convertDeprecatedAttribute(attributeAny)
+            return super.fromT<Attribute>(this.convertDeprecatedAttribute(attributeAny), Attribute)
         }
 
-        return super.fromT<Attribute>(attributeAny, Attribute)
+        return super.fromT<Attribute>(attribute, Attribute)
     }
 }
