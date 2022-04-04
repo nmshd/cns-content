@@ -79,16 +79,4 @@ export class AttributesChangeRequest extends SerializableAsync implements IAttri
     public static async from(value: IAttributesChangeRequest): Promise<AttributesChangeRequest> {
         return (await super.from(value, AttributesChangeRequest)) as AttributesChangeRequest
     }
-
-    public static async fromJSON(value: AttributesChangeRequestJSON): Promise<AttributesChangeRequest> {
-        const parsedAttributes = await Promise.all(value.attributes.map((attribute) => Attribute.fromJSON(attribute)))
-        return await this.from({
-            id: value.id ? CoreId.from(value.id) : undefined,
-            attributes: parsedAttributes,
-            applyTo: value.applyTo ? CoreAddress.from(value.applyTo) : undefined,
-            expiresAt: value.expiresAt ? CoreDate.from(value.expiresAt) : undefined,
-            key: value.key,
-            reason: value.reason
-        })
-    }
 }

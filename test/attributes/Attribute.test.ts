@@ -80,12 +80,11 @@ export class AttributeTest extends AbstractTest {
                     month: { value: 2 },
                     year: { value: 2022 }
                 }
-                const birthDate = Attribute.fromJSON({
-                    "@type": "Attribute",
+                const birthDate = Attribute.from({
                     content: birthDateContent,
-                    validFrom: DateTime.utc().minus({ years: 1 }).toString(),
-                    validTo: DateTime.utc().plus({ years: 1 }).toString(),
-                    createdAt: DateTime.utc().toString()
+                    validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
+                    validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
+                    createdAt: { date: DateTime.utc().toString() }
                 })
                 expect(birthDate).to.be.instanceOf(Attribute)
                 expect(birthDate.content).to.be.instanceOf(BirthDate)
@@ -106,25 +105,24 @@ export class AttributeTest extends AbstractTest {
                     }
                 })
 
-                expect(attribute.content.value).to.equal("John")
-
+                expect(attribute.content).to.exist
                 expect(attribute).to.be.instanceOf(Attribute)
                 expect(attribute.content).to.be.instanceOf(GivenName)
+                expect(attribute.content?.value).to.equal("John")
             })
 
             it("should validate attribute values from JSON", function () {
                 expect(
-                    Attribute.fromJSON.bind(Attribute, {
-                        "@type": "Attribute",
+                    Attribute.from.bind(Attribute, {
                         content: {
                             "@type": "BirthDate",
                             day: { value: 22 },
                             month: { value: 13 },
                             year: { value: 2022 }
                         },
-                        validFrom: DateTime.utc().minus({ years: 1 }).toString(),
-                        validTo: DateTime.utc().plus({ years: 1 }).toString(),
-                        createdAt: DateTime.utc().toString()
+                        validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
+                        validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
+                        createdAt: { date: DateTime.utc().toString() }
                     })
                 ).to.throw("BirthMonth.value:Number :: has invalid value")
             })
@@ -146,10 +144,11 @@ export class AttributeTest extends AbstractTest {
             it("should allow to convert deprecated attribute values", function () {
                 const deprecatedAttribute = Attribute.from({
                     name: "Person.givenName",
-                    value: "Martina"
+                    value: "Martina",
+                    createdAt: { date: DateTime.utc().toString() }
                 })
 
-                expect(deprecatedAttribute).instanceOf(DeprecatedAttribute)
+                expect(deprecatedAttribute.content).instanceOf(DeprecatedAttribute)
             })
         })
     }
