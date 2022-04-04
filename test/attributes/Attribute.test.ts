@@ -11,7 +11,6 @@ import {
 } from "@nmshd/content"
 import { CoreDate } from "@nmshd/transport"
 import { expect } from "chai"
-import { DateTime } from "luxon"
 import { AbstractTest } from "../AbstractTest"
 
 export class AttributeTest extends AbstractTest {
@@ -26,7 +25,7 @@ export class AttributeTest extends AbstractTest {
                 }
                 const birthDate = Attribute.from({
                     content: birthDateContent,
-                    createdAt: { date: DateTime.utc().toString() }
+                    createdAt: CoreDate.utc()
                 })
                 expect(birthDate).to.be.instanceOf(Attribute)
                 expect(birthDate.content).to.be.instanceOf(BirthDate)
@@ -45,7 +44,7 @@ export class AttributeTest extends AbstractTest {
                         unit: LengthUnit.CM,
                         value: 172
                     },
-                    createdAt: { date: DateTime.utc().toString() }
+                    createdAt: CoreDate.utc()
                 })
                 expect(personHeight).to.be.instanceOf(Attribute)
                 expect(personHeight.content).to.be.instanceOf(PersonHeight)
@@ -56,7 +55,7 @@ export class AttributeTest extends AbstractTest {
                         unit: "cm",
                         value: 172
                     },
-                    createdAt: { date: DateTime.utc().toString() }
+                    createdAt: CoreDate.utc()
                 })
                 expect(personHeight).to.be.instanceOf(Attribute)
                 expect(personHeight.content).to.be.instanceOf(PersonHeight)
@@ -68,7 +67,7 @@ export class AttributeTest extends AbstractTest {
                             unit: "mm",
                             value: 1720
                         },
-                        createdAt: { date: DateTime.utc().toString() }
+                        createdAt: CoreDate.utc()
                     })
                 ).to.throw("PersonHeight.unit:String :: must be one of")
             })
@@ -82,9 +81,9 @@ export class AttributeTest extends AbstractTest {
                 }
                 const birthDate = Attribute.from({
                     content: birthDateContent,
-                    validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
-                    validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
-                    createdAt: { date: DateTime.utc().toString() }
+                    validFrom: CoreDate.utc().subtract({ years: 1 }),
+                    validTo: CoreDate.utc().add({ years: 1 }),
+                    createdAt: CoreDate.utc()
                 })
                 expect(birthDate).to.be.instanceOf(Attribute)
                 expect(birthDate.content).to.be.instanceOf(BirthDate)
@@ -120,9 +119,9 @@ export class AttributeTest extends AbstractTest {
                             month: { value: 13 },
                             year: { value: 2022 }
                         },
-                        validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
-                        validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
-                        createdAt: { date: DateTime.utc().toString() }
+                        validFrom: CoreDate.utc().subtract({ years: 1 }),
+                        validTo: CoreDate.utc().add({ years: 1 }),
+                        createdAt: CoreDate.utc()
                     })
                 ).to.throw("BirthMonth.value:Number :: has invalid value")
             })
@@ -134,9 +133,9 @@ export class AttributeTest extends AbstractTest {
                             "@type": "BirthMonth",
                             value: 13
                         },
-                        validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
-                        validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
-                        createdAt: { date: DateTime.utc().toString() }
+                        validFrom: CoreDate.utc().subtract({ years: 1 }),
+                        validTo: CoreDate.utc().add({ years: 1 }),
+                        createdAt: CoreDate.utc()
                     })
                 ).to.throw("BirthMonth.value:Number :: has invalid value")
             })
@@ -145,7 +144,7 @@ export class AttributeTest extends AbstractTest {
                 const attribute: any = {
                     name: "Person.givenName",
                     value: "Martina",
-                    createdAt: { date: DateTime.utc().toString() }
+                    createdAt: CoreDate.utc()
                 }
 
                 const deprecatedAttribute = Attribute.from(attribute)
