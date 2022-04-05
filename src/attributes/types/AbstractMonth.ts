@@ -24,6 +24,9 @@ enum Month {
  */
 export abstract class AbstractMonth extends AbstractIntegerValue {
     @serialize()
-    @validate({ customValidator: (v) => (!Month[v] || !Number.isInteger(v) ? "has invalid value" : undefined) })
+    @validate({
+        customValidator: (v) =>
+            !Month[v] || !Number.isInteger(v) ? "must be an integer value between 1 and 12" : undefined
+    })
     public value: Month
 }

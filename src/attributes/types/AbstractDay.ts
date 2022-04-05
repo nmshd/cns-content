@@ -7,7 +7,8 @@ import { AbstractIntegerValue } from "./AbstractIntegerValue"
 export abstract class AbstractDay extends AbstractIntegerValue {
     @serialize()
     @validate({
-        customValidator: (v) => (v < 1 || v > 31 || !Number.isInteger(v) ? "has invalid value" : undefined)
+        customValidator: (v) =>
+            v < 1 || v > 31 || !Number.isInteger(v) ? "must be an integer value between 1 and 31" : undefined
     })
     public value: number
 }
