@@ -1,9 +1,5 @@
-import { serialize, type, validate } from "@js-soft/ts-serval"
-import { AbstractAttributeValue } from "../../AbstractAttributeValue"
+import { type } from "@js-soft/ts-serval"
+import { AbstractStringValue } from "../AbstractStringValue"
 
 @type("ZipCode")
-export class ZipCode extends AbstractAttributeValue {
-    @serialize()
-    @validate()
-    public value: string
-}
+export class ZipCode extends AbstractStringValue {}

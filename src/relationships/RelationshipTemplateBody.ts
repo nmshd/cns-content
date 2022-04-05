@@ -1,5 +1,5 @@
 import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
-import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
+import { AttributeV2, AttributeV2JSON, IAttributeV2 } from "../attributes/AttributeV2"
 import { Authorization, AuthorizationJSON, IAuthorization } from "../authorizations/Authorization"
 import { ContentJSON } from "../ContentJSON"
 import {
@@ -18,7 +18,7 @@ export interface RelationshipTemplateBodyJSON extends ContentJSON {
     title?: string
     sessionIdentifier?: string
     metadata?: any
-    sharedAttributes?: AttributeJSON[]
+    sharedAttributes?: AttributeV2JSON[]
     sharedCertificates?: any[]
     sharedAuthorizations?: AuthorizationJSON[]
     requestedAttributesChanges?: AttributesChangeRequestJSON[]
@@ -31,7 +31,7 @@ export interface IRelationshipTemplateBody extends ISerializableAsync {
     title?: string
     sessionIdentifier?: string
     metadata?: any
-    sharedAttributes?: IAttribute[]
+    sharedAttributes?: IAttributeV2[]
     sharedCertificates?: any[]
     sharedAuthorizations?: IAuthorization[]
     requestedAttributesChanges?: IAttributesChangeRequest[]
@@ -53,9 +53,9 @@ export class RelationshipTemplateBody extends SerializableAsync implements IRela
     @validate({ nullable: true })
     public metadata?: any
 
-    @serialize({ type: Attribute })
+    @serialize({ type: AttributeV2 })
     @validate({ nullable: true })
-    public sharedAttributes?: Attribute[]
+    public sharedAttributes?: AttributeV2[]
 
     @serialize()
     @validate({ nullable: true })
@@ -65,7 +65,7 @@ export class RelationshipTemplateBody extends SerializableAsync implements IRela
     @validate({ nullable: true })
     public sharedAuthorizations?: Authorization[]
 
-    @serialize({ type: Attribute })
+    @serialize({ type: AttributeV2 })
     @validate({ nullable: true })
     public requestedAttributesChanges?: AttributesChangeRequest[]
 

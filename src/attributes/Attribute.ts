@@ -1,20 +1,17 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd/transport"
 import { ContentJSON } from "../ContentJSON"
-import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "./AbstractAttributeValue"
 
 export interface AttributeJSON extends ContentJSON {
-    content: AbstractAttributeValueJSON
-    createdAt: string
-    tags?: string[]
+    name: string
+    value: any
     validFrom?: string
     validTo?: string
 }
 
 export interface IAttribute extends ICoreSerializable {
-    content: IAbstractAttributeValue
-    createdAt: ICoreDate
-    tags?: string[] | undefined
+    name: string
+    value: any
     validFrom?: ICoreDate
     validTo?: ICoreDate
 }
@@ -23,15 +20,11 @@ export interface IAttribute extends ICoreSerializable {
 export class Attribute extends CoreSerializable implements IAttribute {
     @serialize()
     @validate()
-    public content: AbstractAttributeValue
+    public name: string
 
-    @validate()
-    @serialize()
-    public createdAt: CoreDate
-
-    @serialize({ type: String })
+    @serialize({ any: true })
     @validate({ nullable: true })
-    public tags?: string[]
+    public value: any
 
     @serialize()
     @validate({ nullable: true })
@@ -41,28 +34,29 @@ export class Attribute extends CoreSerializable implements IAttribute {
     @validate({ nullable: true })
     public validTo?: CoreDate
 
-    private static convertDeprecatedAttribute(attribute: any): Attribute {
-        if (!attribute.content) {
-            attribute.content = {}
-        }
-        attribute.content["@type"] = "DeprecatedAttribute"
-        attribute.content.value = attribute.value
-
-        if (!attribute.tags) {
-            attribute.tags = []
-        }
-        attribute.tags?.push(JSON.stringify(attribute.name))
-        delete attribute.name
-        delete attribute.value
-        return attribute as Attribute
+    public get namespace(): string | undefined {
+        if (!this.name) return undefined
+        const ar = this.name.split(".")
+        if (ar.length <= 1) return undefined
+        return ar[0]
     }
 
-    public static from(attribute: IAttribute): Attribute {
-        const attributeAny: any = attribute
-        if (attributeAny.name) {
-            return super.fromT<Attribute>(this.convertDeprecatedAttribute(attributeAny), Attribute)
-        }
+    public get attribute(): string | undefined {
+        if (!this.name) return undefined
+        const ar = this.name.split(".")
+        return ar.pop()
+    }
 
-        return super.fromT<Attribute>(attribute, Attribute)
+    public static from(value: IAttribute): Attribute {
+        return super.from(value, Attribute) as Attribute
+    }
+
+    public static fromJSON(value: AttributeJSON): Attribute {
+        return this.from({
+            name: value.name,
+            value: value.value,
+            validFrom: value.validFrom ? CoreDate.from(value.validFrom) : undefined,
+            validTo: value.validTo ? CoreDate.from(value.validTo) : undefined
+        })
     }
 }

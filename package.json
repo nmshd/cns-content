@@ -43,7 +43,7 @@
     "devDependencies": {
         "@js-soft/eslint-config-ts": "1.5.1",
         "@js-soft/license-check": "1.0.3",
-        "@js-soft/ts-serval": "1.1.1",
+        "@js-soft/ts-serval": "1.2.0",
         "@nmshd/crypto": "1.0.8",
         "@nmshd/transport": "1.2.0",
         "@types/chai": "^4.3.0",

@@ -1,6 +1,6 @@
 import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, CoreDate, CoreId, ICoreAddress, ICoreDate, ICoreId } from "@nmshd/transport"
-import { Attribute, AttributeJSON, IAttribute } from "../../attributes/Attribute"
+import { AttributeV2, AttributeV2JSON, IAttributeV2 } from "../../attributes/AttributeV2"
 import { ContentJSON } from "../../ContentJSON"
 
 export interface AttributesChangeRequestJSON extends ContentJSON {
@@ -9,7 +9,7 @@ export interface AttributesChangeRequestJSON extends ContentJSON {
     reason?: string
     expiresAt?: string
     impact?: string
-    attributes: AttributeJSON[]
+    attributes: AttributeV2JSON[]
     applyTo?: string
 }
 
@@ -42,7 +42,7 @@ export interface IAttributesChangeRequest extends ISerializable {
      */
     impact?: string
 
-    attributes: IAttribute[]
+    attributes: IAttributeV2[]
     applyTo?: ICoreAddress
 }
 
@@ -68,9 +68,9 @@ export class AttributesChangeRequest extends SerializableAsync implements IAttri
     @validate({ nullable: true })
     public impact?: string
 
-    @serialize({ type: Attribute })
+    @serialize({ type: AttributeV2 })
     @validate()
-    public attributes: Attribute[]
+    public attributes: AttributeV2[]
 
     @serialize()
     @validate({ nullable: true })

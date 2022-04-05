@@ -1,9 +1,9 @@
 import { SerializableAsync } from "@js-soft/ts-serval"
 import {
     AbstractAttributeValue,
-    Attribute,
     AttributesChangeRequest,
     AttributesShareRequest,
+    AttributeV2,
     GivenName,
     Mail,
     RequestMail,
@@ -40,8 +40,8 @@ export class RequestMailTest extends AbstractTest {
                     {
                         id: "REQ9928830039",
                         attributes: [
-                            Attribute.from({
-                                content: {
+                            AttributeV2.from({
+                                value: {
                                     "@type": "StreetAddress",
                                     recipient: "Max Mustermann",
                                     street: { value: "Hauptstraße" },
@@ -56,8 +56,8 @@ export class RequestMailTest extends AbstractTest {
                                 validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
                                 createdAt: { date: DateTime.utc().toString() }
                             }),
-                            Attribute.from({
-                                content: { "@type": "GivenName", value: "Max" },
+                            AttributeV2.from({
+                                value: { "@type": "GivenName", value: "Max" },
                                 validFrom: { date: DateTime.utc().minus({ years: 1 }).toString() },
                                 validTo: { date: DateTime.utc().plus({ years: 1 }).toString() },
                                 createdAt: { date: DateTime.utc().toString() }
@@ -99,10 +99,10 @@ export class RequestMailTest extends AbstractTest {
 
                 const receivedRequest2 = mail.requests[1] as unknown as AttributesChangeRequest
                 expect(receivedRequest2.attributes).to.be.an("Array")
-                expect(receivedRequest2.attributes[0]).to.be.instanceOf(Attribute)
-                expect(receivedRequest2.attributes[0].content).to.be.instanceOf(StreetAddress)
-                if (receivedRequest2.attributes[0].content instanceof AbstractAttributeValue) {
-                    expect(receivedRequest2.attributes[0].content.toJSON()).to.deep.equal({
+                expect(receivedRequest2.attributes[0]).to.be.instanceOf(AttributeV2)
+                expect(receivedRequest2.attributes[0].value).to.be.instanceOf(StreetAddress)
+                if (receivedRequest2.attributes[0].value instanceof AbstractAttributeValue) {
+                    expect(receivedRequest2.attributes[0].value.toJSON()).to.deep.equal({
                         "@type": "StreetAddress",
                         recipient: "Max Mustermann",
                         street: { value: "Hauptstraße" },
@@ -113,10 +113,10 @@ export class RequestMailTest extends AbstractTest {
                         state: { value: "Westatlantis" }
                     })
                 }
-                expect(receivedRequest2.attributes[1]).to.be.instanceOf(Attribute)
-                expect(receivedRequest2.attributes[1].content).to.be.instanceOf(GivenName)
-                if (receivedRequest2.attributes[1].content instanceof AbstractAttributeValue) {
-                    expect(receivedRequest2.attributes[1].content.toJSON()).to.deep.equal({
+                expect(receivedRequest2.attributes[1]).to.be.instanceOf(AttributeV2)
+                expect(receivedRequest2.attributes[1].value).to.be.instanceOf(GivenName)
+                if (receivedRequest2.attributes[1].value instanceof AbstractAttributeValue) {
+                    expect(receivedRequest2.attributes[1].value.toJSON()).to.deep.equal({
                         "@type": "GivenName",
                         value: "Max"
                     })

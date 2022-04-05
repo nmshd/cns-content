@@ -1,13 +1,18 @@
 import {
     Attribute,
+    AttributeV2,
     BirthDate,
     BirthDay,
     BirthMonth,
+    BirthPlace,
     BirthYear,
-    DeprecatedAttribute,
     GivenName,
+    IDCardDE,
+    IDCardIssuingDate,
+    LegalNameDE,
     LengthUnit,
-    PersonHeight
+    PersonHeight,
+    StreetAddress
 } from "@nmshd/content"
 import { CoreDate } from "@nmshd/transport"
 import { expect } from "chai"
@@ -15,7 +20,7 @@ import { AbstractTest } from "../AbstractTest"
 
 export class AttributeTest extends AbstractTest {
     public run(): void {
-        describe("Attribute", function () {
+        describe("AttributeV2", function () {
             it("should allow to create new attributes from objects", function () {
                 const birthDateContent = {
                     "@type": "BirthDate",
@@ -23,46 +28,46 @@ export class AttributeTest extends AbstractTest {
                     month: { value: 2 },
                     year: { value: 2022 }
                 }
-                const birthDate = Attribute.from({
-                    content: birthDateContent,
+                const birthDate = AttributeV2.from({
+                    value: birthDateContent,
                     createdAt: CoreDate.utc()
                 })
-                expect(birthDate).to.be.instanceOf(Attribute)
-                expect(birthDate.content).to.be.instanceOf(BirthDate)
-                if (birthDate.content instanceof BirthDate) {
-                    expect(birthDate.content.toJSON()).to.deep.equal(birthDateContent)
-                    expect(birthDate.content.day).to.be.instanceOf(BirthDay)
-                    expect(birthDate.content.month).to.be.instanceOf(BirthMonth)
-                    expect(birthDate.content.year).to.be.instanceOf(BirthYear)
+                expect(birthDate).to.be.instanceOf(AttributeV2)
+                expect(birthDate.value).to.be.instanceOf(BirthDate)
+                if (birthDate.value instanceof BirthDate) {
+                    expect(birthDate.value.toJSON()).to.deep.equal(birthDateContent)
+                    expect(birthDate.value.day).to.be.instanceOf(BirthDay)
+                    expect(birthDate.value.month).to.be.instanceOf(BirthMonth)
+                    expect(birthDate.value.year).to.be.instanceOf(BirthYear)
                 }
             })
 
             it("should allow to validate string values", function () {
-                let personHeight = Attribute.from({
-                    content: {
+                let personHeight = AttributeV2.from({
+                    value: {
                         "@type": "PersonHeight",
                         unit: LengthUnit.CM,
                         value: 172
                     },
                     createdAt: CoreDate.utc()
                 })
-                expect(personHeight).to.be.instanceOf(Attribute)
-                expect(personHeight.content).to.be.instanceOf(PersonHeight)
+                expect(personHeight).to.be.instanceOf(AttributeV2)
+                expect(personHeight.value).to.be.instanceOf(PersonHeight)
 
-                personHeight = Attribute.from({
-                    content: {
+                personHeight = AttributeV2.from({
+                    value: {
                         "@type": "PersonHeight",
                         unit: "cm",
                         value: 172
                     },
                     createdAt: CoreDate.utc()
                 })
-                expect(personHeight).to.be.instanceOf(Attribute)
-                expect(personHeight.content).to.be.instanceOf(PersonHeight)
+                expect(personHeight).to.be.instanceOf(AttributeV2)
+                expect(personHeight.value).to.be.instanceOf(PersonHeight)
 
                 expect(() =>
-                    Attribute.from({
-                        content: {
+                    AttributeV2.from({
+                        value: {
                             "@type": "PersonHeight",
                             unit: "mm",
                             value: 1720
@@ -79,41 +84,41 @@ export class AttributeTest extends AbstractTest {
                     month: { value: 2 },
                     year: { value: 2022 }
                 }
-                const birthDate = Attribute.from({
-                    content: birthDateContent,
+                const birthDate = AttributeV2.from({
+                    value: birthDateContent,
                     validFrom: CoreDate.utc().subtract({ years: 1 }),
                     validTo: CoreDate.utc().add({ years: 1 }),
                     createdAt: CoreDate.utc()
                 })
-                expect(birthDate).to.be.instanceOf(Attribute)
-                expect(birthDate.content).to.be.instanceOf(BirthDate)
-                if (birthDate.content instanceof BirthDate) {
-                    expect(birthDate.content.toJSON()).to.deep.equal(birthDateContent)
-                    expect(birthDate.content.day).to.be.instanceOf(BirthDay)
-                    expect(birthDate.content.month).to.be.instanceOf(BirthMonth)
-                    expect(birthDate.content.year).to.be.instanceOf(BirthYear)
+                expect(birthDate).to.be.instanceOf(AttributeV2)
+                expect(birthDate.value).to.be.instanceOf(BirthDate)
+                if (birthDate.value instanceof BirthDate) {
+                    expect(birthDate.value.toJSON()).to.deep.equal(birthDateContent)
+                    expect(birthDate.value.day).to.be.instanceOf(BirthDay)
+                    expect(birthDate.value.month).to.be.instanceOf(BirthMonth)
+                    expect(birthDate.value.year).to.be.instanceOf(BirthYear)
                 }
             })
 
             it("should deserialize content", function () {
-                const attribute = Attribute.from({
+                const attribute = AttributeV2.from({
                     createdAt: CoreDate.utc(),
-                    content: {
+                    value: {
                         "@type": "GivenName",
                         value: "John"
                     }
                 })
 
-                expect(attribute.content).to.exist
-                expect(attribute).to.be.instanceOf(Attribute)
-                expect(attribute.content).to.be.instanceOf(GivenName)
-                expect(attribute.content.value).to.equal("John")
+                expect(attribute.value).to.exist
+                expect(attribute).to.be.instanceOf(AttributeV2)
+                expect(attribute.value).to.be.instanceOf(GivenName)
+                expect(attribute.value.value).to.equal("John")
             })
 
             it("should validate attribute values from JSON", function () {
                 expect(
-                    Attribute.from.bind(Attribute, {
-                        content: {
+                    AttributeV2.from.bind(AttributeV2, {
+                        value: {
                             "@type": "BirthDate",
                             day: { value: 22 },
                             month: { value: 13 },
@@ -128,8 +133,8 @@ export class AttributeTest extends AbstractTest {
 
             it("should validate attribute values from objects", function () {
                 expect(
-                    Attribute.from.bind(Attribute, {
-                        content: {
+                    AttributeV2.from.bind(AttributeV2, {
+                        value: {
                             "@type": "BirthMonth",
                             value: 13
                         },
@@ -140,15 +145,68 @@ export class AttributeTest extends AbstractTest {
                 ).to.throw("BirthMonth.value:Number :: has invalid value")
             })
 
-            it("should allow to convert deprecated attribute values", function () {
-                const attribute: any = {
-                    name: "Person.givenName",
-                    value: "Martina",
-                    createdAt: CoreDate.utc()
+            it("should allow the creation of nested attributes", function () {
+                const legalNameValue = {
+                    "@type": "LegalNameDE",
+                    surname: { value: "Mustermann" },
+                    givenNames: [{ value: "Max" }]
                 }
+                const birthDateValue = {
+                    "@type": "BirthDate",
+                    day: { value: 11 },
+                    month: { value: 1 },
+                    year: { value: 1999 }
+                }
+                const birthPlaceValue = {
+                    "@type": "BirthPlace",
+                    city: { value: "Hauptstadt" },
+                    country: { value: "Deutschland" }
+                }
+                const addressValue = {
+                    "@type": "StreetAddress",
+                    recipient: "Max Mustermann",
+                    street: { value: "Hauptstraße" },
+                    houseNo: { value: "1" },
+                    zipCode: { value: "123456" },
+                    city: { value: "Hauptstadt" },
+                    country: { value: "Atlantis" },
+                    state: { value: "Westatlantis" }
+                }
+                const issuingDateValue = {
+                    "@type": "IDCardIssuingDate",
+                    day: { value: 22 },
+                    month: { value: 2 },
+                    year: { value: 2022 }
+                }
+                const idCardValue = {
+                    "@type": "IDCardDE",
+                    legalName: legalNameValue,
+                    birthDate: birthDateValue,
+                    birthPlace: birthPlaceValue,
+                    address: addressValue,
+                    issuingDate: issuingDateValue
+                }
+                const idCard = AttributeV2.from({
+                    value: idCardValue,
+                    validFrom: CoreDate.utc().subtract({ years: 1 }),
+                    validTo: CoreDate.utc().add({ years: 1 }),
+                    createdAt: CoreDate.utc()
+                })
+                expect(idCard.value).to.be.instanceOf(IDCardDE)
+                expect(idCard.value.legalName).to.be.instanceOf(LegalNameDE)
+                expect(idCard.value.birthDate).to.be.instanceOf(BirthDate)
+                expect(idCard.value.birthPlace).to.be.instanceOf(BirthPlace)
+                expect(idCard.value.address).to.be.instanceOf(StreetAddress)
+                expect(idCard.value.issuingDate).to.be.instanceOf(IDCardIssuingDate)
+            })
 
-                const deprecatedAttribute = Attribute.from(attribute)
-                expect(deprecatedAttribute.content).instanceOf(DeprecatedAttribute)
+            it("should be able to deal with deprecated attributes", function () {
+                const attribute = Attribute.from({
+                    name: "deprecatedAttributeName",
+                    value: "someStringValue"
+                })
+
+                expect(attribute).to.be.instanceOf(Attribute)
             })
         })
     }
