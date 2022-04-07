@@ -41,7 +41,7 @@ export class AttributeV2 extends CoreSerializable implements IAttributeV2 {
     @validate({ nullable: true })
     public validTo?: CoreDate
 
-    public static from(attribute: IAttributeV2): AttributeV2 {
+    public static from(attribute: IAttributeV2 | AttributeV2JSON): AttributeV2 {
         return super.fromT<AttributeV2>(attribute, AttributeV2)
     }
 }
