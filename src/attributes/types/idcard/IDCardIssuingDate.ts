@@ -1,20 +1,5 @@
-import { serialize, type, validate } from "@js-soft/ts-serval"
-import { AbstractAttributeValue } from "../../AbstractAttributeValue"
-import { IssuingDay } from "../times"
-import { IssuingMonth } from "../times/IssuingMonth"
-import { IssuingYear } from "../times/IssuingYear"
+import { type } from "@js-soft/ts-serval"
+import { AbstractDateString } from "../AbstractDateString"
 
 @type("IDCardIssuingDate")
-export class IDCardIssuingDate extends AbstractAttributeValue {
-    @serialize()
-    @validate()
-    public day: IssuingDay
-
-    @serialize()
-    @validate()
-    public month: IssuingMonth
-
-    @serialize()
-    @validate()
-    public year: IssuingYear
-}
+export class IDCardIssuingDate extends AbstractDateString {}
