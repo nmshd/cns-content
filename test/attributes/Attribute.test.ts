@@ -128,7 +128,7 @@ export class AttributeTest extends AbstractTest {
                         validTo: CoreDate.utc().add({ years: 1 }),
                         createdAt: CoreDate.utc()
                     })
-                ).to.throw("BirthMonth.value:Number :: has invalid value")
+                ).to.throw("BirthMonth.value:Number :: must be an integer value between 1 and 12")
             })
 
             it("should validate attribute values from objects", function () {
@@ -142,7 +142,7 @@ export class AttributeTest extends AbstractTest {
                         validTo: CoreDate.utc().add({ years: 1 }),
                         createdAt: CoreDate.utc()
                     })
-                ).to.throw("BirthMonth.value:Number :: has invalid value")
+                ).to.throw("BirthMonth.value:Number :: must be an integer value between 1 and 12")
             })
 
             it("should allow the creation of nested attributes", function () {
