@@ -3,10 +3,13 @@ import { DateTime } from "luxon"
 import { AbstractAttributeValue } from "../AbstractAttributeValue"
 
 export abstract class AbstractDateString extends AbstractAttributeValue {
+    private static readonly format = "yyyy-MM-dd"
     @serialize()
     @validate({
         customValidator: (v) =>
-            !DateTime.fromFormat(v, "yyyy-MM-dd").isValid ? "must match the following format: 'yyyy-MM-dd'" : undefined
+            !DateTime.fromFormat(v, AbstractDateString.format).isValid
+                ? `must match the following format: '${AbstractDateString.format}'`
+                : undefined
     })
     public value: string
 }

@@ -26,7 +26,9 @@ export abstract class AbstractMonth extends AbstractIntegerValue {
     @serialize()
     @validate({
         customValidator: (v) =>
-            !Month[v] || !Number.isInteger(v) ? "must be an integer value between 1 and 12" : undefined
+            !Month[v] || !Number.isInteger(v)
+                ? `must be an integer value between ${Month.January} and ${Month.December}`
+                : undefined
     })
     public value: Month
 }
