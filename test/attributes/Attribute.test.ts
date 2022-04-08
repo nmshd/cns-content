@@ -174,9 +174,7 @@ export class AttributeTest extends AbstractTest {
                 }
                 const issuingDateValue = {
                     "@type": "IDCardIssuingDate",
-                    day: { value: 22 },
-                    month: { value: 2 },
-                    year: { value: 2022 }
+                    value: "2022-02-22"
                 }
                 const idCardValue = {
                     "@type": "IDCardDE",

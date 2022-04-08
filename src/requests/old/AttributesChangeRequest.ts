@@ -1,6 +1,6 @@
 import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, CoreDate, CoreId, ICoreAddress, ICoreDate, ICoreId } from "@nmshd/transport"
-import { AttributeV2, AttributeV2JSON, IAttributeV2 } from "../../attributes/AttributeV2"
+import { Attribute, AttributeJSON, IAttribute } from "../../attributes/Attribute"
 import { ContentJSON } from "../../ContentJSON"
 
 export interface AttributesChangeRequestJSON extends ContentJSON {
@@ -9,7 +9,7 @@ export interface AttributesChangeRequestJSON extends ContentJSON {
     reason?: string
     expiresAt?: string
     impact?: string
-    attributes: AttributeV2JSON[]
+    attributes: AttributeJSON[]
     applyTo?: string
 }
 
@@ -42,7 +42,7 @@ export interface IAttributesChangeRequest extends ISerializable {
      */
     impact?: string
 
-    attributes: IAttributeV2[]
+    attributes: IAttribute[]
     applyTo?: ICoreAddress
 }
 
@@ -68,9 +68,9 @@ export class AttributesChangeRequest extends SerializableAsync implements IAttri
     @validate({ nullable: true })
     public impact?: string
 
-    @serialize({ type: AttributeV2 })
+    @serialize({ type: Attribute })
     @validate()
-    public attributes: AttributeV2[]
+    public attributes: Attribute[]
 
     @serialize()
     @validate({ nullable: true })
@@ -78,5 +78,17 @@ export class AttributesChangeRequest extends SerializableAsync implements IAttri
 
     public static async from(value: IAttributesChangeRequest): Promise<AttributesChangeRequest> {
         return (await super.from(value, AttributesChangeRequest)) as AttributesChangeRequest
+    }
+
+    public static async fromJSON(value: AttributesChangeRequestJSON): Promise<AttributesChangeRequest> {
+        const parsedAttributes = await Promise.all(value.attributes.map((attribute) => Attribute.fromJSON(attribute)))
+        return await this.from({
+            id: value.id ? CoreId.from(value.id) : undefined,
+            attributes: parsedAttributes,
+            applyTo: value.applyTo ? CoreAddress.from(value.applyTo) : undefined,
+            expiresAt: value.expiresAt ? CoreDate.from(value.expiresAt) : undefined,
+            key: value.key,
+            reason: value.reason
+        })
     }
 }
