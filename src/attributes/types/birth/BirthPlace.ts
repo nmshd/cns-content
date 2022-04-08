@@ -11,10 +11,10 @@ export class BirthPlace extends AbstractAttributeValue {
     public city: BirthCity
 
     @serialize()
-    @validate()
+    @validate({ nullable: true })
     public country?: BirthCountry
 
     @serialize()
-    @validate()
+    @validate({ nullable: true })
     public state?: BirthState
 }

@@ -1,4 +1,5 @@
 export interface ContentJSON {
     "@type": string
-    "@schema"?: string
+    "@context"?: string
+    "@version"?: string
 }

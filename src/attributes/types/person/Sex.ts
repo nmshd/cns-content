@@ -4,9 +4,17 @@ import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 /**
  * Biologisches Geschlecht
  */
+export enum BiolSex {
+    M = "male",
+    F = "female",
+    X = "diverse"
+}
 @type("Sex")
 export class Sex extends AbstractAttributeValue {
     @serialize()
-    @validate()
-    public value: string
+    @validate({
+        customValidator: (v) =>
+            !Object.values(BiolSex).includes(v) ? `must be one of: ${Object.values(BiolSex)}` : undefined
+    })
+    public value: BiolSex
 }

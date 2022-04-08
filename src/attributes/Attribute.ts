@@ -1,37 +1,30 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd/transport"
 import { ContentJSON } from "../ContentJSON"
-import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "./AbstractAttributeValue"
 
 export interface AttributeJSON extends ContentJSON {
-    content: AbstractAttributeValueJSON
-    createdAt: string
-    tags?: string[]
+    name: string
+    value: any
     validFrom?: string
     validTo?: string
 }
 
 export interface IAttribute extends ICoreSerializable {
-    content: IAbstractAttributeValue
-    createdAt: ICoreDate
-    tags?: string[] | undefined
+    name: string
+    value: any
     validFrom?: ICoreDate
     validTo?: ICoreDate
 }
 
 @type("Attribute")
 export class Attribute extends CoreSerializable implements IAttribute {
-    @validate()
     @serialize()
-    public content: AbstractAttributeValue
-
     @validate()
-    @serialize()
-    public createdAt: CoreDate
+    public name: string
 
-    @serialize({ type: String })
+    @serialize({ any: true })
     @validate({ nullable: true })
-    public tags?: string[]
+    public value: any
 
     @serialize()
     @validate({ nullable: true })
@@ -41,11 +34,29 @@ export class Attribute extends CoreSerializable implements IAttribute {
     @validate({ nullable: true })
     public validTo?: CoreDate
 
-    public static from(value: IAttribute): Attribute {
-        return super.fromT<Attribute>(value, Attribute)
+    public get namespace(): string | undefined {
+        if (!this.name) return undefined
+        const ar = this.name.split(".")
+        if (ar.length <= 1) return undefined
+        return ar[0]
     }
 
-    public static fromJSON(attribute: AttributeJSON): Attribute {
-        return super.fromT<Attribute>(attribute, Attribute)
+    public get attribute(): string | undefined {
+        if (!this.name) return undefined
+        const ar = this.name.split(".")
+        return ar.pop()
+    }
+
+    public static from(value: IAttribute): Attribute {
+        return super.from(value, Attribute) as Attribute
+    }
+
+    public static fromJSON(value: AttributeJSON): Attribute {
+        return this.from({
+            name: value.name,
+            value: value.value,
+            validFrom: value.validFrom ? CoreDate.from(value.validFrom) : undefined,
+            validTo: value.validTo ? CoreDate.from(value.validTo) : undefined
+        })
     }
 }
