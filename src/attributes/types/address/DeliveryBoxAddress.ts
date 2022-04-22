@@ -1,4 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import { Phone } from "../communication"
 import { AbstractAddress } from "./AbstractAddress"
 import { City } from "./City"
 import { Country } from "./Country"
@@ -14,6 +15,10 @@ export class DeliveryBoxAddress extends AbstractAddress {
     @serialize()
     @validate()
     public deliveryBoxId: string
+
+    @serialize()
+    @validate({ nullable: true })
+    public phoneNumber?: Phone
 
     @serialize()
     @validate()
