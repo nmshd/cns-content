@@ -1,5 +1,6 @@
 export * from "./AbstractAttributeValue"
 export * from "./Attribute"
 export * from "./AttributeQuery"
-export * from "./AttributeV2"
+export * from "./IdentityAttribute"
+export * from "./RelationshipAttribute"
 export * from "./types"
