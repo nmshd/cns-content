@@ -1,5 +1,10 @@
 import { serialize, validate } from "@js-soft/ts-serval"
-import { AbstractAttributeValue } from "../../AbstractAttributeValue"
+import { AbstractAttributeValue, AbstractAttributeValueJSON } from "../../AbstractAttributeValue"
+
+export interface AbstractMeasurementValueJSON extends AbstractAttributeValueJSON {
+    unit: string
+    value: number
+}
 
 /**
  * valid unit strings must be defined in the classes extending AbstractMeasurement as enum
