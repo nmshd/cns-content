@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractDateString } from "../AbstractDateString"
+import { AbstractDateStringValue } from "../dates/AbstractDateString"
 
 @type("IDCardIssuingDate")
-export class IDCardIssuingDate extends AbstractDateString {}
+export class IDCardIssuingDate extends AbstractDateStringValue {}
