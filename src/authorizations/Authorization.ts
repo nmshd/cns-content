@@ -21,6 +21,6 @@ export class Authorization extends Serializable implements IAuthorization {
     public value: string
 
     public static from(value: IAuthorization): Authorization {
-        return super.from(value, Authorization) as Authorization
+        return this.fromAny(value)
     }
 }

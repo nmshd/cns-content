@@ -25,6 +25,6 @@ export class AttributeQuery extends CoreSerializable implements IAttributeQuery 
     public tags?: string[]
 
     public static from(value: IAttributeQuery): AttributeQuery {
-        return super.fromT<AttributeQuery>(value, AttributeQuery)
+        return this.fromAny(value)
     }
 }

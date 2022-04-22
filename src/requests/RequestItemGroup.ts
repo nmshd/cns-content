@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
 import { IRequestItem, RequestItem, RequestItemJSON } from "./RequestItem"
 
@@ -53,7 +53,7 @@ export interface RequestItemGroupJSON extends ContentJSON {
  *   reject the first item, while accepting the second one.
  * * visually group items on the UI and give the a common title/description
  */
-export interface IRequestItemGroup extends ISerializableAsync {
+export interface IRequestItemGroup extends ISerializable {
     /**
      * The human-readable title of this group.
      */
@@ -85,7 +85,7 @@ export interface IRequestItemGroup extends ISerializableAsync {
 }
 
 @type("RequestItemGroup")
-export class RequestItemGroup extends SerializableAsync {
+export class RequestItemGroup extends Serializable {
     @serialize()
     @validate({ nullable: true })
     public title?: string
@@ -106,7 +106,7 @@ export class RequestItemGroup extends SerializableAsync {
     @validate({ nullable: true })
     public responseMetadata?: object
 
-    public static async from(value: IRequestItemGroup | RequestItemGroupJSON): Promise<RequestItemGroup> {
-        return await super.fromT(value, RequestItemGroup)
+    public static from(value: IRequestItemGroup | RequestItemGroupJSON): RequestItemGroup {
+        return this.fromAny(value)
     }
 }

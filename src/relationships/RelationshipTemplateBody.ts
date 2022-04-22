@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
 import { Authorization, AuthorizationJSON, IAuthorization } from "../authorizations/Authorization"
 import { ContentJSON } from "../ContentJSON"
@@ -27,7 +27,7 @@ export interface RelationshipTemplateBodyJSON extends ContentJSON {
     relationshipExistsAction?: RelationshipExistsActionJSON
 }
 
-export interface IRelationshipTemplateBody extends ISerializableAsync {
+export interface IRelationshipTemplateBody extends ISerializable {
     title?: string
     sessionIdentifier?: string
     metadata?: any
@@ -40,7 +40,7 @@ export interface IRelationshipTemplateBody extends ISerializableAsync {
 }
 
 @type("RelationshipTemplateBody")
-export class RelationshipTemplateBody extends SerializableAsync implements IRelationshipTemplateBody {
+export class RelationshipTemplateBody extends Serializable implements IRelationshipTemplateBody {
     @serialize()
     @validate({ nullable: true })
     public title?: string
@@ -77,7 +77,7 @@ export class RelationshipTemplateBody extends SerializableAsync implements IRela
     @validate({ nullable: true })
     public relationshipExistsAction?: RelationshipExistsAction
 
-    public static async from(value: IRelationshipTemplateBody): Promise<RelationshipTemplateBody> {
-        return (await super.from(value, RelationshipTemplateBody)) as RelationshipTemplateBody
+    public static from(value: IRelationshipTemplateBody): RelationshipTemplateBody {
+        return this.fromAny(value)
     }
 }

@@ -1,4 +1,4 @@
-import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, CoreDate, CoreId, ICoreAddress, ICoreDate, ICoreId } from "@nmshd/transport"
 import { Attribute, AttributeJSON, IAttribute } from "../../attributes/Attribute"
 import { ContentJSON } from "../../ContentJSON"
@@ -47,7 +47,7 @@ export interface IAttributesChangeRequest extends ISerializable {
 }
 
 @type("AttributesChangeRequest")
-export class AttributesChangeRequest extends SerializableAsync implements IAttributesChangeRequest {
+export class AttributesChangeRequest extends Serializable implements IAttributesChangeRequest {
     @serialize()
     @validate({ nullable: true })
     public id?: CoreId
@@ -76,13 +76,13 @@ export class AttributesChangeRequest extends SerializableAsync implements IAttri
     @validate({ nullable: true })
     public applyTo?: CoreAddress
 
-    public static async from(value: IAttributesChangeRequest): Promise<AttributesChangeRequest> {
-        return (await super.from(value, AttributesChangeRequest)) as AttributesChangeRequest
+    public static from(value: IAttributesChangeRequest): AttributesChangeRequest {
+        return this.fromAny(value)
     }
 
-    public static async fromJSON(value: AttributesChangeRequestJSON): Promise<AttributesChangeRequest> {
-        const parsedAttributes = await Promise.all(value.attributes.map((attribute) => Attribute.fromJSON(attribute)))
-        return await this.from({
+    public static fromJSON(value: AttributesChangeRequestJSON): AttributesChangeRequest {
+        const parsedAttributes = value.attributes.map((attribute) => Attribute.fromJSON(attribute))
+        return this.from({
             id: value.id ? CoreId.from(value.id) : undefined,
             attributes: parsedAttributes,
             applyTo: value.applyTo ? CoreAddress.from(value.applyTo) : undefined,

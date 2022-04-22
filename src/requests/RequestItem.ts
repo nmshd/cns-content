@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
 
 export interface RequestItemJSON extends ContentJSON {
@@ -32,7 +32,7 @@ export interface RequestItemJSON extends ContentJSON {
     mustBeAccepted: boolean
 }
 
-export interface IRequestItem extends ISerializableAsync {
+export interface IRequestItem extends ISerializable {
     /**
      * The human-readable title of this item.
      */
@@ -63,7 +63,7 @@ export interface IRequestItem extends ISerializableAsync {
     mustBeAccepted: boolean
 }
 
-export abstract class RequestItem extends SerializableAsync {
+export abstract class RequestItem extends Serializable {
     @serialize()
     @validate({ nullable: true })
     public title?: string
