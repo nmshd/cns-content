@@ -36,7 +36,7 @@ export class RequestMail extends Mail {
                 case "AttributesChangeRequest":
                     return AttributesChangeRequest.fromAny(request)
                 case "AttributesShareRequest":
-                    AttributesShareRequest.fromAny(request)
+                    return AttributesShareRequest.fromAny(request)
                 default:
                     throw new Error(`Unknown request type: ${request["@type"]}`)
             }
