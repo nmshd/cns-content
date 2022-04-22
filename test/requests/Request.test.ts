@@ -1,4 +1,4 @@
-import { SerializableAsync, type } from "@js-soft/ts-serval"
+import { Serializable, type } from "@js-soft/ts-serval"
 import {
     IRequest,
     IRequestItem,
@@ -25,7 +25,7 @@ class TestRequestItem extends RequestItem {}
 export class RequestTest extends AbstractTest {
     public run(): void {
         describe("Request", function () {
-            it("creates a Request and items from JSON", async function () {
+            it("creates a Request and items from JSON", function () {
                 const requestJSON = {
                     "@type": "Request",
                     "@version": "2",
@@ -47,7 +47,7 @@ export class RequestTest extends AbstractTest {
                     ]
                 } as RequestJSON
 
-                const request = await Request.from(requestJSON)
+                const request = Request.from(requestJSON)
 
                 expect(request).to.be.instanceOf(Request)
                 expect(request.items).to.have.lengthOf(2)
@@ -84,7 +84,7 @@ export class RequestTest extends AbstractTest {
                 } as IRequest
 
                 // const request = (await SerializableAsync.fromUnknown(requestInterface)) as Request
-                const request = await Request.from(requestInterface)
+                const request = Request.from(requestInterface)
 
                 expect(request).to.be.instanceOf(Request)
                 expect(request.items).to.have.lengthOf(2)
@@ -97,7 +97,7 @@ export class RequestTest extends AbstractTest {
                 expect(requestItemGroup.items).to.have.lengthOf(1)
             })
 
-            it("keeps all properties during serialization and deserialization", async function () {
+            it("keeps all properties during serialization and deserialization", function () {
                 const requestJSON = {
                     "@type": "Request",
                     id: "CNSREQ1",
@@ -135,7 +135,7 @@ export class RequestTest extends AbstractTest {
                     ]
                 } as RequestJSON
 
-                const request = await Request.from(requestJSON)
+                const request = Request.from(requestJSON)
 
                 const serializedRequest = request.toJSON()
 
@@ -148,7 +148,7 @@ export class RequestTest extends AbstractTest {
                     items: []
                 } as RequestJSON
 
-                await expectThrowsAsync(async () => await Request.from(requestJSON), "*Request.items*may not be empty")
+                await expectThrowsAsync(() => Request.from(requestJSON), "*Request.items*may not be empty")
             })
 
             it("groups must have at least one item", async function () {
@@ -165,10 +165,7 @@ export class RequestTest extends AbstractTest {
                     ]
                 } as RequestJSON
 
-                await expectThrowsAsync(
-                    async () => await Request.from(requestJSON),
-                    "*RequestItemGroup.items*may not be empty*"
-                )
+                await expectThrowsAsync(() => Request.from(requestJSON), "*RequestItemGroup.items*may not be empty*")
             })
 
             it("mustBeAccepted is mandatory", async function () {
@@ -182,7 +179,7 @@ export class RequestTest extends AbstractTest {
                 } as RequestJSON
 
                 await expectThrowsAsync(
-                    async () => await SerializableAsync.from(requestJSON),
+                    () => Serializable.fromUnknown(requestJSON),
                     "TestRequestItem.mustBeAccepted*Value is not defined"
                 )
             })

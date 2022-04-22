@@ -13,7 +13,7 @@ export class RequestMailTest extends AbstractTest {
             this.timeout(150000)
 
             it("should create a correct object", async function () {
-                const m = await Mail.from({
+                const m = Mail.from({
                     to: [to],
                     subject: "Some Request Mail",
                     body: "Please approve following requests"
@@ -21,33 +21,30 @@ export class RequestMailTest extends AbstractTest {
                 expect(m).to.be.instanceOf(SerializableAsync)
                 expect(m).to.be.instanceOf(Mail)
                 const content = m.toJSON() as any
-                const request = await AttributesShareRequest.from({
+                const request = AttributesShareRequest.from({
                     id: await CoreId.generate("REQ"),
                     attributes: ["Person.familyName", "Person.givenName"],
                     recipients: [from]
                 })
-                const changeAttributes = await AttributesChangeRequest.fromT(
-                    {
-                        id: "REQ9928830039",
-                        attributes: [
-                            Attribute.from({
-                                name: "dc.languageAssessmentDe",
-                                value: JSON.stringify({
-                                    value: "B1",
-                                    source: "g.a.s.t."
-                                })
-                            }),
-                            Attribute.from({
-                                name: "Person.givenName",
-                                value: "someGivenName"
+                const changeAttributes = AttributesChangeRequest.fromAny({
+                    id: "REQ9928830039",
+                    attributes: [
+                        Attribute.from({
+                            name: "dc.languageAssessmentDe",
+                            value: JSON.stringify({
+                                value: "B1",
+                                source: "g.a.s.t."
                             })
-                        ]
-                    },
-                    AttributesChangeRequest
-                )
+                        }),
+                        Attribute.from({
+                            name: "Person.givenName",
+                            value: "someGivenName"
+                        })
+                    ]
+                })
                 content.requests = [request.toJSON(), changeAttributes.toJSON()]
 
-                const mail = await RequestMail.from({
+                const mail = RequestMail.from({
                     to: [to],
                     subject: "Some Request Mail",
                     body: "Please approve following requests",

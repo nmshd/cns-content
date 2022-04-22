@@ -32,15 +32,15 @@ class TestAcceptResponseItem extends AcceptResponseItem implements ITestAcceptRe
     @validate()
     public test: string
 
-    public static async from(value: ITestAcceptResponseItem): Promise<TestAcceptResponseItem> {
-        return await super.fromT(value, TestAcceptResponseItem)
+    public static from(value: ITestAcceptResponseItem): TestAcceptResponseItem {
+        return this.fromAny(value)
     }
 }
 
 export class ResponseTest extends AbstractTest {
     public run(): void {
         describe("Response", function () {
-            it("creates a Response and items from JSON", async function () {
+            it("creates a Response and items from JSON", function () {
                 const responseJSON = {
                     "@type": "Response",
                     result: ResponseResult.Accepted,
@@ -62,7 +62,7 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as ResponseJSON
 
-                const response = await Response.from(responseJSON)
+                const response = Response.from(responseJSON)
 
                 expect(response).to.be.instanceOf(Response)
                 expect(response.items).to.have.lengthOf(2)
@@ -98,7 +98,7 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as IResponse
 
-                const response = await Response.from(responseInterface)
+                const response = Response.from(responseInterface)
 
                 expect(response).to.be.instanceOf(Response)
                 expect(response.items).to.have.lengthOf(2)
@@ -112,7 +112,7 @@ export class ResponseTest extends AbstractTest {
                 expect(responseItemGroup.items).to.have.lengthOf(1)
             })
 
-            it("keeps all properties during serialization and deserialization", async function () {
+            it("keeps all properties during serialization and deserialization", function () {
                 const responseJSON = {
                     "@type": "Response",
                     result: ResponseResult.Accepted,
@@ -147,7 +147,7 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as ResponseJSON
 
-                const response = await Response.from(responseJSON)
+                const response = Response.from(responseJSON)
 
                 const serializedRequest = response.toJSON()
 
@@ -162,10 +162,7 @@ export class ResponseTest extends AbstractTest {
                     items: []
                 } as ResponseJSON
 
-                await expectThrowsAsync(
-                    async () => await Response.from(responseJSON),
-                    "*Response.items*may not be empty*"
-                )
+                await expectThrowsAsync(() => Response.from(responseJSON), "*Response.items*may not be empty*")
             })
 
             it("groups must have at least one item", async function () {
@@ -181,13 +178,10 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as ResponseJSON
 
-                await expectThrowsAsync(
-                    async () => await Response.from(responseJSON),
-                    "*ResponseItemGroup.items*may not be empty*"
-                )
+                await expectThrowsAsync(() => Response.from(responseJSON), "*ResponseItemGroup.items*may not be empty*")
             })
 
-            it("allows an inherited AcceptResponseItem in the items", async function () {
+            it("allows an inherited AcceptResponseItem in the items", function () {
                 const responseJSON = {
                     "@type": "Response",
                     result: ResponseResult.Accepted,
@@ -201,7 +195,7 @@ export class ResponseTest extends AbstractTest {
                     ]
                 } as ResponseJSON
 
-                const response = await Response.from(responseJSON)
+                const response = Response.from(responseJSON)
 
                 expect(response).to.be.instanceOf(Response)
                 expect(response.items).to.have.lengthOf(1)
@@ -228,7 +222,7 @@ export class ResponseTest extends AbstractTest {
                     } as ResponseJSON
 
                     await expectThrowsAsync(
-                        async () => await Response.from(responseJSON),
+                        () => Response.from(responseJSON),
                         "*Response.requestId*Value is not defined*"
                     )
                 })
@@ -246,7 +240,7 @@ export class ResponseTest extends AbstractTest {
                     } as ResponseJSON
 
                     await expectThrowsAsync(
-                        async () => await Response.from(responseJSON),
+                        () => Response.from(responseJSON),
                         "*ResponseItem.result*Value is not defined*"
                     )
                 })
@@ -266,7 +260,7 @@ export class ResponseTest extends AbstractTest {
                     } as ResponseJSON
 
                     await expectThrowsAsync(
-                        async () => await Response.from(jsonWithMissingErrorCode),
+                        () => Response.from(jsonWithMissingErrorCode),
                         "*ErrorResponseItem.code*Value is not defined*"
                     )
                 })
@@ -286,7 +280,7 @@ export class ResponseTest extends AbstractTest {
                     }
 
                     await expectThrowsAsync(
-                        async () => await Response.from(jsonWithMissingErrorCode),
+                        () => Response.from(jsonWithMissingErrorCode),
                         "*ErrorResponseItem.message*Value is not defined*"
                     )
                 })

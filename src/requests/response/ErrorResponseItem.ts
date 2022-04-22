@@ -26,7 +26,7 @@ export class ErrorResponseItem extends ResponseItem implements IErrorResponseIte
     @validate()
     public message: string
 
-    public static async from(value: IErrorResponseItem | ErrorResponseItemJSON): Promise<ErrorResponseItem> {
-        return await super.fromT(value, ErrorResponseItem)
+    public static from(value: IErrorResponseItem | ErrorResponseItemJSON): ErrorResponseItem {
+        return this.fromAny(value)
     }
 }

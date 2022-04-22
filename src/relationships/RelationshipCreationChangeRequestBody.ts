@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
 import { Authorization, AuthorizationJSON, IAuthorization } from "../authorizations/Authorization"
 import { ContentJSON } from "../ContentJSON"
@@ -12,7 +12,7 @@ export interface RelationshipCreationChangeRequestBodyJSON extends ContentJSON {
     sharedAuthorizations?: AuthorizationJSON[]
 }
 
-export interface IRelationshipCreationChangeRequestBody extends ISerializableAsync {
+export interface IRelationshipCreationChangeRequestBody extends ISerializable {
     title?: string
     sessionIdentifier?: string
     metadata?: any
@@ -23,7 +23,7 @@ export interface IRelationshipCreationChangeRequestBody extends ISerializableAsy
 
 @type("RelationshipCreationChangeRequestBody")
 export class RelationshipCreationChangeRequestBody
-    extends SerializableAsync
+    extends Serializable
     implements IRelationshipCreationChangeRequestBody
 {
     @serialize()
@@ -50,9 +50,7 @@ export class RelationshipCreationChangeRequestBody
     @validate({ nullable: true })
     public sharedAuthorizations?: Authorization[]
 
-    public static async from(
-        value: IRelationshipCreationChangeRequestBody
-    ): Promise<RelationshipCreationChangeRequestBody> {
-        return (await super.from(value, RelationshipCreationChangeRequestBody)) as RelationshipCreationChangeRequestBody
+    public static from(value: IRelationshipCreationChangeRequestBody): RelationshipCreationChangeRequestBody {
+        return this.fromAny(value)
     }
 }

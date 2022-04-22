@@ -25,26 +25,24 @@ export class RequestMail extends Mail {
     @validate()
     public requests: (AttributesChangeRequest | AttributesShareRequest)[]
 
-    public static async from(value: IRequestMail): Promise<RequestMail> {
-        return await super.fromT(value, RequestMail)
+    public static from(value: IRequestMail): RequestMail {
+        return this.fromAny(value)
     }
 
-    public static async fromJSON(value: RequestMailJSON): Promise<RequestMail> {
-        const mail: Mail = await Mail.fromJSON(value)
-        const requests = await Promise.all(
-            value.requests.map((request) => {
-                switch (request["@type"]) {
-                    case "AttributesChangeRequest":
-                        return super.fromT(request, AttributesChangeRequest)
-                    case "AttributesShareRequest":
-                        return super.fromT(request, AttributesShareRequest)
-                    default:
-                        throw new Error(`Unknown request type: ${request["@type"]}`)
-                }
-            })
-        )
+    public static fromJSON(value: RequestMailJSON): RequestMail {
+        const mail: Mail = Mail.fromJSON(value)
+        const requests = value.requests.map((request) => {
+            switch (request["@type"]) {
+                case "AttributesChangeRequest":
+                    return AttributesChangeRequest.fromAny(request)
+                case "AttributesShareRequest":
+                    AttributesShareRequest.fromAny(request)
+                default:
+                    throw new Error(`Unknown request type: ${request["@type"]}`)
+            }
+        })
 
-        return await this.from({
+        return this.from({
             body: mail.body,
             subject: mail.subject,
             to: mail.to,

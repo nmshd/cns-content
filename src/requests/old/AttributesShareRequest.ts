@@ -1,4 +1,4 @@
-import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, CoreDate, CoreId, ICoreAddress, ICoreDate, ICoreId } from "@nmshd/transport"
 import { ContentJSON } from "../../ContentJSON"
 
@@ -46,7 +46,7 @@ export interface IAttributesShareRequest extends ISerializable {
 }
 
 @type("AttributesShareRequest")
-export class AttributesShareRequest extends SerializableAsync implements IAttributesShareRequest {
+export class AttributesShareRequest extends Serializable implements IAttributesShareRequest {
     @serialize()
     @validate({ nullable: true })
     public id?: CoreId
@@ -75,7 +75,7 @@ export class AttributesShareRequest extends SerializableAsync implements IAttrib
     @validate()
     public recipients: CoreAddress[]
 
-    public static async from(value: IAttributesShareRequest): Promise<AttributesShareRequest> {
-        return await super.fromT(value, AttributesShareRequest)
+    public static from(value: IAttributesShareRequest): AttributesShareRequest {
+        return this.fromAny(value)
     }
 }
