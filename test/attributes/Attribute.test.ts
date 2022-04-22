@@ -136,6 +136,18 @@ export class AttributeTest extends AbstractTest {
                     AttributeV2.from.bind(AttributeV2, {
                         value: {
                             "@type": "BirthMonth",
+                            value: "13"
+                        },
+                        validFrom: CoreDate.utc().subtract({ years: 1 }),
+                        validTo: CoreDate.utc().add({ years: 1 }),
+                        createdAt: CoreDate.utc()
+                    })
+                ).to.throw("BirthMonth.value :: Value is not a number.")
+
+                expect(
+                    AttributeV2.from.bind(AttributeV2, {
+                        value: {
+                            "@type": "BirthMonth",
                             value: 13
                         },
                         validFrom: CoreDate.utc().subtract({ years: 1 }),
