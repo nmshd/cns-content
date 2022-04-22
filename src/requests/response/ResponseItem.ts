@@ -1,4 +1,4 @@
-import { ISerializable, SerializableAsync, serialize, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../../ContentJSON"
 import { ResponseItemResult } from "./ResponseItemResult"
 
@@ -12,7 +12,7 @@ export interface IResponseItem extends ISerializable {
     metadata?: object
 }
 
-export abstract class ResponseItem extends SerializableAsync {
+export abstract class ResponseItem extends Serializable {
     @serialize()
     @validate()
     public result: ResponseItemResult

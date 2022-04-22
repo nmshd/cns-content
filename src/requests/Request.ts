@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreId, ICoreDate } from "@nmshd/transport"
 import { ContentJSON } from "../ContentJSON"
 import { IRequestItem, RequestItem, RequestItemJSON } from "./RequestItem"
@@ -22,7 +22,7 @@ export interface RequestJSON extends ContentJSON {
     items: (RequestItemGroupJSON | RequestItemJSON)[]
 }
 
-export interface IRequest extends ISerializableAsync {
+export interface IRequest extends ISerializable {
     id?: CoreId
 
     /**
@@ -41,7 +41,7 @@ export interface IRequest extends ISerializableAsync {
 }
 
 @type("Request")
-export class Request extends SerializableAsync implements IRequest {
+export class Request extends Serializable implements IRequest {
     @serialize()
     @validate({ nullable: true })
     public id?: CoreId
@@ -54,7 +54,7 @@ export class Request extends SerializableAsync implements IRequest {
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
     public items: (RequestItemGroup | RequestItem)[]
 
-    public static async from(value: IRequest | RequestJSON): Promise<Request> {
-        return await super.fromT(value, Request)
+    public static from(value: IRequest | RequestJSON): Request {
+        return this.fromAny(value)
     }
 }

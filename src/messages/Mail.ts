@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, ICoreAddress } from "@nmshd/transport"
 import { ContentJSON } from "../ContentJSON"
 
@@ -8,7 +8,7 @@ export interface MailJSON extends ContentJSON {
     subject: string
     body: string
 }
-export interface IMail extends ISerializableAsync {
+export interface IMail extends ISerializable {
     to: ICoreAddress[]
     cc?: ICoreAddress[]
     subject: string
@@ -16,7 +16,7 @@ export interface IMail extends ISerializableAsync {
 }
 
 @type("Mail")
-export class Mail extends SerializableAsync implements IMail {
+export class Mail extends Serializable implements IMail {
     @serialize({ type: CoreAddress })
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
     public to: CoreAddress[]
@@ -33,20 +33,25 @@ export class Mail extends SerializableAsync implements IMail {
     @validate()
     public body: string
 
-    public static async from(value: IMail): Promise<Mail> {
+    protected static override preFrom(value: any): any {
         if (typeof value.cc === "undefined") {
             value.cc = []
         }
-        if (typeof value.body === "undefined" && (value as any).content) {
-            value.body = (value as any).content
-            delete (value as any).content
+
+        if (typeof value.body === "undefined" && value.content) {
+            value.body = value.content
+            delete value.content
         }
 
-        return await super.fromT(value, Mail)
+        return value
     }
 
-    public static async fromJSON(value: MailJSON): Promise<Mail> {
-        return await this.from({
+    public static from(value: IMail): Mail {
+        return this.fromAny(value)
+    }
+
+    public static fromJSON(value: MailJSON): Mail {
+        return this.from({
             body: value.body,
             subject: value.subject,
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

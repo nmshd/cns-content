@@ -16,7 +16,7 @@ export interface IRejectResponseItem extends IResponseItem {
 
 @type("RejectResponseItem")
 export class RejectResponseItem extends ResponseItem implements IRejectResponseItem {
-    public result: ResponseItemResult.Rejected
+    public override result: ResponseItemResult.Rejected
 
     @serialize()
     @validate({ nullable: true })
@@ -26,7 +26,7 @@ export class RejectResponseItem extends ResponseItem implements IRejectResponseI
     @validate({ nullable: true })
     public message?: string
 
-    public static async from(value: IRejectResponseItem | RejectResponseItemJSON): Promise<RejectResponseItem> {
-        return await super.fromT(value, RejectResponseItem)
+    public static from(value: IRejectResponseItem | RejectResponseItemJSON): RejectResponseItem {
+        return this.fromAny(value)
     }
 }

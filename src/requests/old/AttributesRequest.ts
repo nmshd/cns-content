@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreId, ICoreDate, ICoreId } from "@nmshd/transport"
 import { ContentJSON } from "../../ContentJSON"
 
@@ -11,7 +11,7 @@ export interface AttributesRequestJSON extends ContentJSON {
     required: boolean
 }
 
-export interface IAttributesRequest extends ISerializableAsync {
+export interface IAttributesRequest extends ISerializable {
     id?: ICoreId
     /**
      * The technial key of the request which is submitted back with the answer. This can be used
@@ -42,7 +42,7 @@ export interface IAttributesRequest extends ISerializableAsync {
 }
 
 @type("AttributesRequest")
-export class AttributesRequest extends SerializableAsync implements IAttributesRequest {
+export class AttributesRequest extends Serializable implements IAttributesRequest {
     @serialize()
     @validate({ nullable: true })
     public id?: CoreId
@@ -67,12 +67,12 @@ export class AttributesRequest extends SerializableAsync implements IAttributesR
     @validate({ nullable: true })
     public required?: boolean
 
-    public static async from(value: IAttributesRequest): Promise<AttributesRequest> {
-        return (await super.from(value, AttributesRequest)) as AttributesRequest
+    public static from(value: IAttributesRequest): AttributesRequest {
+        return this.fromAny(value)
     }
 
-    public static async fromJSON(value: AttributesRequestJSON): Promise<AttributesRequest> {
-        return await this.from({
+    public static fromJSON(value: AttributesRequestJSON): AttributesRequest {
+        return this.from({
             id: value.id ? CoreId.from(value.id) : undefined,
             expiresAt: value.expiresAt ? CoreDate.from(value.expiresAt) : undefined,
             key: value.key,

@@ -9,5 +9,5 @@ export class PersonHeight extends LengthMeasurement {
     @validate({
         customValidator: (v) => (!validUnits.includes(v) ? `must be one of: ${validUnits}` : undefined)
     })
-    public unit: LengthUnit.CM | LengthUnit.M
+    public override unit: LengthUnit.CM | LengthUnit.M
 }

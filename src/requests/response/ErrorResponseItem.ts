@@ -16,7 +16,7 @@ export interface IErrorResponseItem extends IResponseItem {
 
 @type("ErrorResponseItem")
 export class ErrorResponseItem extends ResponseItem implements IErrorResponseItem {
-    public result: ResponseItemResult.Failed
+    public override result: ResponseItemResult.Failed
 
     @serialize()
     @validate()
@@ -26,7 +26,7 @@ export class ErrorResponseItem extends ResponseItem implements IErrorResponseIte
     @validate()
     public message: string
 
-    public static async from(value: IErrorResponseItem | ErrorResponseItemJSON): Promise<ErrorResponseItem> {
-        return await super.fromT(value, ErrorResponseItem)
+    public static from(value: IErrorResponseItem | ErrorResponseItemJSON): ErrorResponseItem {
+        return this.fromAny(value)
     }
 }

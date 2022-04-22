@@ -1,4 +1,4 @@
-import { ISerializable, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../../ContentJSON"
 import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
 
@@ -13,7 +13,7 @@ export interface IResponseItemGroup extends ISerializable {
 }
 
 @type("ResponseItemGroup")
-export class ResponseItemGroup extends SerializableAsync {
+export class ResponseItemGroup extends Serializable {
     @serialize()
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
     public items: ResponseItem[]
@@ -22,7 +22,7 @@ export class ResponseItemGroup extends SerializableAsync {
     @validate({ nullable: true })
     public metadata?: object
 
-    public static async from(value: IResponseItemGroup | ResponseItemGroupJSON): Promise<ResponseItemGroup> {
-        return await super.fromT(value, ResponseItemGroup)
+    public static from(value: IResponseItemGroup | ResponseItemGroupJSON): ResponseItemGroup {
+        return this.fromAny(value)
     }
 }

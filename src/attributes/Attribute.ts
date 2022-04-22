@@ -48,7 +48,7 @@ export class Attribute extends CoreSerializable implements IAttribute {
     }
 
     public static from(value: IAttribute): Attribute {
-        return super.from(value, Attribute) as Attribute
+        return this.fromAny(value)
     }
 
     public static fromJSON(value: AttributeJSON): Attribute {

@@ -30,5 +30,5 @@ export abstract class AbstractMonth extends AbstractIntegerValue {
                 ? `must be an integer value between ${Month.January} and ${Month.December}`
                 : undefined
     })
-    public value: Month
+    public override value: Month
 }
