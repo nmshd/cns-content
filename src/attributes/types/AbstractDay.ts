@@ -10,5 +10,5 @@ export abstract class AbstractDay extends AbstractIntegerValue {
         customValidator: (v) =>
             v < 1 || v > 31 || !Number.isInteger(v) ? "must be an integer value between 1 and 31" : undefined
     })
-    public value: number
+    public override value: number
 }

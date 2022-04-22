@@ -12,7 +12,7 @@ export interface IAcceptResponseItem extends IResponseItem {
 
 @type("AcceptResponseItem")
 export class AcceptResponseItem extends ResponseItem implements IAcceptResponseItem {
-    public result: ResponseItemResult.Accepted
+    public override result: ResponseItemResult.Accepted
 
     public static from(value: IAcceptResponseItem | AcceptResponseItemJSON): AcceptResponseItem {
         return this.fromAny(value)

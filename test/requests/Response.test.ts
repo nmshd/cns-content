@@ -32,7 +32,7 @@ class TestAcceptResponseItem extends AcceptResponseItem implements ITestAcceptRe
     @validate()
     public test: string
 
-    public static from(value: ITestAcceptResponseItem): TestAcceptResponseItem {
+    public static override from(value: ITestAcceptResponseItem): TestAcceptResponseItem {
         return this.fromAny(value)
     }
 }

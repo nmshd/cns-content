@@ -25,11 +25,11 @@ export class RequestMail extends Mail {
     @validate()
     public requests: (AttributesChangeRequest | AttributesShareRequest)[]
 
-    public static from(value: IRequestMail): RequestMail {
+    public static override from(value: IRequestMail): RequestMail {
         return this.fromAny(value)
     }
 
-    public static fromJSON(value: RequestMailJSON): RequestMail {
+    public static override fromJSON(value: RequestMailJSON): RequestMail {
         const mail: Mail = Mail.fromJSON(value)
         const requests = value.requests.map((request) => {
             switch (request["@type"]) {

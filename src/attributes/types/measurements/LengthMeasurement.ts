@@ -23,5 +23,5 @@ export class LengthMeasurement extends AbstractMeasurement {
         customValidator: (v) =>
             !Object.values(LengthUnit).includes(v) ? `must be one of: ${Object.values(LengthUnit)}` : undefined
     })
-    public unit: LengthUnit
+    public override unit: LengthUnit
 }

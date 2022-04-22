@@ -16,7 +16,7 @@ export interface IRejectResponseItem extends IResponseItem {
 
 @type("RejectResponseItem")
 export class RejectResponseItem extends ResponseItem implements IRejectResponseItem {
-    public result: ResponseItemResult.Rejected
+    public override result: ResponseItemResult.Rejected
 
     @serialize()
     @validate({ nullable: true })

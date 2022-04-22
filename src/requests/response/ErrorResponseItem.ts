@@ -16,7 +16,7 @@ export interface IErrorResponseItem extends IResponseItem {
 
 @type("ErrorResponseItem")
 export class ErrorResponseItem extends ResponseItem implements IErrorResponseItem {
-    public result: ResponseItemResult.Failed
+    public override result: ResponseItemResult.Failed
 
     @serialize()
     @validate()
