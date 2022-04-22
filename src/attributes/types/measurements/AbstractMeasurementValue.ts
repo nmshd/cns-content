@@ -4,7 +4,7 @@ import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 /**
  * valid unit strings must be defined in the classes extending AbstractMeasurement as enum
  */
-export abstract class AbstractMeasurement extends AbstractAttributeValue {
+export abstract class AbstractMeasurementValue extends AbstractAttributeValue {
     @serialize()
     @validate()
     public unit: string

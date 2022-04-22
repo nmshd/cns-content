@@ -1,4 +1,4 @@
-import { serialize, type, validate } from "@js-soft/ts-serval"
+import { serialize, validate } from "@js-soft/ts-serval"
 import { AbstractMeasurement } from "./AbstractMeasurement"
 
 export enum LengthUnit {
@@ -16,12 +16,11 @@ export enum LengthUnit {
     IN = "in"
 }
 
-@type("LengthMeasurement")
-export class LengthMeasurement extends AbstractMeasurement {
+export class AbstractLengthMeasurementValue extends AbstractMeasurement {
     @serialize()
     @validate({
         customValidator: (v) =>
             !Object.values(LengthUnit).includes(v) ? `must be one of: ${Object.values(LengthUnit)}` : undefined
     })
-    public unit: LengthUnit
+    public override unit: LengthUnit
 }

@@ -1,5 +1,5 @@
 import { serialize, validate } from "@js-soft/ts-serval"
-import { AbstractIntegerValue } from "./AbstractIntegerValue"
+import { AbstractIntegerValue } from "../AbstractIntegerValue"
 
 /**
  * Month values: 1 (january) - 12 (december)
@@ -30,5 +30,5 @@ export abstract class AbstractMonth extends AbstractIntegerValue {
                 ? `must be an integer value between ${Month.January} and ${Month.December}`
                 : undefined
     })
-    public value: Month
+    public override value: Month
 }
