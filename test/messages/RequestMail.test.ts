@@ -1,4 +1,4 @@
-import { SerializableAsync } from "@js-soft/ts-serval"
+import { Serializable } from "@js-soft/ts-serval"
 import { Attribute, AttributesChangeRequest, AttributesShareRequest, Mail, RequestMail } from "@nmshd/content"
 import { CoreAddress, CoreId } from "@nmshd/transport"
 import { expect } from "chai"
@@ -18,7 +18,7 @@ export class RequestMailTest extends AbstractTest {
                     subject: "Some Request Mail",
                     body: "Please approve following requests"
                 })
-                expect(m).to.be.instanceOf(SerializableAsync)
+                expect(m).to.be.instanceOf(Serializable)
                 expect(m).to.be.instanceOf(Mail)
                 const content = m.toJSON() as any
                 const request = AttributesShareRequest.from({
@@ -100,7 +100,7 @@ export class RequestMailTest extends AbstractTest {
                 expect(json.requests[0].recipients).to.be.an("Array")
                 expect(json.requests[0].recipients[0]).to.equal(from.toString())
 
-                const parsed = await SerializableAsync.fromUnknown(json)
+                const parsed = Serializable.fromUnknown(json)
 
                 expect(parsed).to.be.instanceOf(Mail)
                 expect(parsed).to.be.instanceOf(RequestMail)

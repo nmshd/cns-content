@@ -83,7 +83,7 @@ export class RequestTest extends AbstractTest {
                     ]
                 } as IRequest
 
-                // const request = (await SerializableAsync.fromUnknown(requestInterface)) as Request
+                // const request = Serializable.fromUnknown(requestInterface) as Request
                 const request = Request.from(requestInterface)
 
                 expect(request).to.be.instanceOf(Request)

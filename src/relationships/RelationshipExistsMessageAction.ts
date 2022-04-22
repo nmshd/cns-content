@@ -1,4 +1,4 @@
-import { ISerializableAsync, SerializableAsync, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import {
     IRelationshipExistsAction,
     RelationshipExistsAction,
@@ -10,7 +10,7 @@ export interface RelationshipExistsMessageActionJSON extends RelationshipExistsA
 }
 
 export interface IRelationshipExistsMessageAction extends IRelationshipExistsAction {
-    content: ISerializableAsync
+    content: ISerializable
 }
 
 @type("RelationshipExistsMessageAction")
@@ -20,5 +20,5 @@ export class RelationshipExistsMessageAction
 {
     @serialize()
     @validate()
-    public content: SerializableAsync
+    public content: Serializable
 }
