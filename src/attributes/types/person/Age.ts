@@ -1,5 +1,12 @@
-import { type } from "@js-soft/ts-serval"
+import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractIntegerValue } from "../AbstractIntegerValue"
 
 @type("Age")
-export class Age extends AbstractIntegerValue {}
+export class Age extends AbstractIntegerValue {
+    @serialize()
+    @validate({
+        customValidator: (v) =>
+            v < 0 || v > 150 || !Number.isInteger(v) ? "must be an integer value between 0 and 150" : undefined
+    })
+    public override value: number
+}
