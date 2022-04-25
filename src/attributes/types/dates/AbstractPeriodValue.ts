@@ -13,7 +13,7 @@ export interface IAbstractPeriod extends IAbstractComplexValue {
     end?: ICoreDate | IAbstractStringValue | string
 }
 
-export class AbstractPeriod extends AbstractComplexValue implements IAbstractPeriod {
+export class AbstractPeriodValue extends AbstractComplexValue implements IAbstractPeriod {
     @serialize()
     @validate({ nullable: true })
     public start?: CoreDate
@@ -22,7 +22,7 @@ export class AbstractPeriod extends AbstractComplexValue implements IAbstractPer
     @validate({ nullable: true })
     public end?: CoreDate
 
-    public static from(value: IAbstractPeriod | AbstractPeriodJSON): AbstractPeriod {
+    public static from(value: IAbstractPeriod | AbstractPeriodJSON): AbstractPeriodValue {
         return this.fromAny(value)
     }
 }

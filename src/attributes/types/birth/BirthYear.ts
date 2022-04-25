@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractYear } from "../dates/AbstractYear"
+import { AbstractYearValue } from "../dates/AbstractYearValue"
 
 @type("BirthYear")
-export class BirthYear extends AbstractYear {}
+export class BirthYear extends AbstractYearValue {}

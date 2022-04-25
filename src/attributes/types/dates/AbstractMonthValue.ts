@@ -22,7 +22,7 @@ enum Month {
 /**
  * Month value are continuously numbered: 1 (january) - 12 (december)
  */
-export abstract class AbstractMonth extends AbstractIntegerValue {
+export abstract class AbstractMonthValue extends AbstractIntegerValue {
     @serialize()
     @validate({
         customValidator: (v) =>

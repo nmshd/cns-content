@@ -4,7 +4,7 @@ import { AbstractIntegerValue } from "../AbstractIntegerValue"
 /**
  * day values start with 1 = first day of month
  */
-export abstract class AbstractDay extends AbstractIntegerValue {
+export abstract class AbstractDayValue extends AbstractIntegerValue {
     @serialize()
     @validate({
         customValidator: (v) =>
