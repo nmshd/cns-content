@@ -1,5 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { AbstractAttributeValue } from "src/attributes/AbstractAttributeValue"
+import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { AbstractStringValueJSON, IAbstractStringValue } from "../AbstractStringValue"
 import { AbstractAddress, AbstractAddressJSON, IAbstractAddress } from "./AbstractAddress"
 import { City } from "./City"

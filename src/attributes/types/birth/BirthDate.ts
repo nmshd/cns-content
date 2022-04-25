@@ -1,10 +1,6 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import {
-    AbstractComplexValue,
-    AbstractComplexValueJSON,
-    IAbstractComplexValue
-} from "src/attributes/AbstractComplexValue"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
+import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
 import { AbstractIntegerValueJSON, IAbstractIntegerValue } from "../AbstractIntegerValue"
 import { BirthDay } from "./BirthDay"
 import { BirthMonth } from "./BirthMonth"
