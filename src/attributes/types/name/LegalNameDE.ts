@@ -1,4 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import { AbstractAttributeValue } from "src/attributes/AbstractAttributeValue"
 import { AbstractLegalName } from "./AbstractLegalName"
 import { BirthName } from "./BirthName"
 import { GivenName } from "./GivenName"
@@ -7,19 +8,19 @@ import { Surname } from "./Surname"
 
 @type("LegalNameDE")
 export class LegalNameDE extends AbstractLegalName {
-    @serialize()
+    @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate()
     public surname: Surname
 
-    @serialize({ type: GivenName })
+    @serialize({ type: GivenName, customGenerator: AbstractAttributeValue.valueArrayGenerator })
     @validate()
     public givenNames: GivenName[]
 
-    @serialize()
+    @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate({ nullable: true })
     public birthName?: BirthName
 
-    @serialize()
+    @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate({ nullable: true })
     public pseudonym?: Pseudonym
 }
