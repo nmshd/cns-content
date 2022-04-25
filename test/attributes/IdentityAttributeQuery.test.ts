@@ -1,38 +1,38 @@
-import { AttributeQuery } from "@nmshd/content"
+import { IdentityAttributeQuery } from "@nmshd/content"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
 
-export class AttributeQueryTest extends AbstractTest {
+export class IdentityAttributeQueryTest extends AbstractTest {
     public run(): void {
-        describe("AttributeQuery", function () {
+        describe("IdentityAttributeQuery", function () {
             it("should allow to create a new query", function () {
-                const attributeQuery = AttributeQuery.from({
+                const attributeQuery = IdentityAttributeQuery.from({
                     attributeType: "StreetAddress",
                     tags: ["Delivery"],
                     onlyValid: true
                 })
-                expect(attributeQuery).to.be.instanceOf(AttributeQuery)
+                expect(attributeQuery).to.be.instanceOf(IdentityAttributeQuery)
 
-                const attributeQueryType = AttributeQuery.from({
+                const attributeQueryType = IdentityAttributeQuery.from({
                     attributeType: "StreetAddress",
                     onlyValid: true
                 })
-                expect(attributeQueryType).to.be.instanceOf(AttributeQuery)
+                expect(attributeQueryType).to.be.instanceOf(IdentityAttributeQuery)
 
-                const attributeQueryTags = AttributeQuery.from({
+                const attributeQueryTags = IdentityAttributeQuery.from({
                     tags: ["Delivery"],
                     onlyValid: false
                 })
-                expect(attributeQueryTags).to.be.instanceOf(AttributeQuery)
+                expect(attributeQueryTags).to.be.instanceOf(IdentityAttributeQuery)
             })
 
             it("should validate that attributeType might not be an empty string", function () {
                 expect(() =>
-                    AttributeQuery.from({
+                    IdentityAttributeQuery.from({
                         attributeType: "",
                         onlyValid: false
                     })
-                ).to.throw("AttributeQuery.attributeType:String :: must not be an empty string")
+                ).to.throw("IdentityAttributeQuery.attributeType:String :: must not be an empty string")
             })
         })
     }
