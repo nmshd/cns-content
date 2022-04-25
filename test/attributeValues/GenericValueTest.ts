@@ -1,6 +1,6 @@
 import { SerializableBase } from "@js-soft/ts-serval"
+import { AbstractAttributeValue } from "@nmshd/content"
 import { expect } from "chai"
-import { AbstractAttributeValue } from "src/attributes"
 import { AbstractTest } from "../AbstractTest"
 
 export interface GenericValueTestParameters {
