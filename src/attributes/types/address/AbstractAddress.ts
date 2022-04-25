@@ -1,19 +1,19 @@
 import { serialize, validate } from "@js-soft/ts-serval"
 import {
-    AbstractAttributeValue,
-    AbstractAttributeValueJSON,
-    IAbstractAttributeValue
-} from "../../AbstractAttributeValue"
+    AbstractComplexValue,
+    AbstractComplexValueJSON,
+    IAbstractComplexValue
+} from "src/attributes/AbstractComplexValue"
 
-export interface AbstractAddressJSON extends AbstractAttributeValueJSON {
+export interface AbstractAddressJSON extends AbstractComplexValueJSON {
     recipient: string
 }
 
-export interface IAbstractAddress extends IAbstractAttributeValue {
+export interface IAbstractAddress extends IAbstractComplexValue {
     recipient: string
 }
 
-export abstract class AbstractAddress extends AbstractAttributeValue implements IAbstractAddress {
+export abstract class AbstractAddress extends AbstractComplexValue implements IAbstractAddress {
     @serialize()
     @validate()
     public recipient: string

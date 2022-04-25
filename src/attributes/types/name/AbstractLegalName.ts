@@ -1,3 +1,3 @@
-import { AbstractAttributeValue } from "../../AbstractAttributeValue"
+import { AbstractComplexValue } from "../../AbstractComplexValue"
 
-export abstract class AbstractLegalName extends AbstractAttributeValue {}
+export abstract class AbstractLegalName extends AbstractComplexValue {}

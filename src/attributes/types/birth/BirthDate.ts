@@ -1,28 +1,29 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import {
-    AbstractAttributeValue,
-    AbstractAttributeValueJSON,
-    IAbstractAttributeValue
-} from "../../AbstractAttributeValue"
+    AbstractComplexValue,
+    AbstractComplexValueJSON,
+    IAbstractComplexValue
+} from "src/attributes/AbstractComplexValue"
+import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { AbstractIntegerValueJSON, IAbstractIntegerValue } from "../AbstractIntegerValue"
 import { BirthDay } from "./BirthDay"
 import { BirthMonth } from "./BirthMonth"
 import { BirthYear } from "./BirthYear"
 
-export interface BirthDateJSON extends AbstractAttributeValueJSON {
+export interface BirthDateJSON extends AbstractComplexValueJSON {
     day: AbstractIntegerValueJSON
     month: AbstractIntegerValueJSON
     year: AbstractIntegerValueJSON
 }
 
-export interface IBirthDate extends IAbstractAttributeValue {
+export interface IBirthDate extends IAbstractComplexValue {
     day: BirthDay | IAbstractIntegerValue | number
     month: BirthMonth | IAbstractIntegerValue | number
     year: BirthYear | IAbstractIntegerValue | number
 }
 
 @type("BirthDate")
-export class BirthDate extends AbstractAttributeValue implements IBirthDate {
+export class BirthDate extends AbstractComplexValue implements IBirthDate {
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate()
     public day: BirthDay

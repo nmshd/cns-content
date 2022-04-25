@@ -1,23 +1,20 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import {
-    AbstractAttributeValue,
-    AbstractAttributeValueJSON,
-    IAbstractAttributeValue
-} from "../../AbstractAttributeValue"
+import { AbstractAttributeValue } from "../../AbstractAttributeValue"
+import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
 import { AbstractStringValueJSON, IAbstractStringValue } from "../AbstractStringValue"
 import { DisplayName } from "./DisplayName"
 import { GivenName } from "./GivenName"
 import { Surname } from "./Surname"
 import { Title } from "./Title"
 
-export interface SalutationJSON extends AbstractAttributeValueJSON {
+export interface SalutationJSON extends AbstractComplexValueJSON {
     displayName: AbstractStringValueJSON
     givenNames?: AbstractStringValueJSON[]
     surname?: AbstractStringValueJSON
     titles?: AbstractStringValueJSON[]
 }
 
-export interface ISalutation extends IAbstractAttributeValue {
+export interface ISalutation extends IAbstractComplexValue {
     displayName: DisplayName | IAbstractStringValue | string
     givenNames?: GivenName[] | IAbstractStringValue[] | string[]
     surname?: Surname | IAbstractStringValue | string
@@ -25,7 +22,7 @@ export interface ISalutation extends IAbstractAttributeValue {
 }
 
 @type("Salutation")
-export class Salutation extends AbstractAttributeValue implements ISalutation {
+export class Salutation extends AbstractComplexValue implements ISalutation {
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate()
     public displayName: DisplayName
