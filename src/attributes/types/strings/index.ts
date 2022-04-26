@@ -1,5 +1,5 @@
 export * from "./AbstractCountryValue"
-export * from "./AbstractDataURIValue"
+export * from "./AbstractDataURLValue"
 export * from "./AbstractEMailAddressValue"
 export * from "./AbstractHEXColorValue"
 export * from "./AbstractLanguageValue"

@@ -1,6 +1,6 @@
 export * from "./ProprietaryBoolean"
 export * from "./ProprietaryCountry"
-export * from "./ProprietaryDataURI"
+export * from "./ProprietaryDataURL"
 export * from "./ProprietaryEMailAddress"
 export * from "./ProprietaryFloat"
 export * from "./ProprietaryHEXColor"
