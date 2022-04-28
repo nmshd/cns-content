@@ -1,7 +1,12 @@
+export * from "./AbstractAttribute"
+export * from "./AbstractAttributeQuery"
 export * from "./AbstractAttributeValue"
+export * from "./AbstractComplexValue"
 export * from "./Attribute"
+export * from "./constants"
 export * from "./IdentityAttribute"
 export * from "./IdentityAttributeQuery"
 export * from "./RelationshipAttribute"
 export * from "./RelationshipAttributeQuery"
 export * from "./types"
+
