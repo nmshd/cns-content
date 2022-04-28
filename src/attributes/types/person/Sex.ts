@@ -7,7 +7,7 @@ import { AbstractString } from "../AbstractString"
 export enum BiolSex {
     M = "male",
     F = "female",
-    X = "diverse"
+    X = "intersex"
 }
 @type("Sex")
 export class Sex extends AbstractString {
