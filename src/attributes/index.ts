@@ -9,4 +9,3 @@ export * from "./IdentityAttributeQuery"
 export * from "./RelationshipAttribute"
 export * from "./RelationshipAttributeQuery"
 export * from "./types"
-
