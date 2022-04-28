@@ -1,10 +1,29 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import { AbstractComplexValueJSON, IAbstractComplexValue } from "src/attributes/AbstractComplexValue"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
+import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 import { LegalName } from "./AbstractLegalName"
 import { BirthName } from "./BirthName"
 import { GivenName } from "./GivenName"
+import { HonorificPrefix } from "./HonorificPrefix"
 import { Pseudonym } from "./Pseudonym"
 import { Surname } from "./Surname"
+
+export interface LegalNameDEJSON extends AbstractComplexValueJSON {
+    surname?: AbstractStringJSON
+    givenNames?: AbstractStringJSON[]
+    birthName?: AbstractStringJSON
+    pseudonym?: AbstractStringJSON
+    honorificPrefix?: AbstractStringJSON
+}
+
+export interface ILegalNameDE extends IAbstractComplexValue {
+    surname?: Surname | IAbstractString | string
+    givenNames?: GivenName[] | IAbstractString[] | string[]
+    birthName?: BirthName | IAbstractString | string
+    pseudonym?: Pseudonym | IAbstractString | string
+    honorificPrefix?: HonorificPrefix | IAbstractString | string
+}
 
 @type("LegalNameDE")
 export class LegalNameDE extends LegalName {
@@ -23,4 +42,8 @@ export class LegalNameDE extends LegalName {
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate({ nullable: true })
     public pseudonym?: Pseudonym
+
+    @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
+    @validate({ nullable: true })
+    public honorificPrefix?: HonorificPrefix
 }
