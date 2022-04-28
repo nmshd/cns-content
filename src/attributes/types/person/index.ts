@@ -1,4 +1,5 @@
 export * from "./Age"
 export * from "./Citizenship"
 export * from "./Nationality"
+export * from "./Picture"
 export * from "./Sex"
