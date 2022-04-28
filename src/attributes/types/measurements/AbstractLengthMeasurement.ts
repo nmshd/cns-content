@@ -1,5 +1,5 @@
 import { serialize, validate } from "@js-soft/ts-serval"
-import { AbstractMeasurementValue } from "./AbstractMeasurementValue"
+import { AbstractMeasurement } from "./AbstractMeasurement"
 
 export enum LengthUnit {
     NM = "nm",
@@ -16,7 +16,7 @@ export enum LengthUnit {
     IN = "in"
 }
 
-export class AbstractLengthMeasurementValue extends AbstractMeasurementValue {
+export class AbstractLengthMeasurement extends AbstractMeasurement {
     @serialize()
     @validate({
         customValidator: (v) =>

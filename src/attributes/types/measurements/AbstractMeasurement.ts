@@ -1,12 +1,12 @@
 import { serialize, validate } from "@js-soft/ts-serval"
 import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
 
-export interface AbstractMeasurementValueJSON extends AbstractComplexValueJSON {
+export interface AbstractMeasurementJSON extends AbstractComplexValueJSON {
     unit: string
     value: number
 }
 
-export interface IMeasurementValue extends IAbstractComplexValue {
+export interface IMeasurement extends IAbstractComplexValue {
     unit: string
     value: number
 }
@@ -14,7 +14,7 @@ export interface IMeasurementValue extends IAbstractComplexValue {
 /**
  * valid unit strings must be defined in the classes extending AbstractMeasurement as enum
  */
-export abstract class AbstractMeasurementValue extends AbstractComplexValue implements IMeasurementValue {
+export abstract class AbstractMeasurement extends AbstractComplexValue implements IMeasurement {
     @serialize()
     @validate()
     public unit: string

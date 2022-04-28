@@ -1,2 +1,2 @@
-export * from "./AbstractLengthMeasurementValue"
-export * from "./AbstractMeasurementValue"
+export * from "./AbstractLengthMeasurement"
+export * from "./AbstractMeasurement"
