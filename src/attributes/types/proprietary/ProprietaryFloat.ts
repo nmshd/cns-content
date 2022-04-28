@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractFloatValue } from "../AbstractFloatValue"
+import { AbstractFloat } from "../AbstractFloat"
 
 @type("ProprietaryFloat")
-export class ProprietaryFloat extends AbstractFloatValue {}
+export class ProprietaryFloat extends AbstractFloat {}

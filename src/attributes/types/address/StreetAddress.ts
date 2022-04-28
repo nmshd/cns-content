@@ -1,6 +1,6 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
-import { AbstractStringValueJSON, IAbstractStringValue } from "../AbstractStringValue"
+import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 import { AbstractAddress, AbstractAddressJSON, IAbstractAddress } from "./AbstractAddress"
 import { City } from "./City"
 import { Country } from "./Country"
@@ -10,21 +10,21 @@ import { Street } from "./Street"
 import { ZipCode } from "./ZipCode"
 
 export interface StreetAddressJSON extends AbstractAddressJSON {
-    street: AbstractStringValueJSON
-    houseNo: AbstractStringValueJSON
-    zipCode: AbstractStringValueJSON
-    city: AbstractStringValueJSON
-    country: AbstractStringValueJSON
-    state?: AbstractStringValueJSON
+    street: AbstractStringJSON
+    houseNo: AbstractStringJSON
+    zipCode: AbstractStringJSON
+    city: AbstractStringJSON
+    country: AbstractStringJSON
+    state?: AbstractStringJSON
 }
 
 export interface IStreetAddress extends IAbstractAddress {
-    street: Street | IAbstractStringValue | string
-    houseNo: HouseNumber | IAbstractStringValue | string
-    zipCode: ZipCode | IAbstractStringValue | string
-    city: City | IAbstractStringValue | string
-    country: Country | IAbstractStringValue | string
-    state?: State | IAbstractStringValue | string
+    street: Street | IAbstractString | string
+    houseNo: HouseNumber | IAbstractString | string
+    zipCode: ZipCode | IAbstractString | string
+    city: City | IAbstractString | string
+    country: Country | IAbstractString | string
+    state?: State | IAbstractString | string
 }
 
 @type("StreetAddress")

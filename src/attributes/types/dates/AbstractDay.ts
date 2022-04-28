@@ -1,10 +1,10 @@
 import { serialize, validate } from "@js-soft/ts-serval"
-import { AbstractIntegerValue } from "../AbstractIntegerValue"
+import { AbstractInteger } from "../AbstractInteger"
 
 /**
  * day values start with 1 = first day of month
  */
-export abstract class AbstractDayValue extends AbstractIntegerValue {
+export abstract class AbstractDay extends AbstractInteger {
     @serialize()
     @validate({
         customValidator: (v) =>

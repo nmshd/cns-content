@@ -1,17 +1,17 @@
 import { serialize, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "../AbstractAttributeValue"
 
-export type AbstractBooleanValueJSON = IAbstractBooleanValueJSON | number
+export type AbstractBooleanJSON = IAbstractBooleanJSON | number
 
-export interface IAbstractBooleanValueJSON extends AbstractAttributeValueJSON {
+export interface IAbstractBooleanJSON extends AbstractAttributeValueJSON {
     value: boolean
 }
 
-export interface IAbstractBooleanValue extends IAbstractAttributeValue {
+export interface IAbstractBoolean extends IAbstractAttributeValue {
     value: boolean
 }
 
-export class AbstractBooleanValue extends AbstractAttributeValue implements IAbstractBooleanValue {
+export class AbstractBoolean extends AbstractAttributeValue implements IAbstractBoolean {
     @serialize()
     @validate()
     public value: boolean

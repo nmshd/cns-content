@@ -1,24 +1,24 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
-import { AbstractStringValueJSON, IAbstractStringValue } from "../AbstractStringValue"
+import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 import { DisplayName } from "./DisplayName"
 import { GivenName } from "./GivenName"
 import { Surname } from "./Surname"
 import { Title } from "./Title"
 
 export interface SalutationJSON extends AbstractComplexValueJSON {
-    displayName: AbstractStringValueJSON
-    givenNames?: AbstractStringValueJSON[]
-    surname?: AbstractStringValueJSON
-    titles?: AbstractStringValueJSON[]
+    displayName: AbstractStringJSON
+    givenNames?: AbstractStringJSON[]
+    surname?: AbstractStringJSON
+    titles?: AbstractStringJSON[]
 }
 
 export interface ISalutation extends IAbstractComplexValue {
-    displayName: DisplayName | IAbstractStringValue | string
-    givenNames?: GivenName[] | IAbstractStringValue[] | string[]
-    surname?: Surname | IAbstractStringValue | string
-    titles?: Title[] | IAbstractStringValue[] | string[]
+    displayName: DisplayName | IAbstractString | string
+    givenNames?: GivenName[] | IAbstractString[] | string[]
+    surname?: Surname | IAbstractString | string
+    titles?: Title[] | IAbstractString[] | string[]
 }
 
 @type("Salutation")

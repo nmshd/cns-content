@@ -1,3 +1,3 @@
 import { AbstractComplexValue } from "../../AbstractComplexValue"
 
-export abstract class AbstractLegalName extends AbstractComplexValue {}
+export abstract class LegalName extends AbstractComplexValue {}

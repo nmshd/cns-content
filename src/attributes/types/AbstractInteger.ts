@@ -1,17 +1,17 @@
 import { serialize, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "../AbstractAttributeValue"
 
-export type AbstractIntegerValueJSON = IAbstractIntegerValueJSON | number
+export type AbstractIntegerJSON = IAbstractIntegerValue | number
 
-export interface IAbstractIntegerValueJSON extends AbstractAttributeValueJSON {
+export interface IAbstractIntegerValue extends AbstractAttributeValueJSON {
     value: number
 }
 
-export interface IAbstractIntegerValue extends IAbstractAttributeValue {
+export interface IAbstractInteger extends IAbstractAttributeValue {
     value: number
 }
 
-export class AbstractIntegerValue extends AbstractAttributeValue implements IAbstractIntegerValue {
+export class AbstractInteger extends AbstractAttributeValue implements IAbstractInteger {
     @serialize()
     @validate({ customValidator: (v) => (!Number.isInteger(v) ? "must be an integer" : undefined) })
     public value: number

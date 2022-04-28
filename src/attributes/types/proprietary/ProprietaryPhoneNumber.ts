@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractPhoneNumberValue } from "../strings/AbstractPhoneNumberValue"
+import { AbstractPhoneNumber } from "../strings/AbstractPhoneNumber"
 
 @type("ProprietaryPhoneNumber")
-export class ProprietaryPhoneNumber extends AbstractPhoneNumberValue {}
+export class ProprietaryPhoneNumber extends AbstractPhoneNumber {}

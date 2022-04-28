@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractDataURLValue } from "../strings/AbstractDataURLValue"
+import { AbstractDataURL } from "../strings/AbstractDataURL"
 
 @type("ProprietaryDataURL")
-export class ProprietaryDataURL extends AbstractDataURLValue {}
+export class ProprietaryDataURL extends AbstractDataURL {}

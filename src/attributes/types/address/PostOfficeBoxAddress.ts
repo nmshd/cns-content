@@ -1,6 +1,6 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
-import { AbstractStringValueJSON, IAbstractStringValue } from "../AbstractStringValue"
+import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 import { AbstractAddress, AbstractAddressJSON, IAbstractAddress } from "./AbstractAddress"
 import { City } from "./City"
 import { Country } from "./Country"
@@ -8,19 +8,19 @@ import { State } from "./State"
 import { ZipCode } from "./ZipCode"
 
 export interface PostOfficeBoxAddressJSON extends AbstractAddressJSON {
-    boxId: AbstractStringValueJSON
-    zipCode: AbstractStringValueJSON
-    city: AbstractStringValueJSON
-    country: AbstractStringValueJSON
-    state?: AbstractStringValueJSON
+    boxId: AbstractStringJSON
+    zipCode: AbstractStringJSON
+    city: AbstractStringJSON
+    country: AbstractStringJSON
+    state?: AbstractStringJSON
 }
 
 export interface IPostOfficeBoxAddress extends IAbstractAddress {
     boxId: string
-    zipCode: ZipCode | IAbstractStringValue | string
-    city: City | IAbstractStringValue | string
-    country: Country | IAbstractStringValue | string
-    state?: State | IAbstractStringValue | string
+    zipCode: ZipCode | IAbstractString | string
+    city: City | IAbstractString | string
+    country: Country | IAbstractString | string
+    state?: State | IAbstractString | string
 }
 
 @type("PostOfficeBoxAddress")

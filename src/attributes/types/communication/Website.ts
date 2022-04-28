@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractURLValue } from "../strings"
+import { AbstractURL } from "../strings"
 
 @type("Website")
-export class Website extends AbstractURLValue {}
+export class Website extends AbstractURL {}

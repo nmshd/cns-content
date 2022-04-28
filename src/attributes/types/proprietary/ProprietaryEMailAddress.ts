@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractEMailAddressValue } from "../strings/AbstractEMailAddressValue"
+import { AbstractEMailAddress } from "../strings/AbstractEMailAddress"
 
 @type("ProprietaryEMailAddress")
-export class ProprietaryEMailAddress extends AbstractEMailAddressValue {}
+export class ProprietaryEMailAddress extends AbstractEMailAddress {}

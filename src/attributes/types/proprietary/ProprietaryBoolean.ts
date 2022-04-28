@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractBooleanValue } from "../AbstractBooleanValue"
+import { AbstractBoolean } from "../AbstractBoolean"
 
 @type("ProprietaryBoolean")
-export class ProprietaryBoolean extends AbstractBooleanValue {}
+export class ProprietaryBoolean extends AbstractBoolean {}

@@ -1,21 +1,21 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
-import { AbstractIntegerValueJSON, IAbstractIntegerValue } from "../AbstractIntegerValue"
+import { AbstractIntegerJSON, IAbstractInteger } from "../AbstractInteger"
 import { BirthDay } from "./BirthDay"
 import { BirthMonth } from "./BirthMonth"
 import { BirthYear } from "./BirthYear"
 
 export interface BirthDateJSON extends AbstractComplexValueJSON {
-    day: AbstractIntegerValueJSON
-    month: AbstractIntegerValueJSON
-    year: AbstractIntegerValueJSON
+    day: AbstractIntegerJSON
+    month: AbstractIntegerJSON
+    year: AbstractIntegerJSON
 }
 
 export interface IBirthDate extends IAbstractComplexValue {
-    day: BirthDay | IAbstractIntegerValue | number
-    month: BirthMonth | IAbstractIntegerValue | number
-    year: BirthYear | IAbstractIntegerValue | number
+    day: BirthDay | IAbstractInteger | number
+    month: BirthMonth | IAbstractInteger | number
+    year: BirthYear | IAbstractInteger | number
 }
 
 @type("BirthDate")

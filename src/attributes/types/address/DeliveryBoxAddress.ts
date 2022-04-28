@@ -1,6 +1,6 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
-import { AbstractStringValueJSON, IAbstractStringValue } from "../AbstractStringValue"
+import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 import { Phone } from "../communication"
 import { AbstractAddress, AbstractAddressJSON, IAbstractAddress } from "./AbstractAddress"
 import { City } from "./City"
@@ -11,21 +11,21 @@ import { ZipCode } from "./ZipCode"
 export interface DeliveryBoxAddressJSON extends AbstractAddressJSON {
     userId: string
     deliveryBoxId: string
-    zipCode: AbstractStringValueJSON
-    city: AbstractStringValueJSON
-    country: AbstractStringValueJSON
-    phoneNumber?: AbstractStringValueJSON
-    state?: AbstractStringValueJSON
+    zipCode: AbstractStringJSON
+    city: AbstractStringJSON
+    country: AbstractStringJSON
+    phoneNumber?: AbstractStringJSON
+    state?: AbstractStringJSON
 }
 
 export interface IDeliveryBoxAddress extends IAbstractAddress {
     userId: string
     deliveryBoxId: string
-    zipCode: ZipCode | IAbstractStringValue | string
-    city: City | IAbstractStringValue | string
-    country: Country | IAbstractStringValue | string
-    phoneNumber?: Phone | IAbstractStringValue | string
-    state?: State | IAbstractStringValue | string
+    zipCode: ZipCode | IAbstractString | string
+    city: City | IAbstractString | string
+    country: Country | IAbstractString | string
+    phoneNumber?: Phone | IAbstractString | string
+    state?: State | IAbstractString | string
 }
 
 @type("DeliveryBoxAddress")

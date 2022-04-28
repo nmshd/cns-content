@@ -1,19 +1,19 @@
 import { serialize, validate } from "@js-soft/ts-serval"
 import { CoreDate, ICoreDate } from "@nmshd/transport"
 import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
-import { AbstractStringValueJSON, IAbstractStringValue } from "../AbstractStringValue"
+import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 
 export interface AbstractPeriodJSON extends AbstractComplexValueJSON {
-    start?: AbstractStringValueJSON
-    end?: AbstractStringValueJSON
+    start?: AbstractStringJSON
+    end?: AbstractStringJSON
 }
 
 export interface IAbstractPeriod extends IAbstractComplexValue {
-    start?: ICoreDate | IAbstractStringValue | string
-    end?: ICoreDate | IAbstractStringValue | string
+    start?: ICoreDate | IAbstractString | string
+    end?: ICoreDate | IAbstractString | string
 }
 
-export class AbstractPeriodValue extends AbstractComplexValue implements IAbstractPeriod {
+export class AbstractPeriod extends AbstractComplexValue implements IAbstractPeriod {
     @serialize()
     @validate({ nullable: true })
     public start?: CoreDate
@@ -22,7 +22,7 @@ export class AbstractPeriodValue extends AbstractComplexValue implements IAbstra
     @validate({ nullable: true })
     public end?: CoreDate
 
-    public static from(value: IAbstractPeriod | AbstractPeriodJSON): AbstractPeriodValue {
+    public static from(value: IAbstractPeriod | AbstractPeriodJSON): AbstractPeriod {
         return this.fromAny(value)
     }
 }

@@ -1,5 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { AbstractStringValue } from "../AbstractStringValue"
+import { AbstractString } from "../AbstractString"
 
 /**
  * Biologisches Geschlecht
@@ -10,7 +10,7 @@ export enum BiolSex {
     X = "diverse"
 }
 @type("Sex")
-export class Sex extends AbstractStringValue {
+export class Sex extends AbstractString {
     @serialize()
     @validate({
         customValidator: (v) =>
