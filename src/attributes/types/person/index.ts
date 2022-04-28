@@ -1,5 +1,4 @@
 export * from "./Age"
+export * from "./Citizenship"
 export * from "./Nationality"
-export * from "./PersonEyeColor"
-export * from "./PersonHeight"
 export * from "./Sex"
