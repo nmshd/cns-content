@@ -25,7 +25,7 @@ export class BirthPlace extends AbstractComplexValue implements IBirthPlace {
     public city: BirthCity
 
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
-    @validate({ nullable: true })
+    @validate()
     public country: BirthCountry
 
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
