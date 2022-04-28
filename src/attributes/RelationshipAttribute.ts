@@ -4,7 +4,6 @@ import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeV
 
 export interface RelationshipAttributeJSON<K extends AbstractAttributeValueJSON = AbstractAttributeValueJSON>
     extends AbstractAttributeJSON {
-    store: "Relationship"
     value: K
     key: string
 }
@@ -20,10 +19,6 @@ export class RelationshipAttribute<T extends AbstractAttributeValue = AbstractAt
     extends AbstractAttribute
     implements IRelationshipAttribute<T>
 {
-    @serialize()
-    @validate()
-    public readonly store: "Relationship" = "Relationship"
-
     // Fix serval bug where { type: AbstractAttributeValue } does not work here ...
     @serialize({ unionTypes: [AbstractAttributeValue] })
     @validate()
@@ -32,11 +27,6 @@ export class RelationshipAttribute<T extends AbstractAttributeValue = AbstractAt
     @serialize()
     @validate({ nullable: true })
     public key: string
-
-    protected static override preFrom(value: any): any {
-        if (!value.store) value.store = "Relationship"
-        return value
-    }
 
     public static from<
         T extends AbstractAttributeValue = AbstractAttributeValue,
