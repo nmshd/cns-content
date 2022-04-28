@@ -8,9 +8,9 @@ export interface IdentityAttributeJSON<K extends AbstractAttributeValueJSON = Ab
     tags?: string[]
 }
 
-export interface IIdentityAttribute<T extends IAbstractAttributeValue = IAbstractAttributeValue>
+export interface IIdentityAttribute<I extends IAbstractAttributeValue = IAbstractAttributeValue>
     extends IAbstractAttribute {
-    value: T
+    value: I
     tags?: string[]
 }
 

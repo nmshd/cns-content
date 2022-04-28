@@ -8,9 +8,9 @@ export interface RelationshipAttributeJSON<K extends AbstractAttributeValueJSON 
     key: string
 }
 
-export interface IRelationshipAttribute<T extends IAbstractAttributeValue = IAbstractAttributeValue>
+export interface IRelationshipAttribute<I extends IAbstractAttributeValue = IAbstractAttributeValue>
     extends IAbstractAttribute {
-    value: T
+    value: I
     key: string
 }
 
