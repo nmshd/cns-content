@@ -35,4 +35,14 @@ export class BirthPlace extends AbstractComplexValue implements IBirthPlace {
     public static from(value: IBirthPlace | BirthPlaceJSON): BirthPlace {
         return this.fromAny(value)
     }
+
+    public override toString(): string {
+        const value: string[] = [this.city.toString()]
+        if (this.state) {
+            value.push(this.state.toString())
+        }
+        value.push(this.country.toString())
+
+        return value.join(", ")
+    }
 }

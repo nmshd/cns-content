@@ -22,4 +22,8 @@ export abstract class AbstractMeasurement extends AbstractComplexValue implement
     @serialize()
     @validate()
     public value: number
+
+    public override toString(): string {
+        return `${this.value}${this.unit}`
+    }
 }

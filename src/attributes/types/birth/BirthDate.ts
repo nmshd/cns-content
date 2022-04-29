@@ -1,4 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import { DateTime } from "luxon"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
 import { AbstractIntegerJSON, IAbstractInteger } from "../AbstractInteger"
@@ -34,5 +35,13 @@ export class BirthDate extends AbstractComplexValue implements IBirthDate {
 
     public static from(value: IBirthDate | BirthDateJSON): BirthDate {
         return this.fromAny(value)
+    }
+
+    public override toString(): string {
+        return DateTime.fromObject({
+            day: this.day.value,
+            month: this.month.value,
+            year: this.year.value
+        }).toFormat("yyyy-MM-dd")
     }
 }

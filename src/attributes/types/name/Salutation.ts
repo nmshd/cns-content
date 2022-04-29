@@ -49,4 +49,8 @@ export class Salutation extends AbstractComplexValue implements ISalutation {
     public static from(value: ISalutation | SalutationJSON): Salutation {
         return this.fromAny(value)
     }
+
+    public override toString(): string {
+        return this.displayName.toString()
+    }
 }

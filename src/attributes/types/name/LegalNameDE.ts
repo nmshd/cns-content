@@ -10,16 +10,16 @@ import { Pseudonym } from "./Pseudonym"
 import { Surname } from "./Surname"
 
 export interface LegalNameDEJSON extends AbstractComplexValueJSON {
-    surname?: AbstractStringJSON
-    givenNames?: AbstractStringJSON[]
+    surname: AbstractStringJSON
+    givenNames: AbstractStringJSON[]
     birthName?: AbstractStringJSON
     pseudonym?: AbstractStringJSON
     honorificPrefix?: AbstractStringJSON
 }
 
 export interface ILegalNameDE extends IAbstractComplexValue {
-    surname?: Surname | IAbstractString | string
-    givenNames?: GivenName[] | IAbstractString[] | string[]
+    surname: Surname | IAbstractString | string
+    givenNames: GivenName[] | IAbstractString[] | string[]
     birthName?: BirthName | IAbstractString | string
     pseudonym?: Pseudonym | IAbstractString | string
     honorificPrefix?: HonorificPrefix | IAbstractString | string
@@ -46,4 +46,22 @@ export class LegalNameDE extends LegalName {
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate({ nullable: true })
     public honorificPrefix?: HonorificPrefix
+
+    public override toString(): string {
+        const value: string[] = []
+
+        if (this.honorificPrefix) {
+            value.push(this.honorificPrefix.toString())
+        }
+
+        value.push(this.givenNames.join(" "))
+
+        value.push(this.surname.toString())
+
+        if (this.pseudonym) {
+            value.push(`aka "${this.pseudonym}"`)
+        }
+
+        return value.join(" ")
+    }
 }
