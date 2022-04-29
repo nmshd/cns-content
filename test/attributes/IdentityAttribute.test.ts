@@ -1,20 +1,18 @@
 import {
+    Age,
     Attribute,
     BirthDate,
     BirthDateJSON,
     BirthDay,
     BirthMonth,
-    BirthPlace,
     BirthYear,
     GivenName,
+    HonorificPrefix,
     IBirthDate,
-    IDCardDE,
-    IDCardIssuingDate,
     IdentityAttribute,
     LegalNameDE,
-    LengthUnit,
-    PersonHeight,
-    StreetAddress
+    Nationality,
+    Surname
 } from "@nmshd/content"
 import { CoreAddress, CoreDate } from "@nmshd/transport"
 import { expect } from "chai"
@@ -74,38 +72,87 @@ export class IdentityAttributeTest extends AbstractTest {
             })
 
             it("should allow to validate string values", function () {
-                let personHeight = IdentityAttribute.from<PersonHeight>({
+                let nationality = IdentityAttribute.from<Nationality>({
                     value: {
-                        "@type": "PersonHeight",
-                        unit: LengthUnit.CM,
-                        value: 172
+                        "@type": "Nationality",
+                        value: "DE"
                     },
                     owner: CoreAddress.from("address")
                 })
-                expect(personHeight).to.be.instanceOf(IdentityAttribute)
-                expect(personHeight.value).to.be.instanceOf(PersonHeight)
+                expect(nationality).to.be.instanceOf(IdentityAttribute)
+                expect(nationality.value).to.be.instanceOf(Nationality)
 
-                personHeight = IdentityAttribute.from({
+                nationality = IdentityAttribute.from({
                     value: {
-                        "@type": "PersonHeight",
-                        unit: "cm",
-                        value: 172
+                        "@type": "Nationality",
+                        value: "DE"
                     },
                     owner: CoreAddress.from("address")
                 })
-                expect(personHeight).to.be.instanceOf(IdentityAttribute)
-                expect(personHeight.value).to.be.instanceOf(PersonHeight)
+                expect(nationality).to.be.instanceOf(IdentityAttribute)
+                expect(nationality.value).to.be.instanceOf(Nationality)
 
                 expect(() =>
                     IdentityAttribute.from({
                         value: {
-                            "@type": "PersonHeight",
-                            unit: "mm",
-                            value: 1720
+                            "@type": "Nationality",
+                            value: "xx"
                         },
                         owner: CoreAddress.from("address")
                     })
-                ).to.throw("PersonHeight.unit:String :: must be one of")
+                ).to.throw("Nationality.value:String :: must be one of")
+
+                expect(() =>
+                    IdentityAttribute.from({
+                        value: {
+                            "@type": "Nationality",
+                            value: 27
+                        },
+                        owner: CoreAddress.from("address")
+                    })
+                ).to.throw("Nationality.value :: Value is not a string")
+
+                expect(() =>
+                    IdentityAttribute.from({
+                        value: {
+                            "@type": "Nationality",
+                            value: undefined
+                        },
+                        owner: CoreAddress.from("address")
+                    })
+                ).to.throw("Nationality.value :: Value is not defined")
+            })
+
+            it("should allow to validate integer values", function () {
+                let age = IdentityAttribute.from<Age>({
+                    value: {
+                        "@type": "Age",
+                        value: 122
+                    },
+                    owner: CoreAddress.from("address")
+                })
+                expect(age).to.be.instanceOf(IdentityAttribute)
+                expect(age.value).to.be.instanceOf(Age)
+
+                age = IdentityAttribute.from({
+                    value: {
+                        "@type": "Age",
+                        value: 122
+                    },
+                    owner: CoreAddress.from("address")
+                })
+                expect(age).to.be.instanceOf(IdentityAttribute)
+                expect(age.value).to.be.instanceOf(Age)
+
+                expect(() =>
+                    IdentityAttribute.from({
+                        value: {
+                            "@type": "Age",
+                            value: "172"
+                        },
+                        owner: CoreAddress.from("address")
+                    })
+                ).to.throw("Age.value :: Value is not a number")
             })
 
             it("should allow to create new attributes from JSON", function () {
@@ -193,56 +240,33 @@ export class IdentityAttributeTest extends AbstractTest {
             })
 
             it("should allow the creation of nested attributes", function () {
+                const surname = { value: "Mustermann" }
+                const givenName1 = { value: "Max" }
+                const givenName2 = { value: "Milian" }
+                const prefix = { value: "Dr. Dr." }
                 const legalNameValue = {
                     "@type": "LegalNameDE",
-                    surname: { value: "Mustermann" },
-                    givenNames: [{ value: "Max" }]
+                    surname: surname,
+                    givenNames: [givenName1, givenName2],
+                    honorificPrefix: prefix
                 }
-                const birthDateValue = {
-                    "@type": "BirthDate",
-                    day: { value: 11 },
-                    month: { value: 1 },
-                    year: { value: 1999 }
-                }
-                const birthPlaceValue = {
-                    "@type": "BirthPlace",
-                    city: { value: "Hauptstadt" },
-                    country: { value: "Deutschland" }
-                }
-                const addressValue = {
-                    "@type": "StreetAddress",
-                    recipient: "Max Mustermann",
-                    street: { value: "Hauptstraße" },
-                    houseNo: { value: "1" },
-                    zipCode: { value: "123456" },
-                    city: { value: "Hauptstadt" },
-                    country: { value: "Atlantis" },
-                    state: { value: "Westatlantis" }
-                }
-                const issuingDateValue = {
-                    "@type": "IDCardIssuingDate",
-                    value: "2022-02-22"
-                }
-                const idCardValue = {
-                    "@type": "IDCardDE",
-                    legalName: legalNameValue,
-                    birthDate: birthDateValue,
-                    birthPlace: birthPlaceValue,
-                    address: addressValue,
-                    issuingDate: issuingDateValue
-                }
-                const idCard = IdentityAttribute.from<IDCardDE>({
-                    value: idCardValue,
+                const legalName = LegalNameDE.fromAny(legalNameValue)
+                expect(legalName).to.be.instanceOf(LegalNameDE)
+
+                const legalNameAttribute = IdentityAttribute.from<LegalNameDE>({
+                    value: legalNameValue,
                     validFrom: CoreDate.utc().subtract({ years: 1 }),
                     validTo: CoreDate.utc().add({ years: 1 }),
                     owner: CoreAddress.from("address")
                 })
-                expect(idCard.value).to.be.instanceOf(IDCardDE)
-                expect(idCard.value.legalName).to.be.instanceOf(LegalNameDE)
-                expect(idCard.value.birthDate).to.be.instanceOf(BirthDate)
-                expect(idCard.value.birthPlace).to.be.instanceOf(BirthPlace)
-                expect(idCard.value.address).to.be.instanceOf(StreetAddress)
-                expect(idCard.value.issuingDate).to.be.instanceOf(IDCardIssuingDate)
+
+                expect(legalNameAttribute.value).to.be.instanceOf(LegalNameDE)
+                expect(legalNameAttribute.value.surname).to.be.instanceOf(Surname)
+
+                expect(legalNameAttribute.value.givenNames[0]).to.be.instanceOf(GivenName)
+                expect(legalNameAttribute.value.givenNames[1]).to.be.instanceOf(GivenName)
+                expect(legalNameAttribute.value.honorificPrefix).to.be.instanceOf(HonorificPrefix)
+                expect(legalNameAttribute.value.pseudonym).to.be.undefined
             })
 
             it("should be able to deal with deprecated attributes", function () {

@@ -16,15 +16,13 @@ export class NameValueTests extends AbstractTest {
                 "@type": "Salutation",
                 displayName: "Test DisplayName",
                 givenNames: [],
-                surname: "Test Surname",
-                titles: []
+                surname: "Test Surname"
             },
             valueJSON: {
                 "@type": "Salutation",
                 displayName: "Test DisplayName",
                 givenNames: [],
-                surname: "Test Surname",
-                titles: []
+                surname: "Test Surname"
             },
             valueVerboseJSON: {
                 "@type": "Salutation",
@@ -36,14 +34,12 @@ export class NameValueTests extends AbstractTest {
                 surname: {
                     "@type": "Surname",
                     value: "Test Surname"
-                },
-                titles: []
+                }
             },
             valueInterface: {
                 displayName: DisplayName.fromAny("Test DisplayName"),
                 givenNames: [],
-                surname: Surname.fromAny("Test Surname"),
-                titles: []
+                surname: Surname.fromAny("Test Surname")
             }
         })
 
