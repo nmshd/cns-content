@@ -4,7 +4,7 @@ import { AbstractString } from "../AbstractString"
 /**
  * Biologisches Geschlecht
  */
-export enum BiolSex {
+export enum BiologicalSex {
     M = "male",
     F = "female",
     X = "intersex"
@@ -14,7 +14,7 @@ export class Sex extends AbstractString {
     @serialize()
     @validate({
         customValidator: (v) =>
-            !Object.values(BiolSex).includes(v) ? `must be one of: ${Object.values(BiolSex)}` : undefined
+            !Object.values(BiologicalSex).includes(v) ? `must be one of: ${Object.values(BiologicalSex)}` : undefined
     })
-    public override value: BiolSex
+    public override value: BiologicalSex
 }
