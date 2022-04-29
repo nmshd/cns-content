@@ -3,6 +3,6 @@ import { AbstractString } from "../AbstractString"
 
 export abstract class AbstractPhoneNumber extends AbstractString {
     @serialize()
-    @validate()
+    @validate({ regExp: new RegExp(/^[\d+\-x#*() ]{3,100}$/) })
     public override value: string
 }
