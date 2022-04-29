@@ -1,4 +1,4 @@
-export const COUNTRIES_ALPHA2 = new Map<string, string>([
+export const COUNTRIES_ALPHA2_TO_ENGLISH_NAME = new Map<string, string>([
     ["AD", "Andorra"],
     ["AE", "United Arab Emirates (the)"],
     ["AF", "Afghanistan"],
@@ -250,7 +250,7 @@ export const COUNTRIES_ALPHA2 = new Map<string, string>([
     ["ZW", "Zimbabwe"]
 ])
 
-export enum CountriesAlpha2 {
+export enum CountryAlpha2 {
     AF = "AF",
     AL = "AL",
     AS = "AS",

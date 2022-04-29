@@ -7,7 +7,7 @@ export interface LanguageDefinition {
     nativeName: string
 }
 
-export const LANGUAGES_ISO639 = new Map<string, LanguageDefinition>([
+export const LANGUAGES_ISO639_TO_DISPLAY_NAME = new Map<string, LanguageDefinition>([
     ["aa", { code: "aa", name: "Afar", nativeName: "Afaraf" }],
     ["ab", { code: "ab", name: "Abkhaz", nativeName: "аҧсуа бызшәа" }],
     ["ae", { code: "ae", name: "Avestan", nativeName: "avesta" }],
@@ -193,7 +193,7 @@ export const LANGUAGES_ISO639 = new Map<string, LanguageDefinition>([
     ["zu", { code: "zu", name: "Zulu", nativeName: "isiZulu" }]
 ])
 
-export enum LanguagesISO639 {
+export enum LanguageISO639 {
     aa = "aa",
     ab = "ab",
     ae = "ae",
