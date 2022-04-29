@@ -2,37 +2,40 @@ import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAttribute, AbstractAttributeJSON, IAbstractAttribute } from "./AbstractAttribute"
 import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "./AbstractAttributeValue"
 
-export interface IdentityAttributeJSON<K extends AbstractAttributeValueJSON = AbstractAttributeValueJSON>
-    extends AbstractAttributeJSON {
-    value: K
+export interface IdentityAttributeJSON<
+    TValueJSONInterface extends AbstractAttributeValueJSON = AbstractAttributeValueJSON
+> extends AbstractAttributeJSON {
+    value: TValueJSONInterface
     tags?: string[]
 }
 
-export interface IIdentityAttribute<I extends IAbstractAttributeValue = IAbstractAttributeValue>
+export interface IIdentityAttribute<TValueInterface extends IAbstractAttributeValue = IAbstractAttributeValue>
     extends IAbstractAttribute {
-    value: I
+    value: TValueInterface
     tags?: string[]
 }
 
 @type("IdentityAttribute")
-export class IdentityAttribute<T extends AbstractAttributeValue = AbstractAttributeValue>
+export class IdentityAttribute<TValueClass extends AbstractAttributeValue = AbstractAttributeValue>
     extends AbstractAttribute
-    implements IIdentityAttribute<T>
+    implements IIdentityAttribute<TValueClass>
 {
     // Fix serval bug where { type: AbstractAttributeValue } does not work here ...
     @serialize({ unionTypes: [AbstractAttributeValue] })
     @validate()
-    public value: T
+    public value: TValueClass
 
     @serialize({ type: String })
     @validate({ nullable: true })
     public tags?: string[]
 
     public static from<
-        T extends AbstractAttributeValue = AbstractAttributeValue,
-        I extends IAbstractAttributeValue = IAbstractAttributeValue,
-        K extends AbstractAttributeValueJSON = AbstractAttributeValueJSON
-    >(value: IIdentityAttribute<I> | IdentityAttributeJSON<K>): IdentityAttribute<T> {
-        return this.fromAny(value) as IdentityAttribute<T>
+        TValueClass extends AbstractAttributeValue = AbstractAttributeValue,
+        TValueInterface extends IAbstractAttributeValue = IAbstractAttributeValue,
+        TValueJSONInterface extends AbstractAttributeValueJSON = AbstractAttributeValueJSON
+    >(
+        value: IIdentityAttribute<TValueInterface> | IdentityAttributeJSON<TValueJSONInterface>
+    ): IdentityAttribute<TValueClass> {
+        return this.fromAny(value) as IdentityAttribute<TValueClass>
     }
 }
