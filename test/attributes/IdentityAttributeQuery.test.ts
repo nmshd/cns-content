@@ -23,12 +23,12 @@ export class IdentityAttributeQueryTest extends AbstractTest {
                 expect(attributeQueryTags).to.be.instanceOf(IdentityAttributeQuery)
             })
 
-            it("should validate that attributeType might not be an empty string", function () {
+            it("should validate that valueType might not be an empty string", function () {
                 expect(() =>
                     IdentityAttributeQuery.from({
                         valueType: ""
                     })
-                ).to.throw("IdentityAttributeQuery.attributeType:String :: must not be an empty string")
+                ).to.throw("IdentityAttributeQuery.valueType:String :: must not be an empty string")
             })
         })
     }
