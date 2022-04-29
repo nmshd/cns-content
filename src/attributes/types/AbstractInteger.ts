@@ -20,4 +20,8 @@ export class AbstractInteger extends AbstractAttributeValue implements IAbstract
         if (typeof value === "number") value = { value }
         return value
     }
+
+    public override toString(): string {
+        return `${this.value}`
+    }
 }

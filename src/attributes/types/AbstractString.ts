@@ -20,4 +20,8 @@ export class AbstractString extends AbstractAttributeValue implements IAbstractS
         if (typeof value === "string") value = { value }
         return value
     }
+
+    public override toString(): string {
+        return `${this.value}`
+    }
 }

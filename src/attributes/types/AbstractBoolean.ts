@@ -20,4 +20,8 @@ export class AbstractBoolean extends AbstractAttributeValue implements IAbstract
         if (typeof value === "boolean") value = { value }
         return value
     }
+
+    public override toString(): string {
+        return `${this.value}`
+    }
 }

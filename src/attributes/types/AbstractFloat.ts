@@ -20,4 +20,8 @@ export class AbstractFloat extends AbstractAttributeValue implements IAbstractFl
         if (typeof value === "number") value = { value }
         return value
     }
+
+    public override toString(): string {
+        return `${this.value}`
+    }
 }
