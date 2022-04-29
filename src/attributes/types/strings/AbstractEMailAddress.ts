@@ -5,9 +5,7 @@ export abstract class AbstractEMailAddress extends AbstractString {
     // from https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
     @serialize()
     @validate({
-        regExp: new RegExp(
-            "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-        )
+        regExp: new RegExp("^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$", "i")
     })
     public override value: string
 }
