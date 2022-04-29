@@ -4,12 +4,12 @@ import { ContentJSON } from "../ContentJSON"
 import { AbstractPeriod, AbstractPeriodJSON, IAbstractPeriod } from "./types/dates/AbstractPeriod"
 
 export interface AbstractAttributeQueryJSON extends ContentJSON {
-    attributeType?: string
+    valueType?: string
     validityPeriod?: AbstractPeriodJSON
 }
 
 export interface IAbstractAttributeQuery extends ICoreSerializable {
-    attributeType?: string
+    valueType?: string
     validityPeriod?: IAbstractPeriod
 }
 
@@ -19,7 +19,7 @@ export abstract class AbstractAttributeQuery extends CoreSerializable implements
         nullable: true,
         customValidator: (v) => (v === "" ? "must not be an empty string" : undefined)
     })
-    public attributeType?: string
+    public valueType?: string
 
     @serialize()
     @validate({ nullable: true })

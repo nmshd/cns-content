@@ -7,13 +7,13 @@ export class IdentityAttributeQueryTest extends AbstractTest {
         describe("IdentityAttributeQuery", function () {
             it("should allow to create a new query", function () {
                 const attributeQuery = IdentityAttributeQuery.from({
-                    attributeType: "StreetAddress",
+                    valueType: "StreetAddress",
                     tags: ["Delivery"]
                 })
                 expect(attributeQuery).to.be.instanceOf(IdentityAttributeQuery)
 
                 const attributeQueryType = IdentityAttributeQuery.from({
-                    attributeType: "StreetAddress"
+                    valueType: "StreetAddress"
                 })
                 expect(attributeQueryType).to.be.instanceOf(IdentityAttributeQuery)
 
@@ -26,7 +26,7 @@ export class IdentityAttributeQueryTest extends AbstractTest {
             it("should validate that attributeType might not be an empty string", function () {
                 expect(() =>
                     IdentityAttributeQuery.from({
-                        attributeType: ""
+                        valueType: ""
                     })
                 ).to.throw("IdentityAttributeQuery.attributeType:String :: must not be an empty string")
             })
