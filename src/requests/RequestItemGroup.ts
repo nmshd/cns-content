@@ -110,14 +110,14 @@ export class RequestItemGroup extends Serializable {
         return this.fromAny(value)
     }
 
-    public static override postFrom<T extends Serializable>(value: T): T {
+    protected static override postFrom<T extends Serializable>(value: T): T {
         if (!(value instanceof RequestItemGroup)) throw new Error("this should never happen")
 
         if (value.mustBeAccepted && value.items.every((item) => !item.mustBeAccepted)) {
             throw new ValidationError(
                 "RequestItemGroup",
-                "mustBeAccepted:boolean",
-                "mustBeAccepted can only be true if at minimum one item is flagged as mustBeAccepted"
+                "mustBeAccepted",
+                "mustBeAccepted can only be true if at least one item is flagged as mustBeAccepted"
             )
         }
 
