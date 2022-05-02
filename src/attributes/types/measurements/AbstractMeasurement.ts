@@ -24,6 +24,6 @@ export abstract class AbstractMeasurement extends AbstractComplexValue implement
     public value: number
 
     public override toString(): string {
-        return `${this.value}${this.unit}`
+        return `${this.value} ${this.unit}`
     }
 }
