@@ -184,5 +184,18 @@ export class RequestTest extends AbstractTest {
                 )
             })
         })
+
+        describe("RequestItemGroup", function () {
+            it("should validate the RequestItemGroup", async function () {
+                await expectThrowsAsync(
+                    () =>
+                        RequestItemGroup.from({
+                            mustBeAccepted: true,
+                            items: [TestRequestItem.fromAny({ mustBeAccepted: false })]
+                        }),
+                    "mustBeAccepted can only be true if at minimum one item is flagged as mustBeAccepted"
+                )
+            })
+        })
     }
 }

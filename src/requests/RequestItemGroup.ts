@@ -1,4 +1,4 @@
-import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate, ValidationError } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
 import { IRequestItem, RequestItem, RequestItemJSON } from "./RequestItem"
 
@@ -108,5 +108,19 @@ export class RequestItemGroup extends Serializable {
 
     public static from(value: IRequestItemGroup | RequestItemGroupJSON): RequestItemGroup {
         return this.fromAny(value)
+    }
+
+    public static override postFrom<T extends Serializable>(value: T): T {
+        if (!(value instanceof RequestItemGroup)) throw new Error("this should never happen")
+
+        if (value.mustBeAccepted && value.items.every((item) => !item.mustBeAccepted)) {
+            throw new ValidationError(
+                "RequestItemGroup",
+                "mustBeAccepted:boolean",
+                "mustBeAccepted can only be true if at minimum one item is flagged as mustBeAccepted"
+            )
+        }
+
+        return value
     }
 }
