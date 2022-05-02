@@ -1,20 +1,20 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { AbstractAttributeValue } from "../../AbstractAttributeValue"
+import { AbstractString } from "../AbstractString"
 
 /**
  * Biologisches Geschlecht
  */
-export enum BiolSex {
+export enum BiologicalSex {
     M = "male",
     F = "female",
-    X = "diverse"
+    X = "intersex"
 }
 @type("Sex")
-export class Sex extends AbstractAttributeValue {
+export class Sex extends AbstractString {
     @serialize()
     @validate({
         customValidator: (v) =>
-            !Object.values(BiolSex).includes(v) ? `must be one of: ${Object.values(BiolSex)}` : undefined
+            !Object.values(BiologicalSex).includes(v) ? `must be one of: ${Object.values(BiologicalSex)}` : undefined
     })
-    public value: BiolSex
+    public override value: BiologicalSex
 }

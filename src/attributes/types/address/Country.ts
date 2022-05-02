@@ -1,5 +1,5 @@
 import { type } from "@js-soft/ts-serval"
-import { AbstractStringValue } from "../AbstractStringValue"
+import { AbstractCountry } from "../strings/AbstractCountry"
 
 @type("Country")
-export class Country extends AbstractStringValue {}
+export class Country extends AbstractCountry {}
