@@ -183,6 +183,42 @@ export class RequestTest extends AbstractTest {
                     "TestRequestItem.mustBeAccepted*Value is not defined"
                 )
             })
+
+            it("should validate the RequestItemGroups mustBeAccepted flag inside a Request", async function () {
+                const requestJSON = {
+                    "@type": "Request",
+                    items: [
+                        {
+                            "@type": "RequestItemGroup",
+                            mustBeAccepted: true,
+                            items: [
+                                {
+                                    "@type": "TestRequestItem",
+                                    mustBeAccepted: false
+                                }
+                            ]
+                        }
+                    ]
+                } as RequestJSON
+
+                await expectThrowsAsync(
+                    () => Serializable.fromUnknown(requestJSON),
+                    "mustBeAccepted can only be true if at least one item is flagged as mustBeAccepted"
+                )
+            })
+        })
+
+        describe("RequestItemGroup", function () {
+            it("should validate the RequestItemGroups mustBeAccepted flag", async function () {
+                await expectThrowsAsync(
+                    () =>
+                        RequestItemGroup.from({
+                            mustBeAccepted: true,
+                            items: [TestRequestItem.fromAny({ mustBeAccepted: false })]
+                        }),
+                    "mustBeAccepted can only be true if at least one item is flagged as mustBeAccepted"
+                )
+            })
         })
     }
 }
