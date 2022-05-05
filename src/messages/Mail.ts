@@ -1,18 +1,23 @@
 import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, ICoreAddress } from "@nmshd/transport"
 import { ContentJSON } from "../ContentJSON"
+import { IRequest, IResponse, Request, RequestJSON, Response, ResponseJSON } from "../requests"
 
 export interface MailJSON extends ContentJSON {
     to: string[]
     cc?: string[]
     subject: string
     body: string
+    requests?: RequestJSON[]
+    responses?: ResponseJSON[]
 }
 export interface IMail extends ISerializable {
     to: ICoreAddress[]
     cc?: ICoreAddress[]
     subject: string
     body: string
+    requests?: IRequest[]
+    responses?: IResponse[]
 }
 
 @type("Mail")
@@ -32,6 +37,14 @@ export class Mail extends Serializable implements IMail {
     @serialize()
     @validate()
     public body: string
+
+    @serialize({ type: Request })
+    @validate({ nullable: true })
+    public requests?: Request[]
+
+    @serialize({ type: Response })
+    @validate({ nullable: true })
+    public responses?: Response[]
 
     protected static override preFrom(value: any): any {
         if (typeof value.cc === "undefined") {
