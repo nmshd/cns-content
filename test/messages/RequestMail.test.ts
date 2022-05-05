@@ -51,7 +51,6 @@ export class RequestMailTest extends AbstractTest {
                     requests: [request, changeAttributes]
                 })
 
-                expect(mail).to.be.instanceOf(Mail)
                 expect(mail).to.be.instanceOf(RequestMail)
 
                 expect(mail.to).to.be.an("Array")
@@ -102,7 +101,6 @@ export class RequestMailTest extends AbstractTest {
 
                 const parsed = Serializable.fromUnknown(json)
 
-                expect(parsed).to.be.instanceOf(Mail)
                 expect(parsed).to.be.instanceOf(RequestMail)
 
                 const parsedMail = parsed as unknown as RequestMail
