@@ -18,6 +18,7 @@ export class IdentityAttributeQueryTest extends AbstractTest {
                 expect(attributeQueryType).to.be.instanceOf(IdentityAttributeQuery)
 
                 const attributeQueryTags = IdentityAttributeQuery.from({
+                    valueType: "StreetAddress",
                     tags: ["Delivery"]
                 })
                 expect(attributeQueryTags).to.be.instanceOf(IdentityAttributeQuery)
