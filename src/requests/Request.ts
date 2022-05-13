@@ -20,6 +20,12 @@ export interface RequestJSON extends ContentJSON {
      * further {@link RequestItemJSON RequestItems}.
      */
     items: (RequestItemGroupJSON | RequestItemJSON)[]
+
+    /**
+     * This property can be used to add some arbitrary metadata to this request. The content
+     * of this property will be copied into the response on the side of the recipient.
+     */
+    responseMetadata?: object
 }
 
 export interface IRequest extends ISerializable {
@@ -38,6 +44,12 @@ export interface IRequest extends ISerializable {
      * further {@link RequestItem RequestItems}.
      */
     items: (IRequestItemGroup | IRequestItem)[]
+
+    /**
+     * This property can be used to add some arbitrary metadata to this request. The content
+     * of this property will be copied into the response on the side of the recipient.
+     */
+    responseMetadata?: object
 }
 
 @type("Request")
@@ -53,6 +65,10 @@ export class Request extends Serializable implements IRequest {
     @serialize()
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
     public items: (RequestItemGroup | RequestItem)[]
+
+    @serialize()
+    @validate({ nullable: true })
+    public responseMetadata?: object
 
     public static from(value: IRequest | RequestJSON): Request {
         return this.fromAny(value)

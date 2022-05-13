@@ -1,24 +1,15 @@
 import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
-import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
-import { Authorization, AuthorizationJSON, IAuthorization } from "../authorizations/Authorization"
 import { ContentJSON } from "../ContentJSON"
+import { IResponse, Response, ResponseJSON } from "../requests/response/Response"
 
-export interface RelationshipCreationChangeRequestBodyJSON extends ContentJSON {
-    title?: string
-    sessionIdentifier?: string
-    metadata?: any
-    sharedAttributes?: AttributeJSON[]
-    sharedCertificates?: any[]
-    sharedAuthorizations?: AuthorizationJSON[]
+export interface IRelationshipCreationChangeRequestBodyJSON extends ContentJSON {
+    templateContentMetadata?: object
+    response: ResponseJSON
 }
 
 export interface IRelationshipCreationChangeRequestBody extends ISerializable {
-    title?: string
-    sessionIdentifier?: string
-    metadata?: any
-    sharedAttributes?: IAttribute[]
-    sharedCertificates?: any[]
-    sharedAuthorizations?: IAuthorization[]
+    templateContentMetadata?: object
+    response: IResponse
 }
 
 @type("RelationshipCreationChangeRequestBody")
@@ -28,29 +19,15 @@ export class RelationshipCreationChangeRequestBody
 {
     @serialize()
     @validate({ nullable: true })
-    public title?: string
+    public templateContentMetadata?: object
 
     @serialize()
-    @validate({ nullable: true })
-    public sessionIdentifier?: string
+    @validate()
+    public response: Response
 
-    @serialize({ any: true })
-    @validate({ nullable: true })
-    public metadata?: any
-
-    @serialize({ type: Attribute })
-    @validate({ nullable: true })
-    public sharedAttributes?: Attribute[]
-
-    @serialize()
-    @validate({ nullable: true })
-    public sharedCertificates?: any[]
-
-    @serialize({ type: Authorization })
-    @validate({ nullable: true })
-    public sharedAuthorizations?: Authorization[]
-
-    public static from(value: IRelationshipCreationChangeRequestBody): RelationshipCreationChangeRequestBody {
+    public static from(
+        value: IRelationshipCreationChangeRequestBody | IRelationshipCreationChangeRequestBodyJSON
+    ): RelationshipCreationChangeRequestBody {
         return this.fromAny(value)
     }
 }
