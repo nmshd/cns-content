@@ -22,7 +22,7 @@ export interface RequestJSON extends ContentJSON {
     items: (RequestItemGroupJSON | RequestItemJSON)[]
 
     /**
-     * This propertycan be used to add some arbitrary metadata to this request. The content
+     * This property can be used to add some arbitrary metadata to this request. The content
      * of this property will be copied into the response on the side of the recipient.
      */
     responseMetadata?: object
@@ -46,7 +46,7 @@ export interface IRequest extends ISerializable {
     items: (IRequestItemGroup | IRequestItem)[]
 
     /**
-     * This propertycan be used to add some arbitrary metadata to this request. The content
+     * This property can be used to add some arbitrary metadata to this request. The content
      * of this property will be copied into the response on the side of the recipient.
      */
     responseMetadata?: object

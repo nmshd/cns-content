@@ -31,7 +31,7 @@ export interface RequestItemGroupJSON extends ContentJSON {
     mustBeAccepted: boolean
 
     /**
-     * This propertycan be used to add some arbitrary metadata to this group. The content
+     * This property can be used to add some arbitrary metadata to this group. The content
      * of this property will be copied into the response on the side of the recipient, so
      * the sender can use it to identify the group content as they receive the response.
      */
@@ -72,7 +72,7 @@ export interface IRequestItemGroup extends ISerializable {
     mustBeAccepted: boolean
 
     /**
-     * This propertycan be used to add some arbitrary metadata to this group. The content
+     * This property can be used to add some arbitrary metadata to this group. The content
      * of this property will be copied into the response on the side of the recipient, so
      * the sender can use it to identify the group content as they receive the response.
      */
