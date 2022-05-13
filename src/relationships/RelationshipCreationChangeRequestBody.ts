@@ -2,20 +2,20 @@ import { ISerializable, Serializable, serialize, type, validate } from "@js-soft
 import { ContentJSON } from "../ContentJSON"
 import { IResponse, Response, ResponseJSON } from "../requests/response/Response"
 
-export interface IRelationshipCreationChangeRequestContentJSON extends ContentJSON {
+export interface IRelationshipCreationChangeRequestBodyJSON extends ContentJSON {
     templateContentMetadata?: object
     response: ResponseJSON
 }
 
-export interface IRelationshipCreationChangeRequestContent extends ISerializable {
+export interface IRelationshipCreationChangeRequestBody extends ISerializable {
     templateContentMetadata?: object
     response: IResponse
 }
 
-@type("RelationshipCreationChangeRequestContent")
-export class RelationshipCreationChangeRequestContent
+@type("RelationshipCreationChangeRequestBody")
+export class RelationshipCreationChangeRequestBody
     extends Serializable
-    implements IRelationshipCreationChangeRequestContent
+    implements IRelationshipCreationChangeRequestBody
 {
     @serialize()
     @validate({ nullable: true })
@@ -25,7 +25,9 @@ export class RelationshipCreationChangeRequestContent
     @validate()
     public response: Response
 
-    public static from(value: IRelationshipCreationChangeRequestContent): RelationshipCreationChangeRequestContent {
+    public static from(
+        value: IRelationshipCreationChangeRequestBody | IRelationshipCreationChangeRequestBodyJSON
+    ): RelationshipCreationChangeRequestBody {
         return this.fromAny(value)
     }
 }

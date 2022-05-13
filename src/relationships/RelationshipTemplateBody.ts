@@ -2,22 +2,22 @@ import { ISerializable, Serializable, serialize, type, validate } from "@js-soft
 import { ContentJSON } from "../ContentJSON"
 import { IRequest, Request, RequestJSON } from "../requests/Request"
 
-export interface RelationshipTemplateContentJSON extends ContentJSON {
+export interface RelationshipTemplateBodyJSON extends ContentJSON {
     title?: string
     metadata?: object
     newRelationshipRequest: RequestJSON
     existingRelationshipRequest?: RequestJSON
 }
 
-export interface IRelationshipTemplateContent extends ISerializable {
+export interface IRelationshipTemplateBody extends ISerializable {
     title?: string
     metadata?: object
     newRelationshipRequest: IRequest
     existingRelationshipRequest?: IRequest
 }
 
-@type("RelationshipTemplateContent")
-export class RelationshipTemplateContent extends Serializable implements IRelationshipTemplateContent {
+@type("RelationshipTemplateBody")
+export class RelationshipTemplateBody extends Serializable implements IRelationshipTemplateBody {
     @serialize()
     @validate({ nullable: true })
     public title?: string
@@ -34,7 +34,7 @@ export class RelationshipTemplateContent extends Serializable implements IRelati
     @validate({ nullable: true })
     public existingRelationshipRequest?: Request
 
-    public static from(value: IRelationshipTemplateContent): RelationshipTemplateContent {
+    public static from(value: IRelationshipTemplateBody | RelationshipTemplateBodyJSON): RelationshipTemplateBody {
         return this.fromAny(value)
     }
 }

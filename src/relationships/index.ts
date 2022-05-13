@@ -1,2 +1,2 @@
-export * from "./RelationshipCreationChangeRequestContent"
-export * from "./RelationshipTemplateContent"
+export * from "./RelationshipCreationChangeRequestBody"
+export * from "./RelationshipTemplateBody"
