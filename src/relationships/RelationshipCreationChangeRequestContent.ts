@@ -3,13 +3,11 @@ import { ContentJSON } from "../ContentJSON"
 import { IResponse, Response, ResponseJSON } from "../requests/response/Response"
 
 export interface IRelationshipCreationChangeRequestContentJSON extends ContentJSON {
-    title?: string
     templateContentMetadata?: object
     response: ResponseJSON
 }
 
 export interface IRelationshipCreationChangeRequestContent extends ISerializable {
-    title?: string
     templateContentMetadata?: object
     response: IResponse
 }
@@ -19,10 +17,6 @@ export class RelationshipCreationChangeRequestContent
     extends Serializable
     implements IRelationshipCreationChangeRequestContent
 {
-    @serialize()
-    @validate({ nullable: true })
-    public title?: string
-
     @serialize()
     @validate({ nullable: true })
     public templateContentMetadata?: object
