@@ -1,10 +1,11 @@
-import { ISerializable, Serializable, serialize, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { IResponse, Response } from "../requests/response/Response"
 
 export interface IRelationshipCreationChangeRequestContent extends ISerializable {
     response: IResponse
 }
 
+@type("RelationshipCreationChangeRequestContent")
 export class RelationshipCreationChangeRequestContent
     extends Serializable
     implements IRelationshipCreationChangeRequestContent

@@ -2,7 +2,7 @@ import { ISerializable, Serializable, serialize, type, validate } from "@js-soft
 import { ContentJSON } from "../ContentJSON"
 import { IRequest, Request, RequestJSON } from "../requests/Request"
 
-export interface RelationshipTemplateBodyJSON extends ContentJSON {
+export interface RelationshipTemplateContentJSON extends ContentJSON {
     title?: string
     metadata?: any
     newRelationshipRequest: RequestJSON
@@ -16,7 +16,7 @@ export interface IRelationshipTemplateContent extends ISerializable {
     existingRelationshipRequest?: IRequest
 }
 
-@type("RelationshipTemplateBody")
+@type("RelationshipTemplateContent")
 export class RelationshipTemplateContent extends Serializable implements IRelationshipTemplateContent {
     @serialize()
     @validate({ nullable: true })
