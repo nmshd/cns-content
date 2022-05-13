@@ -4,13 +4,13 @@ import { IResponse, Response, ResponseJSON } from "../requests/response/Response
 
 export interface IRelationshipCreationChangeRequestContentJSON extends ContentJSON {
     title?: string
-    metadata?: any
+    templateContentMetadata?: object
     response: ResponseJSON
 }
 
 export interface IRelationshipCreationChangeRequestContent extends ISerializable {
     title?: string
-    metadata?: any
+    templateContentMetadata?: object
     response: IResponse
 }
 
@@ -23,9 +23,9 @@ export class RelationshipCreationChangeRequestContent
     @validate({ nullable: true })
     public title?: string
 
-    @serialize({ any: true })
+    @serialize()
     @validate({ nullable: true })
-    public metadata?: any
+    public templateContentMetadata?: object
 
     @serialize()
     @validate()

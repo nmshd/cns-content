@@ -4,14 +4,14 @@ import { IRequest, Request, RequestJSON } from "../requests/Request"
 
 export interface RelationshipTemplateContentJSON extends ContentJSON {
     title?: string
-    metadata?: any
+    metadata?: object
     newRelationshipRequest: RequestJSON
     existingRelationshipRequest?: RequestJSON
 }
 
 export interface IRelationshipTemplateContent extends ISerializable {
     title?: string
-    metadata?: any
+    metadata?: object
     newRelationshipRequest: IRequest
     existingRelationshipRequest?: IRequest
 }
@@ -22,9 +22,9 @@ export class RelationshipTemplateContent extends Serializable implements IRelati
     @validate({ nullable: true })
     public title?: string
 
-    @serialize({ any: true })
+    @serialize()
     @validate({ nullable: true })
-    public metadata?: any
+    public metadata?: object
 
     @serialize()
     @validate()
