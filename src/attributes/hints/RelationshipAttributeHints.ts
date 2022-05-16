@@ -1,13 +1,13 @@
 import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { IValueHints, ValueHints, ValueHintsJSON } from "./ValueHints"
 
-export interface AttributeHintsJSON {
+export interface RelationshipAttributeHintsJSON {
     title: string
     description?: string
     valueHints?: ValueHintsJSON
 }
 
-export interface IAttributeHints extends ISerializable {
+export interface IRelationshipAttributeHints extends ISerializable {
     title: string
     description?: string
     valueHints?: IValueHints
@@ -18,8 +18,8 @@ export interface IAttributeHints extends ISerializable {
  * They are primarily used within `RelationshipAttributeQuery` to define the metadata of
  * a proprietary Attribute, even without such an Attribute existent.
  */
-@type("AttributeHints")
-export class AttributeHints extends Serializable implements IAttributeHints {
+@type("RelationshipAttributeHints")
+export class RelationshipAttributeHints extends Serializable implements IRelationshipAttributeHints {
     @serialize()
     @validate()
     public title: string
@@ -32,7 +32,9 @@ export class AttributeHints extends Serializable implements IAttributeHints {
     @validate({ nullable: true })
     public valueHints?: ValueHints
 
-    public static from(value: IAttributeHints | AttributeHintsJSON): AttributeHints {
+    public static from(
+        value: IRelationshipAttributeHints | RelationshipAttributeHintsJSON
+    ): RelationshipAttributeHints {
         return this.fromAny(value)
     }
 }

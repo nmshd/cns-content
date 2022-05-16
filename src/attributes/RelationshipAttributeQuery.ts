@@ -1,19 +1,23 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, ICoreAddress } from "@nmshd/transport"
 import { AbstractAttributeQuery, AbstractAttributeQueryJSON, IAbstractAttributeQuery } from "./AbstractAttributeQuery"
-import { AttributeHints, AttributeHintsJSON, IAttributeHints } from "./hints/AttributeHints"
+import {
+    IRelationshipAttributeHints,
+    RelationshipAttributeHints,
+    RelationshipAttributeHintsJSON
+} from "./hints/RelationshipAttributeHints"
 
 export interface RelationshipAttributeQueryJSON extends AbstractAttributeQueryJSON {
     key: string
     owner: string
-    attributeHints: AttributeHintsJSON
+    attributeHints: RelationshipAttributeHintsJSON
     thirdParty?: string
 }
 
 export interface IRelationshipAttributeQuery extends IAbstractAttributeQuery {
     key: string
     owner: ICoreAddress
-    attributeHints: IAttributeHints
+    attributeHints: IRelationshipAttributeHints
     thirdParty?: ICoreAddress
 }
 
@@ -29,7 +33,7 @@ export class RelationshipAttributeQuery extends AbstractAttributeQuery implement
 
     @serialize()
     @validate()
-    public attributeHints: AttributeHints
+    public attributeHints: RelationshipAttributeHints
 
     @serialize()
     @validate({ nullable: true })
