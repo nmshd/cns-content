@@ -16,7 +16,7 @@ export interface IAttributeHints extends ISerializable {
 /**
  * AttributeHints are rendering hints with a `title` and a possible `description` set.
  * They are primarily used within `RelationshipAttributeQuery` to define the metadata of
- * a proprietary Attribute, even without such an Attribute existant.
+ * a proprietary Attribute, even without such an Attribute existent.
  */
 @type("AttributeHints")
 export class AttributeHints extends Serializable implements IAttributeHints {
