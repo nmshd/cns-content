@@ -2,19 +2,19 @@ import { ISerializable, Serializable, serialize, type, validate } from "@js-soft
 
 export interface ValueHintsValueJSON {
     key: boolean | number | string
-    title: string
+    displayName: string
 }
 
 export interface IValueHintsValue extends ISerializable {
     key: boolean | number | string
-    title: string
+    displayName: string
 }
 
 @type("ValueHintsValue")
 export class ValueHintsValue extends Serializable implements IValueHintsValue {
     @serialize()
     @validate()
-    public title: string
+    public displayName: string
 
     @serialize({ unionTypes: [Boolean, Number, String] })
     @validate()
