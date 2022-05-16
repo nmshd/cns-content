@@ -2,7 +2,7 @@ import { ISerializable, Serializable, serialize, type, validate } from "@js-soft
 import { ContentJSON } from "../ContentJSON"
 import { IResponse, Response, ResponseJSON } from "../requests/response/Response"
 
-export interface IRelationshipCreationChangeRequestBodyJSON extends ContentJSON {
+export interface RelationshipCreationChangeRequestBodyJSON extends ContentJSON {
     templateContentMetadata?: object
     response: ResponseJSON
 }
@@ -26,7 +26,7 @@ export class RelationshipCreationChangeRequestBody
     public response: Response
 
     public static from(
-        value: IRelationshipCreationChangeRequestBody | IRelationshipCreationChangeRequestBodyJSON
+        value: IRelationshipCreationChangeRequestBody | RelationshipCreationChangeRequestBodyJSON
     ): RelationshipCreationChangeRequestBody {
         return this.fromAny(value)
     }
