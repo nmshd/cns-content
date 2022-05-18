@@ -8,7 +8,6 @@ export class HintsTest extends AbstractTest {
             describe("Identity Attributes", function () {
                 it("read from instance", function () {
                     const month = BirthMonth.fromAny({ value: 5 })
-
                     expect(month.valueHints.min).to.equal(1)
                     expect(month.valueHints.max).to.equal(12)
 
@@ -24,15 +23,39 @@ export class HintsTest extends AbstractTest {
             })
 
             describe("Proprietary Attrtibutes", function () {
+                it("override", function () {
+                    const integer = ProprietaryInteger.from({ value: 5, valueHintsOverride: { min: 1, max: 2 } })
+                    expect(integer.valueHints.min).to.equal(1)
+                    expect(integer.valueHints.max).to.equal(2)
+                })
+            })
+        })
+
+        describe("RenderHints", function () {
+            describe("Identity Attributes", function () {
+                it("read from instance", function () {
+                    const month = BirthMonth.fromAny({ value: 5 })
+                    expect(month.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
+                    expect(month.renderHints.editType).to.equal(RenderHintsEditType.InputLike)
+                })
+
+                it("read static", function () {
+                    expect(BirthMonth.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
+                    expect(BirthMonth.renderHints.editType).to.equal(RenderHintsEditType.InputLike)
+                })
+            })
+
+            describe("Proprietary Attrtibutes", function () {
                 it("read from instance", function () {
                     const integer = ProprietaryInteger.from({ value: 5 })
+                    expect(integer.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
+                    expect(integer.renderHints.editType).to.equal(RenderHintsEditType.InputLike)
                 })
 
                 it("override", function () {
                     const integer = ProprietaryInteger.from({ value: 5, valueHintsOverride: { min: 1, max: 2 } })
-
-                    expect(integer.valueHints.min).to.equal(1)
-                    expect(integer.valueHints.max).to.equal(2)
+                    expect(integer.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
+                    expect(integer.renderHints.editType).to.equal(RenderHintsEditType.InputLike)
                 })
             })
         })

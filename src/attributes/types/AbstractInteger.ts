@@ -30,6 +30,13 @@ export class AbstractInteger extends AbstractAttributeValue implements IAbstract
         return ValueHints.from({})
     }
 
+    public static get renderHints(): RenderHints {
+        return RenderHints.from({
+            editType: RenderHintsEditType.InputLike,
+            technicalType: RenderHintsTechnicalType.Integer
+        })
+    }
+
     public static from(value: IAbstractInteger): AbstractInteger {
         return this.fromAny(value)
     }

@@ -36,6 +36,12 @@ export enum RenderHintsDataType {
     TimePeriod = "TimePeriod"
 }
 
+export interface RenderHintsJSON {
+    technicalType: RenderHintsTechnicalType
+    editType: RenderHintsEditType
+    dataType?: RenderHintsDataType
+}
+
 export interface IRenderHints {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
@@ -64,7 +70,46 @@ export class RenderHints extends Serializable implements IRenderHints {
         return super.toJSON() as IRenderHints
     }
 
-    public with(override: Partial<IRenderHints>): RenderHints {
+    public with(override: Partial<IRenderHintsOverride>): RenderHints {
+        return RenderHints.from({ ...this.toJSON(), ...override })
+    }
+}
+
+export interface RenderHintsOverrideJSON {
+    technicalType?: RenderHintsTechnicalType
+    editType?: RenderHintsEditType
+    dataType?: RenderHintsDataType
+}
+
+export interface IRenderHintsOverride {
+    technicalType?: RenderHintsTechnicalType
+    editType?: RenderHintsEditType
+    dataType?: RenderHintsDataType
+}
+
+@type("RenderHints")
+export class RenderHintsOverride extends Serializable implements IRenderHintsOverride {
+    @serialize()
+    @validate({ nullable: true })
+    public technicalType?: RenderHintsTechnicalType
+
+    @serialize()
+    @validate({ nullable: true })
+    public editType?: RenderHintsEditType
+
+    @serialize()
+    @validate({ nullable: true })
+    public dataType?: RenderHintsDataType
+
+    public static from(value: IRenderHints): RenderHintsOverride {
+        return this.fromAny(value)
+    }
+
+    public override toJSON(): IRenderHints {
+        return super.toJSON() as IRenderHints
+    }
+
+    public with(override: Partial<RenderHintsOverrideJSON>): RenderHints {
         return RenderHints.from({ ...this.toJSON(), ...override })
     }
 }

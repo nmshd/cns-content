@@ -27,4 +27,9 @@ export abstract class AbstractAttributeValue extends Serializable implements IAb
         // @ts-ignore
         return this.constructor.valueHints
     }
+
+    public get renderHints(): RenderHints {
+        // @ts-ignore
+        return this.constructor.renderHints
+    }
 }
