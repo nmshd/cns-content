@@ -70,7 +70,7 @@ export class RenderHints extends Serializable implements IRenderHints {
         return super.toJSON() as IRenderHints
     }
 
-    public copyWith(override: Partial<IRenderHintsOverride>): RenderHints {
+    public copyWith(override?: Partial<IRenderHintsOverride>): RenderHints {
         return RenderHints.from({ ...this.toJSON(), ...override })
     }
 }
