@@ -1,20 +1,31 @@
-export enum RenderHintsDataType {
-    String = "String",
-    Number = "Number",
-    Boolean = "Boolean"
+export enum RenderHintsTechnicalType {
+    Boolean = "Boolean",
+    Float = "Float",
+    Integer = "Integer",
+    Object = "Object",
+    String = "String"
 }
 
 export enum RenderHintsEditType {
-    Input = "Input",
-    CheckBox = "CheckBox",
-    Select = "Select"
+    InputLike = "InputLike",
+    ButtonLike = "ButtonLike",
+    RadioButtonLike = "RadioButtonLike",
+    SelectLike = "SelectLike",
+    SliderLike = "SliderLike",
+    Secret = "Secret",
+    TextArea = "TextArea",
+    Upload = "Upload"
 }
 
-export enum RenderHintsSemantic {
-    Sex = "Sex",
+export enum RenderHintsDataType {
     Country = "Country",
+    DataURL = "DataURL",
+    EMailAddress = "EMailAddress",
+    HEXColor = "HEXColor",
     Language = "Language",
-    Secret = "Secret",
+    PhoneNumber = "PhoneNumber",
+    URL = "URL",
+    FileReference = "FileReference",
     Date = "Date",
     DatePeriod = "DatePeriod",
     DateTime = "DateTime",
@@ -24,7 +35,7 @@ export enum RenderHintsSemantic {
 }
 
 export interface RenderHints {
-    dataType: RenderHintsDataType
+    technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
-    semantic?: RenderHintsSemantic
+    dataType?: RenderHintsDataType
 }
