@@ -1,13 +1,14 @@
-import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, PrimitiveType, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { ContentJSON } from "../../ContentJSON"
 import { IValueHintsValue, ValueHintsValue, ValueHintsValueJSON } from "./ValueHintsValue"
 
-export interface ValueHintsJSON {
+export interface ValueHintsJSON extends ContentJSON {
     editHelp?: string
     min?: number
     max?: number
     regExp?: string
     values?: ValueHintsValueJSON[]
-    defaultValue?: boolean | number | string
+    defaultValue?: any
 }
 
 export interface ValueHintsOverrideJSON extends Partial<ValueHintsOverride> {}
@@ -18,7 +19,7 @@ export interface IValueHints extends ISerializable {
     max?: number
     regExp?: string
     values?: IValueHintsValue[]
-    defaultValue?: boolean | number | string
+    defaultValue?: any
 }
 
 export interface IValueHintsOverride extends Partial<IValueHints> {}
@@ -45,9 +46,9 @@ export class ValueHints extends Serializable implements IValueHints {
     @validate({ nullable: true })
     public values?: ValueHintsValue[]
 
-    @serialize({ unionTypes: [Boolean, Number, String] })
-    @validate({ nullable: true })
-    public defaultValue?: boolean | number | string
+    @serialize({ any: true })
+    @validate({ nullable: true, allowedTypes: [PrimitiveType.Number, PrimitiveType.String, PrimitiveType.Boolean] })
+    public defaultValue?: any
 
     public static from(value: IValueHints | ValueHintsJSON): ValueHints {
         return this.fromAny(value)

@@ -1,12 +1,12 @@
-import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, PrimitiveType, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 
 export interface ValueHintsValueJSON {
-    key: boolean | number | string
+    key: any
     displayName: string
 }
 
 export interface IValueHintsValue extends ISerializable {
-    key: boolean | number | string
+    key: any
     displayName: string
 }
 
@@ -16,9 +16,9 @@ export class ValueHintsValue extends Serializable implements IValueHintsValue {
     @validate()
     public displayName: string
 
-    @serialize({ unionTypes: [Boolean, Number, String] })
-    @validate()
-    public key: boolean | number | string
+    @serialize({ any: true })
+    @validate({ allowedTypes: [PrimitiveType.Number, PrimitiveType.String, PrimitiveType.Boolean] })
+    public key: any
 
     public static from(value: IValueHintsValue | ValueHintsValueJSON): ValueHintsValue {
         return this.fromAny(value)
