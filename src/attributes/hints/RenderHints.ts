@@ -1,3 +1,5 @@
+import { Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+
 export enum RenderHintsTechnicalType {
     Boolean = "Boolean",
     Float = "Float",
@@ -34,8 +36,35 @@ export enum RenderHintsDataType {
     TimePeriod = "TimePeriod"
 }
 
-export interface RenderHints {
+export interface IRenderHints {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
+}
+
+@type("RenderHints")
+export class RenderHints extends Serializable implements IRenderHints {
+    @serialize()
+    @validate()
+    public technicalType: RenderHintsTechnicalType
+
+    @serialize()
+    @validate()
+    public editType: RenderHintsEditType
+
+    @serialize()
+    @validate({ nullable: true })
+    public dataType?: RenderHintsDataType
+
+    public static from(value: IRenderHints): RenderHints {
+        return this.fromAny(value)
+    }
+
+    public override toJSON(): IRenderHints {
+        return super.toJSON() as IRenderHints
+    }
+
+    public with(override: Partial<IRenderHints>): RenderHints {
+        return RenderHints.from({ ...this.toJSON(), ...override })
+    }
 }

@@ -1,5 +1,6 @@
 import { serialize, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "../AbstractAttributeValue"
+import { RenderHints, RenderHintsEditType, RenderHintsTechnicalType, ValueHints } from "../hints"
 
 export type AbstractIntegerJSON = IAbstractIntegerValue | number
 
@@ -23,5 +24,13 @@ export class AbstractInteger extends AbstractAttributeValue implements IAbstract
 
     public override toString(): string {
         return `${this.value}`
+    }
+
+    public static get valueHints(): ValueHints {
+        return ValueHints.from({})
+    }
+
+    public static from(value: IAbstractInteger): AbstractInteger {
+        return this.fromAny(value)
     }
 }
