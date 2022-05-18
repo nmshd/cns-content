@@ -6,7 +6,7 @@ export interface ValueHintsJSON extends ContentJSON {
     editHelp?: string
     min?: number
     max?: number
-    regExp?: string
+    pattern?: string
     values?: ValueHintsValueJSON[]
     defaultValue?: any
 }
@@ -17,7 +17,7 @@ export interface IValueHints extends ISerializable {
     editHelp?: string
     min?: number
     max?: number
-    regExp?: string
+    pattern?: string
     values?: IValueHintsValue[]
     defaultValue?: any
 }
@@ -40,7 +40,7 @@ export class ValueHints extends Serializable implements IValueHints {
 
     @serialize()
     @validate({ nullable: true })
-    public regExp?: string
+    public pattern?: string
 
     @serialize({ type: ValueHintsValue })
     @validate({ nullable: true })
@@ -79,7 +79,7 @@ export class ValueHintsOverride extends Serializable implements IValueHintsOverr
 
     @serialize()
     @validate({ nullable: true })
-    public regExp?: string
+    public pattern?: string
 
     @serialize({ type: ValueHintsValue })
     @validate({ nullable: true })

@@ -11,7 +11,7 @@ export class ValueHintsTest extends AbstractTest {
                     editHelp: "This is a help",
                     min: 0,
                     max: 1000,
-                    regExp: "/abc/i",
+                    pattern: "/abc/i",
                     values: [
                         {
                             key: 0,
@@ -35,7 +35,7 @@ export class ValueHintsTest extends AbstractTest {
                     editHelp: "This is a help",
                     min: 0,
                     max: 1000,
-                    regExp: "/abc/i",
+                    pattern: "/abc/i",
                     values: [
                         {
                             key: 0,
