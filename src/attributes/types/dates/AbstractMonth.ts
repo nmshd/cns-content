@@ -34,7 +34,7 @@ export class AbstractMonth extends AbstractInteger {
     public override value: Month
 
     public static override get valueHints(): ValueHints {
-        return super.valueHints.with({
+        return super.valueHints.copyWith({
             min: 1,
             max: 12
         })

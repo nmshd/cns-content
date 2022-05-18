@@ -5,7 +5,7 @@ import { AbstractMonth } from "../dates/AbstractMonth"
 @type("BirthMonth")
 export class BirthMonth extends AbstractMonth {
     public static override get valueHints(): ValueHints {
-        return super.valueHints.with({
+        return super.valueHints.copyWith({
             editHelp: "i18n://yourBirthMonth"
         })
     }

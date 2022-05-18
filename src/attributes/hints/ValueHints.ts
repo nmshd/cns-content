@@ -57,7 +57,7 @@ export class ValueHints extends Serializable implements IValueHints {
         return super.toJSON()
     }
 
-    public with(override?: Partial<ValueHintsOverrideJSON>): ValueHints {
+    public copyWith(override?: Partial<ValueHintsOverrideJSON>): ValueHints {
         return ValueHints.from({ ...this.toJSON(), ...override })
     }
 }
