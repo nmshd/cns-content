@@ -1,10 +1,10 @@
 import { BirthMonth, ProprietaryInteger, RenderHintsEditType, RenderHintsTechnicalType } from "@nmshd/content"
 import { expect } from "chai"
-import { AbstractTest } from "./AbstractTest"
+import { AbstractTest } from "../AbstractTest"
 
-export class HintsTest extends AbstractTest {
+export class HintsInheritanceTest extends AbstractTest {
     public run(): void {
-        describe("ValueHints", function () {
+        describe("ValueHints Inheritance", function () {
             describe("Identity Attributes", function () {
                 it("read from instance", function () {
                     const month = BirthMonth.fromAny({ value: 5 })
@@ -31,7 +31,7 @@ export class HintsTest extends AbstractTest {
             })
         })
 
-        describe("RenderHints", function () {
+        describe("RenderHints Inheritance", function () {
             describe("Identity Attributes", function () {
                 it("read from instance", function () {
                     const month = BirthMonth.fromAny({ value: 5 })
