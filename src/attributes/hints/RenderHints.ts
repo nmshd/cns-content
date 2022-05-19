@@ -33,7 +33,10 @@ export enum RenderHintsDataType {
     DateTime = "DateTime",
     DateTimePeriod = "DateTimePeriod",
     Time = "Time",
-    TimePeriod = "TimePeriod"
+    TimePeriod = "TimePeriod",
+    Day = "Day",
+    Month = "Month",
+    Year = "Year"
 }
 
 export interface RenderHintsJSON {
