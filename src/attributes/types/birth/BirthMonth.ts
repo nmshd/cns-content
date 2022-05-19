@@ -1,5 +1,12 @@
 import { type } from "@js-soft/ts-serval"
+import { ValueHints } from "../../hints/ValueHints"
 import { AbstractMonth } from "../dates/AbstractMonth"
 
 @type("BirthMonth")
-export class BirthMonth extends AbstractMonth {}
+export class BirthMonth extends AbstractMonth {
+    public static override get valueHints(): ValueHints {
+        return super.valueHints.copyWith({
+            editHelp: "i18n://yourBirthMonth"
+        })
+    }
+}

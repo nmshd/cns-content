@@ -1,6 +1,7 @@
 export * from "./AbstractCountry"
 export * from "./AbstractDataURL"
 export * from "./AbstractEMailAddress"
+export * from "./AbstractFileReference"
 export * from "./AbstractHEXColor"
 export * from "./AbstractLanguage"
 export * from "./AbstractPhoneNumber"

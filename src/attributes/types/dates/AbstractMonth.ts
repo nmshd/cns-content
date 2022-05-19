@@ -1,4 +1,5 @@
 import { serialize, validate } from "@js-soft/ts-serval"
+import { ValueHints } from "../../hints/ValueHints"
 import { AbstractInteger } from "../AbstractInteger"
 
 /**
@@ -22,7 +23,7 @@ enum Month {
 /**
  * Month value are continuously numbered: 1 (january) - 12 (december)
  */
-export abstract class AbstractMonth extends AbstractInteger {
+export class AbstractMonth extends AbstractInteger {
     @serialize()
     @validate({
         customValidator: (v) =>
@@ -31,4 +32,11 @@ export abstract class AbstractMonth extends AbstractInteger {
                 : undefined
     })
     public override value: Month
+
+    public static override get valueHints(): ValueHints {
+        return super.valueHints.copyWith({
+            min: 1,
+            max: 12
+        })
+    }
 }
