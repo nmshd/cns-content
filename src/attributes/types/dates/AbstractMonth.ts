@@ -1,4 +1,5 @@
 import { serialize, validate } from "@js-soft/ts-serval"
+import { RenderHints, RenderHintsDataType, RenderHintsEditType } from "../../../attributes/hints"
 import { ValueHints } from "../../hints/ValueHints"
 import { AbstractInteger } from "../AbstractInteger"
 
@@ -37,6 +38,13 @@ export class AbstractMonth extends AbstractInteger {
         return super.valueHints.copyWith({
             min: 1,
             max: 12
+        })
+    }
+
+    public static override get renderHints(): RenderHints {
+        return super.renderHints.copyWith({
+            editType: RenderHintsEditType.ButtonLike,
+            dataType: RenderHintsDataType.Month
         })
     }
 }
