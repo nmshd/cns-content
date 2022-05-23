@@ -1,2 +1,2 @@
+export * from "./readAttribute/ReadAttributeAcceptResponseItem"
 export * from "./readAttribute/ReadAttributeRequestItem"
-export * from "./readAttribute/ReadAttributeResponseItem"
