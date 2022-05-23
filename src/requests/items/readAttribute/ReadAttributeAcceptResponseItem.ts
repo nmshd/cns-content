@@ -26,7 +26,7 @@ export class ReadAttributeAcceptResponseItem extends AcceptResponseItem implemen
     @validate()
     public attributeId: CoreId
 
-    @serialize()
+    @serialize({ unionTypes: [IdentityAttribute, RelationshipAttribute] })
     @validate()
     public attribute: IdentityAttribute | RelationshipAttribute
 
