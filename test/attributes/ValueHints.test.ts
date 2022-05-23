@@ -1,6 +1,7 @@
-import { ValueHints, ValueHintsJSON } from "@nmshd/content"
+import { ValueHints, ValueHintsJSON, ValueHintsValue } from "@nmshd/content"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
+import { expectThrows } from "../testUtils"
 
 export class ValueHintsTest extends AbstractTest {
     public run(): void {
@@ -51,6 +52,48 @@ export class ValueHintsTest extends AbstractTest {
                 const valueHints = ValueHints.from(valueHintsJSON)
                 expect(valueHints).instanceOf(ValueHints)
                 expect(valueHints.toJSON()).to.deep.equal(valueHintsJSON)
+            })
+
+            it("deserializing a ValueHint with a defaultValue with the wrong type (object) fails", function () {
+                expectThrows(
+                    () =>
+                        ValueHints.fromAny({
+                            defaultValue: {}
+                        }),
+                    ".*Value is not an allowed type"
+                )
+            })
+
+            it("deserializing a ValueHint with a defaultValue with the wrong type (array) fails", function () {
+                expectThrows(
+                    () =>
+                        ValueHints.fromAny({
+                            defaultValue: []
+                        }),
+                    ".*Value is not an allowed type"
+                )
+            })
+
+            it("deserializing a ValueHintValue with a key with the wrong type (object) fails", function () {
+                expectThrows(
+                    () =>
+                        ValueHintsValue.fromAny({
+                            key: {},
+                            displayName: "aDisplayName"
+                        }),
+                    ".*Value is not an allowed type"
+                )
+            })
+
+            it("deserializing a ValueHintValue with a key with the wrong type (array) fails", function () {
+                expectThrows(
+                    () =>
+                        ValueHintsValue.fromAny({
+                            key: [],
+                            displayName: "aDisplayName"
+                        }),
+                    ".*Value is not an allowed type"
+                )
             })
         })
     }
