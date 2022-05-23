@@ -1,42 +1,19 @@
 import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
-import { Attribute, AttributeJSON, IAttribute } from "../attributes/Attribute"
-import { Authorization, AuthorizationJSON, IAuthorization } from "../authorizations/Authorization"
 import { ContentJSON } from "../ContentJSON"
-import {
-    AttributesChangeRequest,
-    AttributesChangeRequestJSON,
-    IAttributesChangeRequest
-} from "../requests/old/AttributesChangeRequest"
-import { AttributesRequest, AttributesRequestJSON, IAttributesRequest } from "../requests/old/AttributesRequest"
-import {
-    IRelationshipExistsAction,
-    RelationshipExistsAction,
-    RelationshipExistsActionJSON
-} from "./RelationshipExistsAction"
+import { IRequest, Request, RequestJSON } from "../requests/Request"
 
 export interface RelationshipTemplateBodyJSON extends ContentJSON {
     title?: string
-    sessionIdentifier?: string
-    metadata?: any
-    sharedAttributes?: AttributeJSON[]
-    sharedCertificates?: any[]
-    sharedAuthorizations?: AuthorizationJSON[]
-    requestedAttributesChanges?: AttributesChangeRequestJSON[]
-    requestedAttributes?: AttributesRequestJSON[]
-    requestedCertificates?: any[]
-    relationshipExistsAction?: RelationshipExistsActionJSON
+    metadata?: object
+    onNewRelationship: RequestJSON
+    onExistingRelationship?: RequestJSON
 }
 
 export interface IRelationshipTemplateBody extends ISerializable {
     title?: string
-    sessionIdentifier?: string
-    metadata?: any
-    sharedAttributes?: IAttribute[]
-    sharedCertificates?: any[]
-    sharedAuthorizations?: IAuthorization[]
-    requestedAttributesChanges?: IAttributesChangeRequest[]
-    requestedAttributes?: IAttributesRequest[]
-    relationshipExistsAction?: IRelationshipExistsAction
+    metadata?: object
+    onNewRelationship: IRequest
+    onExistingRelationship?: IRequest
 }
 
 @type("RelationshipTemplateBody")
@@ -47,37 +24,17 @@ export class RelationshipTemplateBody extends Serializable implements IRelations
 
     @serialize()
     @validate({ nullable: true })
-    public sessionIdentifier?: string
+    public metadata?: object
 
-    @serialize({ any: true })
-    @validate({ nullable: true })
-    public metadata?: any
-
-    @serialize({ type: Attribute })
-    @validate({ nullable: true })
-    public sharedAttributes?: Attribute[]
+    @serialize()
+    @validate()
+    public onNewRelationship: Request
 
     @serialize()
     @validate({ nullable: true })
-    public sharedCertificates?: any[]
+    public onExistingRelationship?: Request
 
-    @serialize({ type: Authorization })
-    @validate({ nullable: true })
-    public sharedAuthorizations?: Authorization[]
-
-    @serialize({ type: Attribute })
-    @validate({ nullable: true })
-    public requestedAttributesChanges?: AttributesChangeRequest[]
-
-    @serialize({ type: AttributesRequest })
-    @validate({ nullable: true })
-    public requestedAttributes?: AttributesRequest[]
-
-    @serialize()
-    @validate({ nullable: true })
-    public relationshipExistsAction?: RelationshipExistsAction
-
-    public static from(value: IRelationshipTemplateBody): RelationshipTemplateBody {
+    public static from(value: IRelationshipTemplateBody | RelationshipTemplateBodyJSON): RelationshipTemplateBody {
         return this.fromAny(value)
     }
 }

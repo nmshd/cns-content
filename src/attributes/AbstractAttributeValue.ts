@@ -1,5 +1,6 @@
 import { ISerializable, Serializable } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
+import { RenderHints, ValueHints } from "./hints"
 import { AbstractBoolean } from "./types/AbstractBoolean"
 import { AbstractFloat } from "./types/AbstractFloat"
 import { AbstractInteger } from "./types/AbstractInteger"
@@ -20,5 +21,13 @@ export abstract class AbstractAttributeValue extends Serializable implements IAb
         v: (AbstractBoolean | AbstractFloat | AbstractInteger | AbstractString)[]
     ): (boolean | number | string)[] {
         return v.map((v) => v.value)
+    }
+
+    public get valueHints(): ValueHints {
+        return (this.constructor as any).valueHints
+    }
+
+    public get renderHints(): RenderHints {
+        return (this.constructor as any).renderHints
     }
 }
