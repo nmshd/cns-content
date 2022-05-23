@@ -8,7 +8,7 @@ export interface ValueHintsJSON extends ContentJSON {
     max?: number
     pattern?: string
     values?: ValueHintsValueJSON[]
-    defaultValue?: any
+    defaultValue?: string | number | boolean
 }
 
 export interface ValueHintsOverrideJSON extends Partial<ValueHintsOverride> {}
@@ -19,7 +19,7 @@ export interface IValueHints extends ISerializable {
     max?: number
     pattern?: string
     values?: IValueHintsValue[]
-    defaultValue?: any
+    defaultValue?: string | number | boolean
 }
 
 export interface IValueHintsOverride extends Partial<IValueHints> {}
@@ -46,9 +46,9 @@ export class ValueHints extends Serializable implements IValueHints {
     @validate({ nullable: true })
     public values?: ValueHintsValue[]
 
-    @serialize({ any: true })
     @validate({ nullable: true, allowedTypes: [PrimitiveType.Number, PrimitiveType.String, PrimitiveType.Boolean] })
-    public defaultValue?: any
+    @serialize()
+    public defaultValue?: number | string | boolean
 
     public static from(value: IValueHints | ValueHintsJSON): ValueHints {
         return this.fromAny(value)
