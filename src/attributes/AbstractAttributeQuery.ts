@@ -4,13 +4,13 @@ import { ContentJSON } from "../ContentJSON"
 
 export interface AbstractAttributeQueryJSON extends ContentJSON {
     valueType?: string
-    validfrom?: string
+    validFrom?: string
     validTo?: string
 }
 
 export interface IAbstractAttributeQuery extends ICoreSerializable {
     valueType?: string
-    validfrom?: ICoreDate
+    validFrom?: ICoreDate
     validTo?: ICoreDate
 }
 
@@ -23,7 +23,7 @@ export abstract class AbstractAttributeQuery extends CoreSerializable implements
 
     @serialize()
     @validate({ nullable: true })
-    public validfrom?: CoreDate
+    public validFrom?: CoreDate
 
     @serialize()
     @validate({ nullable: true })
