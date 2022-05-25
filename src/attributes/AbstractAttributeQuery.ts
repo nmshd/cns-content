@@ -17,9 +17,10 @@ export interface IAbstractAttributeQuery extends ICoreSerializable {
 export abstract class AbstractAttributeQuery extends CoreSerializable implements IAbstractAttributeQuery {
     @serialize()
     @validate({
-        customValidator: (v) => (v === "" ? "must not be an empty string" : undefined)
+        customValidator: (v) => (v === "" ? "must not be an empty string" : undefined),
+        nullable: true
     })
-    public valueType: string
+    public valueType?: string
 
     @serialize()
     @validate({ nullable: true })
