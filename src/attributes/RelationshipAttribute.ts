@@ -65,7 +65,7 @@ export class RelationshipAttribute<TValueClass extends AbstractAttributeValue = 
     public key: string
 
     @serialize()
-    @validate()
+    @validate({ nullable: true })
     public isTechnical = false
 
     @serialize()
