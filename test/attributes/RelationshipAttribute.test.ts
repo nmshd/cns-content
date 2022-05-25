@@ -40,7 +40,7 @@ export class RelationshipAttributeTest extends AbstractTest {
 
             it("should create a RelationshipAttribute (isTechnical: true)", function () {
                 const attribute = RelationshipAttribute.from({
-                    key: "iat",
+                    key: "aKey",
                     value: birthDate,
                     owner: CoreAddress.from("address"),
                     isTechnical: true,
@@ -52,7 +52,7 @@ export class RelationshipAttributeTest extends AbstractTest {
 
             it("should create a RelationshipAttribute (isTechnical: false)", function () {
                 const attribute = RelationshipAttribute.from({
-                    key: "iat",
+                    key: "aKey",
                     value: birthDate,
                     owner: CoreAddress.from("address"),
                     isTechnical: false,
@@ -64,7 +64,7 @@ export class RelationshipAttributeTest extends AbstractTest {
 
             it("should create a RelationshipAttribute (isTechnical: undefined)", function () {
                 const attribute = RelationshipAttribute.from({
-                    key: "iat",
+                    key: "aKey",
                     value: birthDate,
                     owner: CoreAddress.from("address"),
                     confidentiality: RelationshipAttributeConfidentiality.Public
