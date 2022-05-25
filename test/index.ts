@@ -2,6 +2,7 @@ import { SimpleLoggerFactory } from "@js-soft/simple-logger"
 import { HintsInheritanceTest } from "./attributes/HintsInheritance.test"
 import { IdentityAttributeTest } from "./attributes/IdentityAttribute.test"
 import { IdentityAttributeQueryTest } from "./attributes/IdentityAttributeQuery.test"
+import { RelationshipAttributeTest } from "./attributes/RelationshipAttribute.test"
 import { ValueHintsTest } from "./attributes/ValueHints.test"
 import { AddressValueTests } from "./attributeValues/AddressValueTests.test"
 import { BirthValueTests } from "./attributeValues/BirthValueTests.test"
@@ -19,6 +20,7 @@ new MailTest(loggerFactory).run()
 new RequestTest(loggerFactory).run()
 new ResponseTest(loggerFactory).run()
 new RequestMailTest(loggerFactory).run()
+new RelationshipAttributeTest(loggerFactory).run()
 new IdentityAttributeTest(loggerFactory).run()
 new IdentityAttributeQueryTest(loggerFactory).run()
 new NameValueTests(loggerFactory).run()
