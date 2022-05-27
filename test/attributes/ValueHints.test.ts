@@ -1,7 +1,7 @@
 import { CommunicationLanguage, Nationality, ValueHints, ValueHintsJSON, ValueHintsValue } from "@nmshd/content"
 import { expect } from "chai"
-import { expectThrows } from "test/testUtils"
 import { AbstractTest } from "../AbstractTest"
+import { expectThrows } from "../testUtils"
 
 export class ValueHintsTest extends AbstractTest {
     public run(): void {
