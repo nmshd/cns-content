@@ -1,5 +1,24 @@
 import { expect } from "chai"
 
+export function expectThrows(method: Function, errorMessage = ""): void {
+    let error: Error | undefined
+    try {
+        if (typeof method === "function") {
+            method()
+        }
+    } catch (err: unknown) {
+        if (!(err instanceof Error)) throw err
+
+        error = err
+    }
+
+    expect(error, "No Error was thrown!").to.exist
+    expect(error).to.be.an("Error")
+    if (errorMessage) {
+        expect(error!.message, `Error Message: ${error!.message}`).to.match(new RegExp(`^${errorMessage}`))
+    }
+}
+
 export async function expectThrowsAsync(
     method: Function | Promise<any>,
     customExceptionMatcher?: (e: Error) => void

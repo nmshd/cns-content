@@ -1,3 +1,4 @@
+export * from "./items"
 export * from "./old/AttributesChangeRequest"
 export * from "./old/AttributesRequest"
 export * from "./old/AttributesShareRequest"

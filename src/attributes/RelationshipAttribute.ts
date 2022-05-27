@@ -65,8 +65,8 @@ export class RelationshipAttribute<TValueClass extends AbstractAttributeValue = 
     public key: string
 
     @serialize()
-    @validate()
-    public isTechnical = false
+    @validate({ nullable: true })
+    public isTechnical: boolean
 
     @serialize()
     @validate({
@@ -76,6 +76,12 @@ export class RelationshipAttribute<TValueClass extends AbstractAttributeValue = 
                 : undefined
     })
     public confidentiality: RelationshipAttributeConfidentiality
+
+    protected static override preFrom(value: any): any {
+        if (typeof value.isTechnical === "undefined") value.isTechnical = false
+
+        return value
+    }
 
     public static from<
         TValueClass extends AbstractAttributeValue = AbstractAttributeValue,

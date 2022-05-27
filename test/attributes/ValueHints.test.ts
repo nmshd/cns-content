@@ -1,5 +1,6 @@
-import { CommunicationLanguage, Nationality, ValueHints, ValueHintsJSON } from "@nmshd/content"
+import { CommunicationLanguage, Nationality, ValueHints, ValueHintsJSON, ValueHintsValue } from "@nmshd/content"
 import { expect } from "chai"
+import { expectThrows } from "test/testUtils"
 import { AbstractTest } from "../AbstractTest"
 
 export class ValueHintsTest extends AbstractTest {
@@ -71,6 +72,48 @@ export class ValueHintsTest extends AbstractTest {
                 expect(valueHints.values!.length).equals(249)
                 expect(valueHints.values![56].key).equals("DE")
                 expect(valueHints.values![56].displayName).equals("i18n://attributes.values.countries.DE")
+            })
+
+            it("deserializing a ValueHint with a defaultValue with the wrong type (object) fails", function () {
+                expectThrows(
+                    () =>
+                        ValueHints.fromAny({
+                            defaultValue: {}
+                        }),
+                    ".*Value is not an allowed type"
+                )
+            })
+
+            it("deserializing a ValueHint with a defaultValue with the wrong type (array) fails", function () {
+                expectThrows(
+                    () =>
+                        ValueHints.fromAny({
+                            defaultValue: []
+                        }),
+                    ".*Value is not an allowed type"
+                )
+            })
+
+            it("deserializing a ValueHintValue with a key with the wrong type (object) fails", function () {
+                expectThrows(
+                    () =>
+                        ValueHintsValue.fromAny({
+                            key: {},
+                            displayName: "aDisplayName"
+                        }),
+                    ".*Value is not an allowed type"
+                )
+            })
+
+            it("deserializing a ValueHintValue with a key with the wrong type (array) fails", function () {
+                expectThrows(
+                    () =>
+                        ValueHintsValue.fromAny({
+                            key: [],
+                            displayName: "aDisplayName"
+                        }),
+                    ".*Value is not an allowed type"
+                )
             })
         })
     }

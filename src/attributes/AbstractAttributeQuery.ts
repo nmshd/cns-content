@@ -1,26 +1,32 @@
 import { serialize, validate } from "@js-soft/ts-serval"
-import { CoreSerializable, ICoreSerializable } from "@nmshd/transport"
+import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd/transport"
 import { ContentJSON } from "../ContentJSON"
-import { AbstractPeriod, AbstractPeriodJSON, IAbstractPeriod } from "./types/dates/AbstractPeriod"
 
 export interface AbstractAttributeQueryJSON extends ContentJSON {
-    valueType: string
-    validityPeriod?: AbstractPeriodJSON
+    valueType?: string
+    validFrom?: string
+    validTo?: string
 }
 
 export interface IAbstractAttributeQuery extends ICoreSerializable {
-    valueType: string
-    validityPeriod?: IAbstractPeriod
+    valueType?: string
+    validFrom?: ICoreDate
+    validTo?: ICoreDate
 }
 
 export abstract class AbstractAttributeQuery extends CoreSerializable implements IAbstractAttributeQuery {
     @serialize()
     @validate({
-        customValidator: (v) => (v === "" ? "must not be an empty string" : undefined)
+        customValidator: (v) => (v === "" ? "must not be an empty string" : undefined),
+        nullable: true
     })
-    public valueType: string
+    public valueType?: string
 
     @serialize()
     @validate({ nullable: true })
-    public validityPeriod?: AbstractPeriod
+    public validFrom?: CoreDate
+
+    @serialize()
+    @validate({ nullable: true })
+    public validTo?: CoreDate
 }
