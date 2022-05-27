@@ -1,5 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { ValueHints, ValueHintsValue } from "src/attributes/hints"
+import { ValueHints, ValueHintsValue } from "../../../attributes/hints"
 import { AbstractString } from "../AbstractString"
 
 /**
