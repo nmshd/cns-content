@@ -21,7 +21,7 @@ export class Sex extends AbstractString {
 
     public static override get valueHints(): ValueHints {
         return super.valueHints.copyWith({
-            values: Object.keys(BiologicalSex).map((value) =>
+            values: Object.values(BiologicalSex).map((value) =>
                 ValueHintsValue.from({ key: value, displayName: `i18n://attributes.values.sex.${value}` })
             )
         })
