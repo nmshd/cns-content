@@ -36,12 +36,12 @@ export class HintsInheritanceTest extends AbstractTest {
                 it("read from instance", function () {
                     const month = BirthMonth.fromAny({ value: 5 })
                     expect(month.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
-                    expect(month.renderHints.editType).to.equal(RenderHintsEditType.ButtonLike)
+                    expect(month.renderHints.editType).to.equal(RenderHintsEditType.SelectLike)
                 })
 
                 it("read static", function () {
                     expect(BirthMonth.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
-                    expect(BirthMonth.renderHints.editType).to.equal(RenderHintsEditType.ButtonLike)
+                    expect(BirthMonth.renderHints.editType).to.equal(RenderHintsEditType.SelectLike)
                 })
             })
 
