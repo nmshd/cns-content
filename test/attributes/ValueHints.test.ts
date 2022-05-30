@@ -8,7 +8,6 @@ export class ValueHintsTest extends AbstractTest {
         describe("ValueHints", function () {
             it("serialize and deserialize filled ValueHints", function () {
                 const valueHintsJSON: ValueHintsJSON = {
-                    "@type": "ValueHints",
                     editHelp: "This is a help",
                     min: 0,
                     max: 1000,
@@ -32,7 +31,6 @@ export class ValueHintsTest extends AbstractTest {
 
             it("serialize and deserialize filled ValueHints (int)", function () {
                 const valueHintsJSON: ValueHintsJSON = {
-                    "@type": "ValueHints",
                     editHelp: "This is a help",
                     min: 0,
                     max: 1000,
