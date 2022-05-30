@@ -6,7 +6,7 @@ import {
     ValueHints,
     ValueHintsValue
 } from "../../../attributes/hints"
-import { COUNTRIES_ALPHA2_TO_ENGLISH_NAME, CountryAlpha2 } from "../../constants/CountriesAlpha2"
+import { CountryAlpha2 } from "../../constants/CountriesAlpha2"
 import { AbstractString } from "../AbstractString"
 
 export abstract class AbstractCountry extends AbstractString {
@@ -19,8 +19,10 @@ export abstract class AbstractCountry extends AbstractString {
 
     public static override get valueHints(): ValueHints {
         const values: ValueHintsValue[] = []
-        COUNTRIES_ALPHA2_TO_ENGLISH_NAME.forEach((value, code) =>
-            values.push(ValueHintsValue.from({ key: code, displayName: `i18n://attributes.values.countries.${code}` }))
+        Object.values(CountryAlpha2).forEach((value) =>
+            values.push(
+                ValueHintsValue.from({ key: value, displayName: `i18n://attributes.values.countries.${value}` })
+            )
         )
 
         return super.valueHints.copyWith({

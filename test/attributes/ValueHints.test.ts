@@ -70,8 +70,8 @@ export class ValueHintsTest extends AbstractTest {
                 expect(valueHints.values).to.exist
                 expect(valueHints.values!).to.be.an("Array")
                 expect(valueHints.values!.length).equals(249)
-                expect(valueHints.values![56].key).equals("DE")
-                expect(valueHints.values![56].displayName).equals("i18n://attributes.values.countries.DE")
+                expect(valueHints.values![61].key).equals("DE")
+                expect(valueHints.values![61].displayName).equals("i18n://attributes.values.countries.DE")
             })
 
             it("deserializing a ValueHint with a defaultValue with the wrong type (object) fails", function () {

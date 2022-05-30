@@ -6,7 +6,7 @@ import {
     ValueHints,
     ValueHintsValue
 } from "../../../attributes/hints"
-import { LanguageISO639, LANGUAGES_ISO639_TO_DISPLAY_NAME } from "../../constants/LanguagesISO639"
+import { LanguageISO639 } from "../../constants/LanguagesISO639"
 import { AbstractString } from "../AbstractString"
 
 export abstract class AbstractLanguage extends AbstractString {
@@ -21,9 +21,9 @@ export abstract class AbstractLanguage extends AbstractString {
 
     public static override get valueHints(): ValueHints {
         const languages: ValueHintsValue[] = []
-        LANGUAGES_ISO639_TO_DISPLAY_NAME.forEach((value, code) => {
+        Object.values(LanguageISO639).forEach((value) => {
             languages.push(
-                ValueHintsValue.from({ key: code, displayName: `i18n://attributes.values.languages.${code}` })
+                ValueHintsValue.from({ key: value, displayName: `i18n://attributes.values.languages.${value}` })
             )
         })
         return super.valueHints.copyWith({
