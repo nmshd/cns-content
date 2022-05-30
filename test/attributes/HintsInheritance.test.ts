@@ -36,12 +36,12 @@ export class HintsInheritanceTest extends AbstractTest {
                 it("read from instance", function () {
                     const month = BirthMonth.fromAny({ value: 5 })
                     expect(month.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
-                    expect(month.renderHints.editType).to.equal(RenderHintsEditType.InputLike)
+                    expect(month.renderHints.editType).to.equal(RenderHintsEditType.ButtonLike)
                 })
 
                 it("read static", function () {
                     expect(BirthMonth.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
-                    expect(BirthMonth.renderHints.editType).to.equal(RenderHintsEditType.InputLike)
+                    expect(BirthMonth.renderHints.editType).to.equal(RenderHintsEditType.ButtonLike)
                 })
             })
 
@@ -49,13 +49,13 @@ export class HintsInheritanceTest extends AbstractTest {
                 it("read from instance", function () {
                     const integer = ProprietaryInteger.from({ value: 5 })
                     expect(integer.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
-                    expect(integer.renderHints.editType).to.equal(RenderHintsEditType.InputLike)
+                    expect(integer.renderHints.editType).to.equal(RenderHintsEditType.ButtonLike)
                 })
 
                 it("override", function () {
                     const integer = ProprietaryInteger.from({ value: 5, valueHintsOverride: { min: 1, max: 2 } })
                     expect(integer.renderHints.technicalType).to.equal(RenderHintsTechnicalType.Integer)
-                    expect(integer.renderHints.editType).to.equal(RenderHintsEditType.InputLike)
+                    expect(integer.renderHints.editType).to.equal(RenderHintsEditType.ButtonLike)
                 })
             })
         })

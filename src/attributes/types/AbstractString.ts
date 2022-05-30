@@ -1,5 +1,6 @@
 import { serialize, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "../AbstractAttributeValue"
+import { RenderHints, RenderHintsEditType, RenderHintsTechnicalType, ValueHints } from "../hints"
 
 export type AbstractStringJSON = IAbstractStringJSON | string
 
@@ -13,7 +14,7 @@ export interface IAbstractString extends IAbstractAttributeValue {
 
 export class AbstractString extends AbstractAttributeValue implements IAbstractString {
     @serialize()
-    @validate()
+    @validate({ max: 200 })
     public value: string
 
     public static override preFrom(value: any): any {
@@ -23,5 +24,18 @@ export class AbstractString extends AbstractAttributeValue implements IAbstractS
 
     public override toString(): string {
         return `${this.value}`
+    }
+
+    public static get valueHints(): ValueHints {
+        return ValueHints.from({
+            max: 200
+        })
+    }
+
+    public static get renderHints(): RenderHints {
+        return RenderHints.from({
+            editType: RenderHintsEditType.InputLike,
+            technicalType: RenderHintsTechnicalType.String
+        })
     }
 }

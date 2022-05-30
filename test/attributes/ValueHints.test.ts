@@ -1,4 +1,4 @@
-import { ValueHints, ValueHintsJSON, ValueHintsValue } from "@nmshd/content"
+import { CommunicationLanguage, Nationality, ValueHints, ValueHintsJSON, ValueHintsValue } from "@nmshd/content"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
 import { expectThrows } from "../testUtils"
@@ -52,6 +52,26 @@ export class ValueHintsTest extends AbstractTest {
                 const valueHints = ValueHints.from(valueHintsJSON)
                 expect(valueHints).instanceOf(ValueHints)
                 expect(valueHints.toJSON()).to.deep.equal(valueHintsJSON)
+            })
+
+            it("gets languages out of Language", function () {
+                const valueHints = CommunicationLanguage.valueHints
+                expect(valueHints).instanceOf(ValueHints)
+                expect(valueHints.values).to.exist
+                expect(valueHints.values!).to.be.an("Array")
+                expect(valueHints.values!.length).equals(183)
+                expect(valueHints.values![31].key).equals("de")
+                expect(valueHints.values![31].displayName).equals("i18n://attributes.values.languages.de")
+            })
+
+            it("gets countries out of Country", function () {
+                const valueHints = Nationality.valueHints
+                expect(valueHints).instanceOf(ValueHints)
+                expect(valueHints.values).to.exist
+                expect(valueHints.values!).to.be.an("Array")
+                expect(valueHints.values!.length).equals(249)
+                expect(valueHints.values![61].key).equals("DE")
+                expect(valueHints.values![61].displayName).equals("i18n://attributes.values.countries.DE")
             })
 
             it("deserializing a ValueHint with a defaultValue with the wrong type (object) fails", function () {

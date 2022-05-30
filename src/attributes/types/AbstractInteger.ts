@@ -32,7 +32,7 @@ export class AbstractInteger extends AbstractAttributeValue implements IAbstract
 
     public static get renderHints(): RenderHints {
         return RenderHints.from({
-            editType: RenderHintsEditType.InputLike,
+            editType: RenderHintsEditType.ButtonLike,
             technicalType: RenderHintsTechnicalType.Integer
         })
     }
