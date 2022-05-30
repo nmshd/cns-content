@@ -1,7 +1,8 @@
 import { ISerializable, PrimitiveType, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { ContentJSON } from "../../ContentJSON"
 import { IValueHintsValue, ValueHintsValue, ValueHintsValueJSON } from "./ValueHintsValue"
 
-export interface ValueHintsJSON {
+export interface ValueHintsJSON extends ContentJSON {
     editHelp?: string
     min?: number
     max?: number

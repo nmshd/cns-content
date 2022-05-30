@@ -1,4 +1,5 @@
 import { Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { ContentJSON } from "../../ContentJSON"
 
 export enum RenderHintsTechnicalType {
     Boolean = "Boolean",
@@ -39,7 +40,7 @@ export enum RenderHintsDataType {
     Year = "Year"
 }
 
-export interface RenderHintsJSON {
+export interface RenderHintsJSON extends ContentJSON {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
