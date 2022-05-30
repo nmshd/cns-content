@@ -18,17 +18,12 @@ export abstract class AbstractCountry extends AbstractString {
     public override value: CountryAlpha2
 
     public static override get valueHints(): ValueHints {
-        const values: ValueHintsValue[] = []
-        Object.values(CountryAlpha2).forEach((value) =>
-            values.push(
-                ValueHintsValue.from({ key: value, displayName: `i18n://attributes.values.countries.${value}` })
-            )
-        )
-
         return super.valueHints.copyWith({
             min: 2,
             max: 2,
-            values: values
+            values: Object.values(CountryAlpha2).map((value) =>
+                ValueHintsValue.from({ key: value, displayName: `i18n://attributes.values.countries.${value}` })
+            )
         })
     }
 

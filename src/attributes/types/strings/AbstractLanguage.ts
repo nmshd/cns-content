@@ -20,16 +20,12 @@ export abstract class AbstractLanguage extends AbstractString {
     public override value: LanguageISO639
 
     public static override get valueHints(): ValueHints {
-        const languages: ValueHintsValue[] = []
-        Object.values(LanguageISO639).forEach((value) => {
-            languages.push(
-                ValueHintsValue.from({ key: value, displayName: `i18n://attributes.values.languages.${value}` })
-            )
-        })
         return super.valueHints.copyWith({
             min: 2,
             max: 2,
-            values: languages
+            values: Object.values(LanguageISO639).map((value) =>
+                ValueHintsValue.from({ key: value, displayName: `i18n://attributes.values.languages.${value}` })
+            )
         })
     }
 
