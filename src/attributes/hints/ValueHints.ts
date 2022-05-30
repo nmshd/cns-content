@@ -11,7 +11,7 @@ export interface ValueHintsJSON extends ContentJSON {
     defaultValue?: string | number | boolean
 }
 
-export interface ValueHintsOverrideJSON extends Partial<ValueHintsOverride> {}
+export interface ValueHintsOverrideJSON extends Partial<ValueHintsJSON> {}
 
 export interface IValueHints extends ISerializable {
     editHelp?: string
