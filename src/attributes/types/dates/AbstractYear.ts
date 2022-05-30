@@ -19,7 +19,7 @@ export abstract class AbstractYear extends AbstractInteger {
 
     public static override get renderHints(): RenderHints {
         return super.renderHints.copyWith({
-            editType: RenderHintsEditType.ButtonLike,
+            editType: RenderHintsEditType.SelectLike,
             dataType: RenderHintsDataType.Year
         })
     }

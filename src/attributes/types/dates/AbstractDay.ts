@@ -22,7 +22,7 @@ export abstract class AbstractDay extends AbstractInteger {
 
     public static override get renderHints(): RenderHints {
         return super.renderHints.copyWith({
-            editType: RenderHintsEditType.ButtonLike,
+            editType: RenderHintsEditType.SelectLike,
             dataType: RenderHintsDataType.Day
         })
     }
