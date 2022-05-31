@@ -70,12 +70,15 @@ export class RenderHints extends Serializable implements IRenderHints {
         return this.fromAny(value)
     }
 
-    public override toJSON(): IRenderHints {
-        return super.toJSON() as IRenderHints
+    public override toJSON(): RenderHintsJSON {
+        return super.toJSON() as RenderHintsJSON
     }
 
-    public copyWith(override?: Partial<IRenderHintsOverride>): RenderHints {
-        return RenderHints.from({ ...this.toJSON(), ...override })
+    public copyWith(
+        override?: Partial<IRenderHintsOverride | RenderHintsOverrideJSON | RenderHintsOverride>
+    ): RenderHints {
+        const overrideJson = override && override instanceof Serializable ? override.toJSON() : override
+        return RenderHints.from({ ...this.toJSON(), ...overrideJson })
     }
 }
 
@@ -91,7 +94,7 @@ export interface IRenderHintsOverride {
     dataType?: RenderHintsDataType
 }
 
-@type("RenderHints")
+@type("RenderHintsOverride")
 export class RenderHintsOverride extends Serializable implements IRenderHintsOverride {
     @serialize()
     @validate({ nullable: true })
@@ -105,15 +108,11 @@ export class RenderHintsOverride extends Serializable implements IRenderHintsOve
     @validate({ nullable: true })
     public dataType?: RenderHintsDataType
 
-    public static from(value: IRenderHints): RenderHintsOverride {
+    public static from(value: IRenderHintsOverride | RenderHintsOverrideJSON): RenderHintsOverride {
         return this.fromAny(value)
     }
 
-    public override toJSON(): IRenderHints {
-        return super.toJSON() as IRenderHints
-    }
-
-    public with(override: Partial<RenderHintsOverrideJSON>): RenderHints {
-        return RenderHints.from({ ...this.toJSON(), ...override })
+    public override toJSON(): RenderHintsOverrideJSON {
+        return super.toJSON() as RenderHintsOverrideJSON
     }
 }

@@ -18,4 +18,8 @@ export class IdentityAttributeQuery extends AbstractAttributeQuery implements II
     public static from(value: IIdentityAttributeQuery | IdentityAttributeQueryJSON): IdentityAttributeQuery {
         return this.fromAny(value)
     }
+
+    public override toJSON(): IdentityAttributeQueryJSON {
+        return super.toJSON() as IdentityAttributeQueryJSON
+    }
 }

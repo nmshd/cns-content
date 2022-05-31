@@ -44,4 +44,8 @@ export class RelationshipAttributeQuery extends AbstractAttributeQuery implement
     ): RelationshipAttributeQuery {
         return this.fromAny(value)
     }
+
+    public override toJSON(): RelationshipAttributeQueryJSON {
+        return super.toJSON() as RelationshipAttributeQueryJSON
+    }
 }

@@ -1,5 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { ValueHints, ValueHintsValue } from "../../../attributes/hints"
+import { RenderHints, RenderHintsEditType, ValueHints, ValueHintsValue } from "../../../attributes/hints"
 import { AbstractString } from "../AbstractString"
 
 /**
@@ -21,9 +21,15 @@ export class Sex extends AbstractString {
 
     public static override get valueHints(): ValueHints {
         return super.valueHints.copyWith({
-            values: Object.keys(BiologicalSex).map((value) =>
+            values: Object.values(BiologicalSex).map((value) =>
                 ValueHintsValue.from({ key: value, displayName: `i18n://attributes.values.sex.${value}` })
             )
+        })
+    }
+
+    public static override get renderHints(): RenderHints {
+        return super.renderHints.copyWith({
+            editType: RenderHintsEditType.ButtonLike
         })
     }
 }

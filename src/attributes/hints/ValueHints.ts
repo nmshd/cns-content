@@ -11,7 +11,7 @@ export interface ValueHintsJSON extends ContentJSON {
     defaultValue?: string | number | boolean
 }
 
-export interface ValueHintsOverrideJSON extends Partial<ValueHintsOverride> {}
+export interface ValueHintsOverrideJSON extends Partial<ValueHintsJSON> {}
 
 export interface IValueHints extends ISerializable {
     editHelp?: string
@@ -58,8 +58,9 @@ export class ValueHints extends Serializable implements IValueHints {
         return super.toJSON() as ValueHintsJSON
     }
 
-    public copyWith(override?: Partial<ValueHintsOverrideJSON>): ValueHints {
-        return ValueHints.from({ ...this.toJSON(), ...override })
+    public copyWith(override?: Partial<IValueHintsOverride | ValueHintsOverrideJSON | ValueHintsOverride>): ValueHints {
+        const overrideJson = override && override instanceof Serializable ? override.toJSON() : override
+        return ValueHints.from({ ...this.toJSON(), ...overrideJson })
     }
 }
 
