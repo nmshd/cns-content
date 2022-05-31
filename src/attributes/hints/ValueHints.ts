@@ -59,9 +59,8 @@ export class ValueHints extends Serializable implements IValueHints {
     }
 
     public copyWith(override?: Partial<IValueHintsOverride | ValueHintsOverrideJSON | ValueHintsOverride>): ValueHints {
-        const anyOverride = override as any
-        const json = anyOverride && typeof anyOverride.toJSON === "function" ? anyOverride.toJSON() : override
-        return ValueHints.from({ ...this.toJSON(), ...json })
+        const overrideJson = override && override instanceof Serializable ? override.toJSON() : override
+        return ValueHints.from({ ...this.toJSON(), ...overrideJson })
     }
 }
 
