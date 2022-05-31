@@ -92,4 +92,8 @@ export class RelationshipAttribute<TValueClass extends AbstractAttributeValue = 
     ): RelationshipAttribute<TValueClass> {
         return this.fromAny(value) as RelationshipAttribute<TValueClass>
     }
+
+    public override toJSON(): RelationshipAttributeJSON {
+        return super.toJSON() as RelationshipAttributeJSON
+    }
 }

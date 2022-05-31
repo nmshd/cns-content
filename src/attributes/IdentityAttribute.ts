@@ -38,4 +38,8 @@ export class IdentityAttribute<TValueClass extends AbstractAttributeValue = Abst
     ): IdentityAttribute<TValueClass> {
         return this.fromAny(value) as IdentityAttribute<TValueClass>
     }
+
+    public override toJSON(): IdentityAttributeJSON {
+        return super.toJSON() as IdentityAttributeJSON
+    }
 }
