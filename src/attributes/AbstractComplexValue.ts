@@ -5,5 +5,5 @@ export interface AbstractComplexValueJSON extends AbstractAttributeValueJSON, Re
 export interface IAbstractComplexValue extends IAbstractAttributeValue, Record<string, unknown> {}
 
 export abstract class AbstractComplexValue extends AbstractAttributeValue implements IAbstractComplexValue {
-    [x: string]: unknown
+    [key: string]: unknown
 }
