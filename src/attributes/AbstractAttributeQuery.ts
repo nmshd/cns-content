@@ -3,13 +3,13 @@ import { CoreDate, CoreSerializable, ICoreDate, ICoreSerializable } from "@nmshd
 import { ContentJSON } from "../ContentJSON"
 
 export interface AbstractAttributeQueryJSON extends ContentJSON {
-    valueType?: string
+    valueType: string
     validFrom?: string
     validTo?: string
 }
 
 export interface IAbstractAttributeQuery extends ICoreSerializable {
-    valueType?: string
+    valueType: string
     validFrom?: ICoreDate
     validTo?: ICoreDate
 }
@@ -17,10 +17,9 @@ export interface IAbstractAttributeQuery extends ICoreSerializable {
 export abstract class AbstractAttributeQuery extends CoreSerializable implements IAbstractAttributeQuery {
     @serialize()
     @validate({
-        customValidator: (v) => (v === "" ? "must not be an empty string" : undefined),
-        nullable: true
+        customValidator: (v) => (v === "" ? "must not be an empty string" : undefined)
     })
-    public valueType?: string
+    public valueType: string
 
     @serialize()
     @validate({ nullable: true })
