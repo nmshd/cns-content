@@ -1,6 +1,5 @@
 import { Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../../ContentJSON"
-import { ValueHintsOverride, ValueHintsOverrideJSON } from "./ValueHints"
 
 export enum RenderHintsTechnicalType {
     Boolean = "Boolean",
@@ -76,9 +75,11 @@ export class RenderHints extends Serializable implements IRenderHints {
     }
 
     public copyWith(
-        override?: Partial<IRenderHintsOverride | ValueHintsOverrideJSON | ValueHintsOverride>
+        override?: Partial<IRenderHintsOverride | RenderHintsOverrideJSON | RenderHintsOverride>
     ): RenderHints {
-        return RenderHints.from({ ...this.toJSON(), ...override })
+        const anyOverride = override as any
+        const json = anyOverride && typeof anyOverride.toJSON === "function" ? anyOverride.toJSON() : override
+        return RenderHints.from({ ...this.toJSON(), ...json })
     }
 }
 
@@ -108,7 +109,7 @@ export class RenderHintsOverride extends Serializable implements IRenderHintsOve
     @validate({ nullable: true })
     public dataType?: RenderHintsDataType
 
-    public static from(value: IRenderHints | RenderHintsJSON): RenderHintsOverride {
+    public static from(value: IRenderHintsOverride | RenderHintsOverrideJSON): RenderHintsOverride {
         return this.fromAny(value)
     }
 
