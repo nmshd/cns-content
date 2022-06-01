@@ -2,15 +2,16 @@ import { serialize, type, validate } from "@js-soft/ts-serval"
 import { RequestItemJSON } from "../.."
 import {
     IdentityAttribute,
+    IdentityAttributeJSON,
     IIdentityAttribute,
     IRelationshipAttribute,
-    RelationshipAttribute
+    RelationshipAttribute,
+    RelationshipAttributeJSON
 } from "../../../attributes"
-import { AbstractAttributeJSON } from "../../../attributes/AbstractAttribute"
 import { IRequestItem, RequestItem } from "../../RequestItem"
 
 export interface CreateAttributeRequestItemJSON extends RequestItemJSON {
-    attribute: AbstractAttributeJSON
+    attribute: IdentityAttributeJSON | RelationshipAttributeJSON
 }
 
 export interface ICreateAttributeRequestItem extends IRequestItem {
