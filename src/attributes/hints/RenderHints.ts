@@ -1,4 +1,4 @@
-import { Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../../ContentJSON"
 
 export enum RenderHintsTechnicalType {
@@ -46,7 +46,7 @@ export interface RenderHintsJSON extends ContentJSON {
     dataType?: RenderHintsDataType
 }
 
-export interface IRenderHints {
+export interface IRenderHints extends ISerializable {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
