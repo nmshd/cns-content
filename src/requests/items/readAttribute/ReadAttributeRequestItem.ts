@@ -1,8 +1,14 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
-import { AbstractAttributeQuery, IAbstractAttributeQuery } from "../../../attributes/AbstractAttributeQuery"
+import {
+    AbstractAttributeQuery,
+    AbstractAttributeQueryJSON,
+    IAbstractAttributeQuery
+} from "../../../attributes/AbstractAttributeQuery"
 import { IRequestItem, RequestItem, RequestItemJSON } from "../../RequestItem"
 
-export interface ReadAttributeRequestItemJSON extends RequestItemJSON {}
+export interface ReadAttributeRequestItemJSON extends RequestItemJSON {
+    query: AbstractAttributeQueryJSON
+}
 
 export interface IReadAttributeRequestItem extends IRequestItem {
     query: IAbstractAttributeQuery
@@ -14,7 +20,7 @@ export class ReadAttributeRequestItem extends RequestItem implements IReadAttrib
     @validate()
     public query: AbstractAttributeQuery
 
-    public static from(value: IReadAttributeRequestItem): ReadAttributeRequestItem {
+    public static from(value: IReadAttributeRequestItem | ReadAttributeRequestItemJSON): ReadAttributeRequestItem {
         return this.fromAny(value)
     }
 }
