@@ -1,22 +1,25 @@
-import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
+import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreId, ICoreId } from "@nmshd/transport"
-import { ContentJSON } from "../../../ContentJSON"
+import { AcceptResponseItem, AcceptResponseItemJSON, IAcceptResponseItem } from "../../response"
 
-export interface CreateAttributeAcceptResponseItemJSON extends ContentJSON {
+export interface CreateAttributeAcceptResponseItemJSON extends AcceptResponseItemJSON {
     attributeId: string
 }
 
-export interface ICreateAttributeAcceptResponseItem extends ISerializable {
+export interface ICreateAttributeAcceptResponseItem extends IAcceptResponseItem {
     attributeId: ICoreId
 }
 
 @type("CreateAttributeAcceptResponseItem")
-export class CreateAttributeAcceptResponseItem extends Serializable implements ICreateAttributeAcceptResponseItem {
+export class CreateAttributeAcceptResponseItem
+    extends AcceptResponseItem
+    implements ICreateAttributeAcceptResponseItem
+{
     @serialize()
     @validate()
     public attributeId: CoreId
 
-    public static from(
+    public static override from(
         value: ICreateAttributeAcceptResponseItem | CreateAttributeAcceptResponseItemJSON
     ): CreateAttributeAcceptResponseItem {
         return this.fromAny(value)
