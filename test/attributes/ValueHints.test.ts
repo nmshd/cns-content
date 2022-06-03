@@ -1,4 +1,11 @@
-import { CommunicationLanguage, Nationality, ValueHints, ValueHintsJSON, ValueHintsValue } from "@nmshd/content"
+import {
+    CommunicationLanguage,
+    Nationality,
+    StreetAddress,
+    ValueHints,
+    ValueHintsJSON,
+    ValueHintsValue
+} from "@nmshd/content"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
 import { expectThrows } from "../testUtils"
@@ -114,6 +121,12 @@ export class ValueHintsTest extends AbstractTest {
                         }),
                     ".*Value is not an allowed type"
                 )
+            })
+
+            it("returns subHints in case of complex attributes", function () {
+                const valueHints = StreetAddress.valueHints
+
+                expect(valueHints.subHints).to.have.lengthOf(6)
             })
         })
     }
