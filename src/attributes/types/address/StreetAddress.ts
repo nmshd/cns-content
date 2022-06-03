@@ -1,6 +1,7 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { COUNTRIES_ALPHA2_TO_ENGLISH_NAME } from "../../constants"
+import { RenderHints, RenderHintsEditType, RenderHintsTechnicalType, ValueHints } from "../../hints"
 import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 import { AbstractAddress, AbstractAddressJSON, IAbstractAddress } from "./AbstractAddress"
 import { City } from "./City"
@@ -56,6 +57,34 @@ export class StreetAddress extends AbstractAddress implements IStreetAddress {
 
     public static from(value: IStreetAddress | StreetAddressJSON): StreetAddress {
         return this.fromAny(value)
+    }
+
+    public static get valueHints(): ValueHints {
+        return ValueHints.from({
+            subHints: [
+                Street.valueHints,
+                HouseNumber.valueHints,
+                ZipCode.valueHints,
+                City.valueHints,
+                Country.valueHints,
+                State.valueHints
+            ]
+        })
+    }
+
+    public static get renderHints(): RenderHints {
+        return RenderHints.from({
+            technicalType: RenderHintsTechnicalType.Object,
+            editType: RenderHintsEditType.Form,
+            subHints: [
+                Street.renderHints,
+                HouseNumber.renderHints,
+                ZipCode.renderHints,
+                City.renderHints,
+                Country.renderHints,
+                State.renderHints
+            ]
+        })
     }
 
     public override toString(): string {
