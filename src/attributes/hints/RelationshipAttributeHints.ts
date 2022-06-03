@@ -38,8 +38,9 @@ export class RelationshipAttributeHints extends Serializable implements IRelatio
     public valueHints?: ValueHints
 
     @serialize()
-    @validate()
+    @validate({ nullable: true })
     public isTechnical = false
+
     @serialize()
     @validate({
         customValidator: (v) =>
