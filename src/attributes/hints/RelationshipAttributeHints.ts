@@ -2,7 +2,7 @@ import { ISerializable, Serializable, serialize, type, validate } from "@js-soft
 import { RelationshipAttributeConfidentiality } from "../RelationshipAttribute"
 import { IValueHints, ValueHints, ValueHintsJSON } from "./ValueHints"
 
-export interface RelationshipAttributeHintsJSON {
+export interface RelationshipAttributeCreationHintsJSON {
     title: string
     description?: string
     valueHints?: ValueHintsJSON
@@ -10,7 +10,7 @@ export interface RelationshipAttributeHintsJSON {
     confidentiality: RelationshipAttributeConfidentiality
 }
 
-export interface IRelationshipAttributeHints extends ISerializable {
+export interface IRelationshipAttributeCreationHints extends ISerializable {
     title: string
     description?: string
     valueHints?: IValueHints
@@ -24,7 +24,7 @@ export interface IRelationshipAttributeHints extends ISerializable {
  * a proprietary Attribute, even without such an Attribute existent.
  */
 @type("RelationshipAttributeHints")
-export class RelationshipAttributeHints extends Serializable implements IRelationshipAttributeHints {
+export class RelationshipAttributeCreationHints extends Serializable implements IRelationshipAttributeCreationHints {
     @serialize()
     @validate()
     public title: string
@@ -51,8 +51,8 @@ export class RelationshipAttributeHints extends Serializable implements IRelatio
     public confidentiality: RelationshipAttributeConfidentiality
 
     public static from(
-        value: IRelationshipAttributeHints | RelationshipAttributeHintsJSON
-    ): RelationshipAttributeHints {
+        value: IRelationshipAttributeCreationHints | RelationshipAttributeCreationHintsJSON
+    ): RelationshipAttributeCreationHints {
         return this.fromAny(value)
     }
 }
