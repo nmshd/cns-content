@@ -1,43 +1,50 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreAddress, ICoreAddress } from "@nmshd/transport"
 import { AbstractAttributeQuery, AbstractAttributeQueryJSON, IAbstractAttributeQuery } from "./AbstractAttributeQuery"
-import {
-    IRelationshipAttributeHints,
-    RelationshipAttributeHints,
-    RelationshipAttributeHintsJSON
-} from "./hints/RelationshipAttributeHints"
+import { RelationshipAttributeConfidentiality } from "./RelationshipAttribute"
 
 export interface RelationshipAttributeQueryJSON extends AbstractAttributeQueryJSON {
-    key: string
-    owner: string
-    attributeHints: RelationshipAttributeHintsJSON
+    key?: string
+    owner?: string
     thirdParty?: string
+    isTechnical?: boolean
+    confidentiality?: RelationshipAttributeConfidentiality
 }
 
 export interface IRelationshipAttributeQuery extends IAbstractAttributeQuery {
-    key: string
-    owner: ICoreAddress
-    attributeHints: IRelationshipAttributeHints
+    key?: string
+    owner?: ICoreAddress
     thirdParty?: ICoreAddress
+    isTechnical?: boolean
+    confidentiality?: RelationshipAttributeConfidentiality
 }
 
 @type("RelationshipAttributeQuery")
 export class RelationshipAttributeQuery extends AbstractAttributeQuery implements IRelationshipAttributeQuery {
     @serialize()
-    @validate()
-    public key: string
+    @validate({ nullable: true })
+    public key?: string
 
     @serialize()
-    @validate()
-    public owner: CoreAddress
-
-    @serialize()
-    @validate()
-    public attributeHints: RelationshipAttributeHints
+    @validate({ nullable: true })
+    public owner?: CoreAddress
 
     @serialize()
     @validate({ nullable: true })
     public thirdParty?: CoreAddress
+
+    @serialize()
+    @validate()
+    public isTechnical = false
+    @serialize()
+    @validate({
+        nullable: true,
+        customValidator: (v) =>
+            !Object.values(RelationshipAttributeConfidentiality).includes(v)
+                ? `must be one of: ${Object.values(RelationshipAttributeConfidentiality)}`
+                : undefined
+    })
+    public confidentiality?: RelationshipAttributeConfidentiality
 
     public static from(
         value: IRelationshipAttributeQuery | RelationshipAttributeQueryJSON
