@@ -15,6 +15,7 @@ export enum RenderHintsEditType {
     RadioButtonLike = "RadioButtonLike",
     SelectLike = "SelectLike",
     SliderLike = "SliderLike",
+    Form = "Form", // TODO: better naming?
     Secret = "Secret",
     TextArea = "TextArea",
     Upload = "Upload"
@@ -44,12 +45,14 @@ export interface RenderHintsJSON extends ContentJSON {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
+    subHints?: RenderHintsJSON[]
 }
 
 export interface IRenderHints extends ISerializable {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
+    subHints?: IRenderHints[]
 }
 
 @type("RenderHints")
@@ -65,6 +68,10 @@ export class RenderHints extends Serializable implements IRenderHints {
     @serialize()
     @validate({ nullable: true })
     public dataType?: RenderHintsDataType
+
+    @serialize({ type: RenderHints })
+    @validate({ nullable: true })
+    public subHints: RenderHints[] = []
 
     public static from(value: IRenderHints): RenderHints {
         return this.fromAny(value)
