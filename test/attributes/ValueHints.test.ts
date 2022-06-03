@@ -34,7 +34,7 @@ export class ValueHintsTest extends AbstractTest {
                 }
                 const valueHints = ValueHints.from(valueHintsJSON)
                 expect(valueHints).instanceOf(ValueHints)
-                expect(valueHints.toJSON()).to.deep.equal(valueHintsJSON)
+                expect(valueHints.toJSON()).to.deep.equal({ ...valueHintsJSON, subHints: [] })
             })
 
             it("serialize and deserialize filled ValueHints (int)", function () {
@@ -58,7 +58,7 @@ export class ValueHintsTest extends AbstractTest {
                 }
                 const valueHints = ValueHints.from(valueHintsJSON)
                 expect(valueHints).instanceOf(ValueHints)
-                expect(valueHints.toJSON()).to.deep.equal(valueHintsJSON)
+                expect(valueHints.toJSON()).to.deep.equal({ ...valueHintsJSON, subHints: [] })
             })
 
             it("gets languages out of Language", function () {
