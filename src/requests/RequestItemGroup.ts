@@ -1,4 +1,5 @@
 import { ISerializable, Serializable, serialize, type, validate, ValidationError } from "@js-soft/ts-serval"
+import { nameof } from "ts-simple-nameof"
 import { ContentJSON } from "../ContentJSON"
 import { IRequestItem, RequestItem, RequestItemJSON } from "./RequestItem"
 
@@ -115,9 +116,13 @@ export class RequestItemGroup extends Serializable {
 
         if (value.mustBeAccepted && value.items.every((item) => !item.mustBeAccepted)) {
             throw new ValidationError(
-                "RequestItemGroup",
-                "mustBeAccepted",
-                "mustBeAccepted can only be true if at least one item is flagged as mustBeAccepted"
+                RequestItemGroup.name,
+                nameof<RequestItemGroup>((x) => x.mustBeAccepted),
+                `${nameof<RequestItemGroup>(
+                    (x) => x.mustBeAccepted
+                )} can only be true if at least one item is flagged as ${nameof<RequestItemGroup>(
+                    (x) => x.mustBeAccepted
+                )}`
             )
         }
 

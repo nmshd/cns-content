@@ -12,12 +12,12 @@ import { AcceptResponseItem, AcceptResponseItemJSON, IAcceptResponseItem } from 
 
 export interface ProposeAttributeAcceptResponseItemJSON extends AcceptResponseItemJSON {
     attributeId: string
-    attribute?: IdentityAttributeJSON | RelationshipAttributeJSON
+    attribute: IdentityAttributeJSON | RelationshipAttributeJSON
 }
 
 export interface IProposeAttributeAcceptResponseItem extends IAcceptResponseItem {
     attributeId: ICoreId
-    attribute?: IIdentityAttribute | IRelationshipAttribute
+    attribute: IIdentityAttribute | IRelationshipAttribute
 }
 
 @type("ProposeAttributeAcceptResponseItem")
@@ -30,8 +30,8 @@ export class ProposeAttributeAcceptResponseItem
     public attributeId: CoreId
 
     @serialize({ unionTypes: [IdentityAttribute, RelationshipAttribute] })
-    @validate({ nullable: true })
-    public attribute?: IdentityAttribute | RelationshipAttribute
+    @validate()
+    public attribute: IdentityAttribute | RelationshipAttribute
 
     public static override from(
         value: IProposeAttributeAcceptResponseItem | ProposeAttributeAcceptResponseItemJSON
