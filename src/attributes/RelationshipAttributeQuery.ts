@@ -34,8 +34,9 @@ export class RelationshipAttributeQuery extends AbstractAttributeQuery implement
     public thirdParty?: CoreAddress
 
     @serialize()
-    @validate()
-    public isTechnical = false
+    @validate({ nullable: true })
+    public isTechnical?: boolean
+
     @serialize()
     @validate({
         nullable: true,
