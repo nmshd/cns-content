@@ -4,7 +4,7 @@ import { AbstractTest } from "../AbstractTest"
 
 export class RenderHintsTest extends AbstractTest {
     public run(): void {
-        describe("ValueHints", function () {
+        describe("RenderHints", function () {
             it("returns subHints in case of complex attributes", function () {
                 const renderHints = StreetAddress.renderHints
 
