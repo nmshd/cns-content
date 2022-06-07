@@ -1,10 +1,10 @@
-import { expect } from "chai"
 import {
     IRelationshipAttributeCreationHints,
     RelationshipAttributeConfidentiality,
     RelationshipAttributeCreationHints,
     RelationshipAttributeCreationHintsJSON
-} from "src/attributes"
+} from "@nmshd/content"
+import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
 
 export class RelationshipAttributeHintsTest extends AbstractTest {
