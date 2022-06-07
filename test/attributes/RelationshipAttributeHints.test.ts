@@ -9,7 +9,7 @@ import { AbstractTest } from "../AbstractTest"
 
 export class RelationshipAttributeHintsTest extends AbstractTest {
     public run(): void {
-        describe.only("RelationshipAttributeHints", function () {
+        describe("RelationshipAttributeHints", function () {
             it("create from interface", function () {
                 const relationshipAttributeHintInterface: IRelationshipAttributeCreationHints = {
                     title: "ATitle",
@@ -18,7 +18,7 @@ export class RelationshipAttributeHintsTest extends AbstractTest {
                 const relationshipAttributeHint = RelationshipAttributeCreationHints.from(
                     relationshipAttributeHintInterface
                 )
-                expect(relationshipAttributeHint).to.equal(relationshipAttributeHintInterface)
+                expect(relationshipAttributeHint.toJSON()).to.contain({ isTechnical: false })
             })
             it("create from JSON", function () {
                 const relationshipAttributeHintJSON: RelationshipAttributeCreationHintsJSON = {
@@ -26,7 +26,7 @@ export class RelationshipAttributeHintsTest extends AbstractTest {
                     confidentiality: RelationshipAttributeConfidentiality.Public
                 }
                 const relationshipAttributeHint = RelationshipAttributeCreationHints.from(relationshipAttributeHintJSON)
-                expect(relationshipAttributeHint).to.equal(relationshipAttributeHintJSON)
+                expect(relationshipAttributeHint.toJSON()).to.contain({ isTechnical: false })
             })
         })
     }
