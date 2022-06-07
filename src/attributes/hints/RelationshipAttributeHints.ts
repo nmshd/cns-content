@@ -39,7 +39,7 @@ export class RelationshipAttributeCreationHints extends Serializable implements 
 
     @serialize()
     @validate({ nullable: true })
-    public isTechnical = false
+    public isTechnical?: boolean = false
 
     @serialize()
     @validate({
