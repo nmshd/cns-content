@@ -53,7 +53,7 @@ export class ProposeAttributeRequestItem extends RequestItem implements IPropose
                 `${nameof<ProposeAttributeRequestItem>((x) => x.query)}.${nameof<AbstractAttributeQuery>(
                     (x) => x.valueType
                 )}`,
-                `You cannot propose an Attribute whose value's type ('${attributeValueType}') is different from the value type of the query ('${queryValueType}').`
+                `You cannot propose an Attribute whose type of the value ('${attributeValueType}') is different from the value type of the query ('${queryValueType}').`
             )
         }
 
