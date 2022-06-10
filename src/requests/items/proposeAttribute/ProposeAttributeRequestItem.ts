@@ -44,13 +44,16 @@ export class ProposeAttributeRequestItem extends RequestItem implements IPropose
     protected static override postFrom<T extends Serializable>(value: T): T {
         if (!(value instanceof ProposeAttributeRequestItem)) throw new Error("this should never happen")
 
-        if ((value.attribute.value.toJSON() as any)["@type"] !== value.query.valueType) {
+        const attributeValueType = (value.attribute.value.toJSON() as any)["@type"]
+        const queryValueType = value.query.valueType
+
+        if (attributeValueType !== queryValueType) {
             throw new ValidationError(
                 ProposeAttributeRequestItem.name,
                 `${nameof<ProposeAttributeRequestItem>((x) => x.query)}.${nameof<AbstractAttributeQuery>(
                     (x) => x.valueType
                 )}`,
-                "You cannot propose an Attribute whose value's type is different from the value type of the query."
+                `You cannot propose an Attribute whose value's type ('${attributeValueType}') is different from the value type of the query ('${queryValueType}').`
             )
         }
 
