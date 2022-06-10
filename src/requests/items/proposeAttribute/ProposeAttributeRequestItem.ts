@@ -1,5 +1,7 @@
-import { serialize, type, validate } from "@js-soft/ts-serval"
+import { Serializable, serialize, type, validate, ValidationError } from "@js-soft/ts-serval"
+import { nameof } from "ts-simple-nameof"
 import {
+    AbstractAttributeQuery,
     IdentityAttribute,
     IdentityAttributeJSON,
     IdentityAttributeQuery,
@@ -14,6 +16,7 @@ import {
     RelationshipAttributeQueryJSON
 } from "../../../attributes"
 import { IRequestItem, RequestItem, RequestItemJSON } from "../../RequestItem"
+
 export interface ProposeAttributeRequestItemJSON extends RequestItemJSON {
     query: IdentityAttributeQueryJSON | RelationshipAttributeQueryJSON
     attribute: IdentityAttributeJSON | RelationshipAttributeJSON
@@ -36,5 +39,37 @@ export class ProposeAttributeRequestItem extends RequestItem implements IPropose
 
     public static from(value: IProposeAttributeRequestItem): ProposeAttributeRequestItem {
         return this.fromAny(value)
+    }
+
+    protected static override postFrom<T extends Serializable>(value: T): T {
+        if (!(value instanceof ProposeAttributeRequestItem)) throw new Error("this should never happen")
+
+        if ((value.attribute.value.toJSON() as any)["@type"] !== value.query.valueType) {
+            throw new ValidationError(
+                ProposeAttributeRequestItem.name,
+                `${nameof<ProposeAttributeRequestItem>((x) => x.query)}.${nameof<AbstractAttributeQuery>(
+                    (x) => x.valueType
+                )}`,
+                "You cannot propose an Attribute whose value's type is different from the value type of the query."
+            )
+        }
+
+        if (value.attribute instanceof RelationshipAttribute && !(value.query instanceof RelationshipAttributeQuery)) {
+            throw new ValidationError(
+                ProposeAttributeRequestItem.name,
+                "",
+                "When proposing a RelationshipAttribute, the corresponding query has to be a RelationshipAttributeQuery."
+            )
+        }
+
+        if (value.attribute instanceof IdentityAttribute && !(value.query instanceof IdentityAttributeQuery)) {
+            throw new ValidationError(
+                ProposeAttributeRequestItem.name,
+                "",
+                "When proposing an IdentityAttribute, the corresponding query has to be a IdentityAttributeQuery."
+            )
+        }
+
+        return value
     }
 }
