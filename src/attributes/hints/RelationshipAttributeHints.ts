@@ -39,7 +39,7 @@ export class RelationshipAttributeCreationHints extends Serializable implements 
 
     @serialize()
     @validate({ nullable: true })
-    public isTechnical?: boolean = false
+    public isTechnical: boolean
 
     @serialize()
     @validate({
@@ -49,6 +49,12 @@ export class RelationshipAttributeCreationHints extends Serializable implements 
                 : undefined
     })
     public confidentiality: RelationshipAttributeConfidentiality
+
+    protected static override preFrom(value: any): any {
+        if (typeof value.isTechnical === "undefined") value.isTechnical = false
+
+        return value
+    }
 
     public static from(
         value: IRelationshipAttributeCreationHints | RelationshipAttributeCreationHintsJSON
