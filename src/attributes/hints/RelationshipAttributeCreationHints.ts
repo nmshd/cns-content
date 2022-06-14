@@ -23,7 +23,7 @@ export interface IRelationshipAttributeCreationHints extends ISerializable {
  * They are primarily used within `RelationshipAttributeQuery` to define the metadata of
  * a proprietary Attribute, even without such an Attribute existent.
  */
-@type("RelationshipAttributeHints")
+@type("RelationshipAttributeCreationHints")
 export class RelationshipAttributeCreationHints extends Serializable implements IRelationshipAttributeCreationHints {
     @serialize()
     @validate()
