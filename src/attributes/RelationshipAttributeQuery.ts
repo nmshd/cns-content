@@ -5,7 +5,7 @@ import {
     IRelationshipAttributeCreationHints,
     RelationshipAttributeCreationHints,
     RelationshipAttributeCreationHintsJSON
-} from "./hints/RelationshipAttributeHints"
+} from "./hints/RelationshipAttributeCreationHints"
 
 export interface RelationshipAttributeQueryJSON extends AbstractAttributeQueryJSON {
     key: string
