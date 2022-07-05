@@ -2,7 +2,8 @@ name: Version Check
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, release/**]
+    types: [synchronize, opened, reopened, edited]
 
 jobs:
   version_check:
@@ -12,6 +13,13 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install jq -y
       - name: Ensure valid package version
         run: |
+          BASE_REF=${{ github.base_ref }}
+
+          if [[ $BASE_REF =~ ^release/.*$ ]]; then
+            echo "Skipping version check when merging into a release/** branch"
+            exit 0
+          fi
+
           HEAD_REF=${{ github.head_ref }}
 
           # allow the merging from release branches
