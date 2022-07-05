@@ -1,5 +1,19 @@
 import { ISerializable, Serializable, serialize, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../ContentJSON"
+import {
+    CreateAttributeRequestItem,
+    CreateAttributeRequestItemJSON,
+    ICreateAttributeRequestItem,
+    IProposeAttributeRequestItem,
+    IReadAttributeRequestItem,
+    IShareAttributeRequestItem,
+    ProposeAttributeRequestItem,
+    ProposeAttributeRequestItemJSON,
+    ReadAttributeRequestItem,
+    ReadAttributeRequestItemJSON,
+    ShareAttributeRequestItem,
+    ShareAttributeRequestItemJSON
+} from "./items"
 
 export interface RequestItemJSON extends ContentJSON {
     /**
@@ -32,6 +46,12 @@ export interface RequestItemJSON extends ContentJSON {
     mustBeAccepted: boolean
 }
 
+export type RequestItemJSONDerivations =
+    | CreateAttributeRequestItemJSON
+    | ProposeAttributeRequestItemJSON
+    | ReadAttributeRequestItemJSON
+    | ShareAttributeRequestItemJSON
+
 export interface IRequestItem extends ISerializable {
     /**
      * The human-readable title of this item.
@@ -63,6 +83,12 @@ export interface IRequestItem extends ISerializable {
     mustBeAccepted: boolean
 }
 
+export type IRequestItemDerivations =
+    | ICreateAttributeRequestItem
+    | IProposeAttributeRequestItem
+    | IReadAttributeRequestItem
+    | IShareAttributeRequestItem
+
 export abstract class RequestItem extends Serializable {
     @serialize()
     @validate({ nullable: true })
@@ -80,3 +106,9 @@ export abstract class RequestItem extends Serializable {
     @validate({ nullable: true })
     public metadata?: object
 }
+
+export type RequestItemDerivations =
+    | CreateAttributeRequestItem
+    | ProposeAttributeRequestItem
+    | ReadAttributeRequestItem
+    | ShareAttributeRequestItem

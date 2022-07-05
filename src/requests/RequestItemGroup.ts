@@ -1,7 +1,13 @@
 import { ISerializable, Serializable, serialize, type, validate, ValidationError } from "@js-soft/ts-serval"
 import { nameof } from "ts-simple-nameof"
 import { ContentJSON } from "../ContentJSON"
-import { IRequestItem, RequestItem, RequestItemJSON } from "./RequestItem"
+import {
+    IRequestItemDerivations,
+    RequestItem,
+    RequestItemDerivations,
+    RequestItemJSON,
+    RequestItemJSONDerivations
+} from "./RequestItem"
 
 /**
  * A RequestItemGroup can be used to group one or more {@link RequestItemJSON RequestItems}. This is useful
@@ -41,7 +47,7 @@ export interface RequestItemGroupJSON extends ContentJSON {
     /**
      * The items of this group.
      */
-    items: RequestItemJSON[]
+    items: RequestItemJSONDerivations[]
 }
 
 /**
@@ -82,7 +88,7 @@ export interface IRequestItemGroup extends ISerializable {
     /**
      * The items of this group.
      */
-    items: IRequestItem[]
+    items: IRequestItemDerivations[]
 }
 
 @type("RequestItemGroup")
@@ -101,7 +107,7 @@ export class RequestItemGroup extends Serializable {
 
     @serialize()
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
-    public items: RequestItem[]
+    public items: RequestItemDerivations[]
 
     @serialize()
     @validate({ nullable: true })

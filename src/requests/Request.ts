@@ -1,7 +1,13 @@
 import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreId, ICoreDate } from "@nmshd/transport"
 import { ContentJSON } from "../ContentJSON"
-import { IRequestItem, RequestItem, RequestItemJSON } from "./RequestItem"
+import {
+    IRequestItemDerivations,
+    RequestItem,
+    RequestItemDerivations,
+    RequestItemJSON,
+    RequestItemJSONDerivations
+} from "./RequestItem"
 import { IRequestItemGroup, RequestItemGroup, RequestItemGroupJSON } from "./RequestItemGroup"
 
 export interface RequestJSON extends ContentJSON {
@@ -19,7 +25,7 @@ export interface RequestJSON extends ContentJSON {
      * The items of the Request. Can be either a single {@link RequestItemJSON RequestItem} or a {@link RequestItemGroupJSON RequestItemGroup}, which itself can contain
      * further {@link RequestItemJSON RequestItems}.
      */
-    items: (RequestItemGroupJSON | RequestItemJSON)[]
+    items: (RequestItemGroupJSON | RequestItemJSONDerivations)[]
 
     /**
      * This property can be used to add some arbitrary metadata to this request. The content
@@ -43,7 +49,7 @@ export interface IRequest extends ISerializable {
      * The items of the Request. Can be either a single {@link RequestItem RequestItem} or a {@link RequestItemGroup RequestItemGroup}, which itself can contain
      * further {@link RequestItem RequestItems}.
      */
-    items: (IRequestItemGroup | IRequestItem)[]
+    items: (IRequestItemGroup | IRequestItemDerivations)[]
 
     /**
      * This property can be used to add some arbitrary metadata to this request. The content
@@ -64,7 +70,7 @@ export class Request extends Serializable implements IRequest {
 
     @serialize()
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
-    public items: (RequestItemGroup | RequestItem)[]
+    public items: (RequestItemGroup | RequestItemDerivations)[]
 
     @serialize()
     @validate({ nullable: true })
