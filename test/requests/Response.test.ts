@@ -122,25 +122,16 @@ export class ResponseTest extends AbstractTest {
                             "@type": "RejectResponseItem",
                             result: ResponseItemResult.Rejected,
                             code: "SOME_REJECTION_CODE",
-                            message: "Some rejection message",
-                            metadata: {
-                                aMetadataKey: "outer item - metadata value"
-                            }
+                            message: "Some rejection message"
                         } as RejectResponseItemJSON,
                         {
                             "@type": "ResponseItemGroup",
-                            metadata: {
-                                aMetadataKey: "item group - metadata value"
-                            },
                             items: [
                                 {
                                     "@type": "ErrorResponseItem",
                                     result: ResponseItemResult.Failed,
                                     code: "SOME_ERROR_CODE",
-                                    message: "Some error message",
-                                    metadata: {
-                                        aMetadataKey: "inner item - metadata value"
-                                    }
+                                    message: "Some error message"
                                 } as ErrorResponseItemJSON
                             ]
                         } as ResponseItemGroupJSON

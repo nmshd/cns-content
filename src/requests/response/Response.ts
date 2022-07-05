@@ -13,14 +13,12 @@ export interface ResponseJSON extends ContentJSON {
     result: ResponseResult
     requestId: string
     items: (ResponseItemGroupJSON | ResponseItemJSON)[]
-    metadata?: object
 }
 
 export interface IResponse extends ISerializable {
     result: ResponseResult
     requestId: ICoreId
     items: (IResponseItemGroup | IResponseItem)[]
-    metadata?: object
 }
 
 @type("Response")
@@ -36,10 +34,6 @@ export class Response extends Serializable {
     @serialize()
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
     public items: (ResponseItemGroup | ResponseItem)[]
-
-    @serialize()
-    @validate({ nullable: true })
-    public metadata?: object
 
     public static from(value: IResponse | ResponseJSON): Response {
         return this.fromAny(value)

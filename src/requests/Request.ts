@@ -25,7 +25,7 @@ export interface RequestJSON extends ContentJSON {
      * This property can be used to add some arbitrary metadata to this request. The content
      * of this property will be copied into the response on the side of the recipient.
      */
-    responseMetadata?: object
+    metadata?: object
 }
 
 export interface IRequest extends ISerializable {
@@ -49,7 +49,7 @@ export interface IRequest extends ISerializable {
      * This property can be used to add some arbitrary metadata to this request. The content
      * of this property will be copied into the response on the side of the recipient.
      */
-    responseMetadata?: object
+    metadata?: object
 }
 
 @type("Request")
@@ -68,7 +68,7 @@ export class Request extends Serializable implements IRequest {
 
     @serialize()
     @validate({ nullable: true })
-    public responseMetadata?: object
+    public metadata?: object
 
     public static from(value: IRequest | RequestJSON): Request {
         return this.fromAny(value)

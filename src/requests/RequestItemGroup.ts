@@ -36,7 +36,7 @@ export interface RequestItemGroupJSON extends ContentJSON {
      * of this property will be copied into the response on the side of the recipient, so
      * the sender can use it to identify the group content as they receive the response.
      */
-    responseMetadata?: object
+    metadata?: object
 
     /**
      * The items of this group.
@@ -77,7 +77,7 @@ export interface IRequestItemGroup extends ISerializable {
      * of this property will be copied into the response on the side of the recipient, so
      * the sender can use it to identify the group content as they receive the response.
      */
-    responseMetadata?: object
+    metadata?: object
 
     /**
      * The items of this group.
@@ -105,7 +105,7 @@ export class RequestItemGroup extends Serializable {
 
     @serialize()
     @validate({ nullable: true })
-    public responseMetadata?: object
+    public metadata?: object
 
     public static from(value: IRequestItemGroup | RequestItemGroupJSON): RequestItemGroup {
         return this.fromAny(value)
