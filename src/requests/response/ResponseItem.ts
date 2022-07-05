@@ -6,6 +6,11 @@ import {
     IAcceptResponseItemDerivations
 } from "./AcceptResponseItem"
 import {
+    ErrorResponseItemDerivations,
+    ErrorResponseItemJSONDerivations,
+    IErrorResponseItemDerivations
+} from "./ErrorResponseItem"
+import {
     IRejectResponseItemDerivations,
     RejectResponseItemDerivations,
     RejectResponseItemJSONDerivations
@@ -16,13 +21,19 @@ export interface ResponseItemJSON extends ContentJSON {
     result: ResponseItemResult
 }
 
-export type ResponseItemJSONDerivations = AcceptResponseItemJSONDerivations | RejectResponseItemJSONDerivations
+export type ResponseItemJSONDerivations =
+    | AcceptResponseItemJSONDerivations
+    | RejectResponseItemJSONDerivations
+    | ErrorResponseItemJSONDerivations
 
 export interface IResponseItem extends ISerializable {
     result: ResponseItemResult
 }
 
-export type IResponseItemDerivations = IAcceptResponseItemDerivations | IRejectResponseItemDerivations
+export type IResponseItemDerivations =
+    | IAcceptResponseItemDerivations
+    | IRejectResponseItemDerivations
+    | IErrorResponseItemDerivations
 
 export abstract class ResponseItem extends Serializable {
     @serialize()
@@ -30,4 +41,7 @@ export abstract class ResponseItem extends Serializable {
     public result: ResponseItemResult
 }
 
-export type ResponseItemDerivations = AcceptResponseItemDerivations | RejectResponseItemDerivations
+export type ResponseItemDerivations =
+    | AcceptResponseItemDerivations
+    | RejectResponseItemDerivations
+    | ErrorResponseItemDerivations

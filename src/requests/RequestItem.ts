@@ -47,6 +47,7 @@ export interface RequestItemJSON extends ContentJSON {
 }
 
 export type RequestItemJSONDerivations =
+    | RequestItemJSON
     | CreateAttributeRequestItemJSON
     | ProposeAttributeRequestItemJSON
     | ReadAttributeRequestItemJSON
@@ -84,6 +85,7 @@ export interface IRequestItem extends ISerializable {
 }
 
 export type IRequestItemDerivations =
+    | IRequestItem
     | ICreateAttributeRequestItem
     | IProposeAttributeRequestItem
     | IReadAttributeRequestItem
@@ -108,6 +110,7 @@ export abstract class RequestItem extends Serializable {
 }
 
 export type RequestItemDerivations =
+    | RequestItem
     | CreateAttributeRequestItem
     | ProposeAttributeRequestItem
     | ReadAttributeRequestItem
