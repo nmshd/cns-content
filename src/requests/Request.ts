@@ -1,13 +1,7 @@
 import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreDate, CoreId, ICoreDate } from "@nmshd/transport"
 import { ContentJSON } from "../ContentJSON"
-import {
-    IRequestItemDerivations,
-    RequestItem,
-    RequestItemDerivations,
-    RequestItemJSON,
-    RequestItemJSONDerivations
-} from "./RequestItem"
+import { IRequestItemDerivations, RequestItemDerivations, RequestItemJSONDerivations } from "./RequestItem"
 import { IRequestItemGroup, RequestItemGroup, RequestItemGroupJSON } from "./RequestItemGroup"
 
 export interface RequestJSON extends ContentJSON {
@@ -22,8 +16,8 @@ export interface RequestJSON extends ContentJSON {
     expiresAt?: string
 
     /**
-     * The items of the Request. Can be either a single {@link RequestItemJSON RequestItem} or a {@link RequestItemGroupJSON RequestItemGroup}, which itself can contain
-     * further {@link RequestItemJSON RequestItems}.
+     * The items of the Request. Can be either a single {@link RequestItemJSONDerivations RequestItem} or a {@link RequestItemGroupJSON RequestItemGroup}, which itself can contain
+     * further {@link RequestItemJSONDerivations RequestItems}.
      */
     items: (RequestItemGroupJSON | RequestItemJSONDerivations)[]
 
@@ -46,8 +40,8 @@ export interface IRequest extends ISerializable {
     expiresAt?: ICoreDate
 
     /**
-     * The items of the Request. Can be either a single {@link RequestItem RequestItem} or a {@link RequestItemGroup RequestItemGroup}, which itself can contain
-     * further {@link RequestItem RequestItems}.
+     * The items of the Request. Can be either a single {@link IRequestItemDerivations RequestItem} or a {@link IRequestItemGroup RequestItemGroup}, which itself can contain
+     * further {@link IRequestItemDerivations RequestItems}.
      */
     items: (IRequestItemGroup | IRequestItemDerivations)[]
 
