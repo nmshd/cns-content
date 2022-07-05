@@ -1,16 +1,10 @@
 import { ISerializable, Serializable, serialize, type, validate, ValidationError } from "@js-soft/ts-serval"
 import { nameof } from "ts-simple-nameof"
 import { ContentJSON } from "../ContentJSON"
-import {
-    IRequestItemDerivations,
-    RequestItem,
-    RequestItemDerivations,
-    RequestItemJSON,
-    RequestItemJSONDerivations
-} from "./RequestItem"
+import { IRequestItemDerivations, RequestItemDerivations, RequestItemJSONDerivations } from "./RequestItem"
 
 /**
- * A RequestItemGroup can be used to group one or more {@link RequestItemJSON RequestItems}. This is useful
+ * A RequestItemGroup can be used to group one or more RequestItems. This is useful
  * if you want to
  * * make sure that the items in the group can only be accepted together
  *
@@ -51,7 +45,7 @@ export interface RequestItemGroupJSON extends ContentJSON {
 }
 
 /**
- * A RequestItemGroup can be used to group one or more {@link RequestItem RequestItems}. This is useful
+ * A RequestItemGroup can be used to group one or more RequestItems. This is useful
  * if you want to
  * * make sure that the items in the group can only be accepted together
  *
