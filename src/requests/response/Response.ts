@@ -1,7 +1,7 @@
 import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { CoreId, ICoreId } from "@nmshd/transport"
 import { ContentJSON } from "../../ContentJSON"
-import { IResponseItem, ResponseItem, ResponseItemJSON } from "./ResponseItem"
+import { IResponseItemDerivations, ResponseItemDerivations, ResponseItemJSONDerivations } from "./ResponseItem"
 import { IResponseItemGroup, ResponseItemGroup, ResponseItemGroupJSON } from "./ResponseItemGroup"
 
 export enum ResponseResult {
@@ -12,13 +12,13 @@ export enum ResponseResult {
 export interface ResponseJSON extends ContentJSON {
     result: ResponseResult
     requestId: string
-    items: (ResponseItemGroupJSON | ResponseItemJSON)[]
+    items: (ResponseItemGroupJSON | ResponseItemJSONDerivations)[]
 }
 
 export interface IResponse extends ISerializable {
     result: ResponseResult
     requestId: ICoreId
-    items: (IResponseItemGroup | IResponseItem)[]
+    items: (IResponseItemGroup | IResponseItemDerivations)[]
 }
 
 @type("Response")
@@ -33,7 +33,7 @@ export class Response extends Serializable {
 
     @serialize()
     @validate({ customValidator: (v) => (v.length < 1 ? "may not be empty" : undefined) })
-    public items: (ResponseItemGroup | ResponseItem)[]
+    public items: (ResponseItemGroup | ResponseItemDerivations)[]
 
     public static from(value: IResponse | ResponseJSON): Response {
         return this.fromAny(value)
