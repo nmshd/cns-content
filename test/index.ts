@@ -3,6 +3,7 @@ import { HintsInheritanceTest } from "./attributes/HintsInheritance.test"
 import { IdentityAttributeTest } from "./attributes/IdentityAttribute.test"
 import { IdentityAttributeQueryTest } from "./attributes/IdentityAttributeQuery.test"
 import { RelationshipAttributeTest } from "./attributes/RelationshipAttribute.test"
+import { RelationshipAttributeHintsTest } from "./attributes/RelationshipAttributeHints.test"
 import { RenderHintsTest } from "./attributes/RenderHints.test"
 import { ValueHintsTest } from "./attributes/ValueHints.test"
 import { AddressValueTests } from "./attributeValues/AddressValueTests.test"
@@ -28,3 +29,4 @@ new IdentityAttributeQueryTest(loggerFactory).run()
 new NameValueTests(loggerFactory).run()
 new BirthValueTests(loggerFactory).run()
 new AddressValueTests(loggerFactory).run()
+new RelationshipAttributeHintsTest(loggerFactory).run()

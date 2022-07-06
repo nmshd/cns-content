@@ -108,7 +108,7 @@ export class RequestTest extends AbstractTest {
                             mustBeAccepted: true,
                             title: "outer item - title",
                             description: "outer item - description",
-                            responseMetadata: {
+                            metadata: {
                                 aMetadataKey: "outer item - metadata value"
                             }
                         } as TestRequestItemJSON,
@@ -117,7 +117,7 @@ export class RequestTest extends AbstractTest {
                             mustBeAccepted: true,
                             title: "item group - title",
                             description: "item group - description",
-                            responseMetadata: {
+                            metadata: {
                                 aMetadataKey: "item group - metadata value"
                             },
                             items: [
@@ -126,7 +126,7 @@ export class RequestTest extends AbstractTest {
                                     mustBeAccepted: true,
                                     title: "inner item - title",
                                     description: "inner item - description",
-                                    responseMetadata: {
+                                    metadata: {
                                         aMetadataKey: "inner item - metadata value"
                                     }
                                 } as TestRequestItemJSON

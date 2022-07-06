@@ -1,4 +1,7 @@
 export * from "./createAttribute/CreateAttributeAcceptResponseItem"
 export * from "./createAttribute/CreateAttributeRequestItem"
+export * from "./proposeAttribute/ProposeAttributeAcceptResponseItem"
+export * from "./proposeAttribute/ProposeAttributeRequestItem"
 export * from "./readAttribute/ReadAttributeAcceptResponseItem"
 export * from "./readAttribute/ReadAttributeRequestItem"
+export * from "./shareAttribute/ShareAttributeRequestItem"
