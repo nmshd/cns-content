@@ -8,11 +8,15 @@ export interface RejectResponseItemJSON extends ResponseItemJSON {
     message?: string
 }
 
+export type RejectResponseItemJSONDerivations = RejectResponseItemJSON
+
 export interface IRejectResponseItem extends IResponseItem {
     result: ResponseItemResult.Rejected
     code?: string
     message?: string
 }
+
+export type IRejectResponseItemDerivations = IRejectResponseItem
 
 @type("RejectResponseItem")
 export class RejectResponseItem extends ResponseItem implements IRejectResponseItem {
@@ -30,3 +34,5 @@ export class RejectResponseItem extends ResponseItem implements IRejectResponseI
         return this.fromAny(value)
     }
 }
+
+export type RejectResponseItemDerivations = RejectResponseItem

@@ -8,11 +8,15 @@ export interface ErrorResponseItemJSON extends ResponseItemJSON {
     message: string
 }
 
+export type ErrorResponseItemJSONDerivations = ErrorResponseItemJSON
+
 export interface IErrorResponseItem extends IResponseItem {
     result: ResponseItemResult.Failed
     code: string
     message: string
 }
+
+export type IErrorResponseItemDerivations = IErrorResponseItem
 
 @type("ErrorResponseItem")
 export class ErrorResponseItem extends ResponseItem implements IErrorResponseItem {
@@ -30,3 +34,5 @@ export class ErrorResponseItem extends ResponseItem implements IErrorResponseIte
         return this.fromAny(value)
     }
 }
+
+export type ErrorResponseItemDerivations = ErrorResponseItem

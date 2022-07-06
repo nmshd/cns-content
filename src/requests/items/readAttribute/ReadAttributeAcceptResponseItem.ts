@@ -20,7 +20,7 @@ export interface IReadAttributeAcceptResponseItem extends IAcceptResponseItem {
     attribute: IIdentityAttribute | IRelationshipAttribute
 }
 
-@type("AcceptReadAttributeResponseItem")
+@type("ReadAttributeAcceptResponseItem")
 export class ReadAttributeAcceptResponseItem extends AcceptResponseItem implements IReadAttributeAcceptResponseItem {
     @serialize()
     @validate()

@@ -6,7 +6,7 @@ import { AbstractFloat } from "./types/AbstractFloat"
 import { AbstractInteger } from "./types/AbstractInteger"
 import { AbstractString } from "./types/AbstractString"
 
-export interface AbstractAttributeValueJSON extends ContentJSON {}
+export interface AbstractAttributeValueJSON extends ContentJSON, Record<string, unknown> {}
 
 export interface IAbstractAttributeValue extends ISerializable {}
 
