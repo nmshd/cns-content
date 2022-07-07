@@ -23,7 +23,7 @@ export interface ICreateAttributeRequestItem extends IRequestItem {
 
 @type("CreateAttributeRequestItem")
 export class CreateAttributeRequestItem extends RequestItem implements ICreateAttributeRequestItem {
-    @serialize()
+    @serialize({ unionTypes: [IdentityAttribute, RelationshipAttribute] })
     @validate()
     public attribute: IdentityAttribute | RelationshipAttribute
 
