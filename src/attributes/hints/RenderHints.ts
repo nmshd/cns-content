@@ -104,8 +104,10 @@ export class RenderHints extends Serializable implements IRenderHints {
     public copyWith(
         override?: Partial<IRenderHintsOverride | RenderHintsOverrideJSON | RenderHintsOverride>
     ): RenderHints {
-        const overrideJson = override && override instanceof Serializable ? override.toJSON() : override
-        return RenderHints.from({ ...this.toJSON(), ...overrideJson })
+        const overrideJson = override && override instanceof RenderHintsOverride ? override.toJSON() : override
+
+        const subHints = { ...this.toJSON().subHints, ...overrideJson?.subHints }
+        return RenderHints.from({ ...this.toJSON(), ...overrideJson, subHints })
     }
 }
 
