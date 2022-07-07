@@ -34,7 +34,7 @@ export class ValueHintsTest extends AbstractTest {
                 }
                 const valueHints = ValueHints.from(valueHintsJSON)
                 expect(valueHints).instanceOf(ValueHints)
-                expect(valueHints.toJSON()).to.deep.equal({ ...valueHintsJSON, propertyHints: [] })
+                expect(valueHints.toJSON()).to.deep.equal({ ...valueHintsJSON, propertyHints: {} })
             })
 
             it("serialize and deserialize filled ValueHints (int)", function () {
@@ -58,7 +58,7 @@ export class ValueHintsTest extends AbstractTest {
                 }
                 const valueHints = ValueHints.from(valueHintsJSON)
                 expect(valueHints).instanceOf(ValueHints)
-                expect(valueHints.toJSON()).to.deep.equal({ ...valueHintsJSON, propertyHints: [] })
+                expect(valueHints.toJSON()).to.deep.equal({ ...valueHintsJSON, propertyHints: {} })
             })
 
             it("gets languages out of Language", function () {
@@ -126,7 +126,7 @@ export class ValueHintsTest extends AbstractTest {
             it("returns propertyHints in case of complex attributes", function () {
                 const valueHints = StreetAddress.valueHints
 
-                expect(valueHints.propertyHints).to.have.lengthOf(6)
+                expect(Object.keys(valueHints.propertyHints)).to.have.lengthOf(7)
             })
         })
     }
