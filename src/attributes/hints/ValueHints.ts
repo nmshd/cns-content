@@ -9,7 +9,7 @@ export interface ValueHintsJSON extends ContentJSON {
     pattern?: string
     values?: ValueHintsValueJSON[]
     defaultValue?: string | number | boolean
-    subHints?: ValueHintsJSON[]
+    subHints?: Record<string, ValueHintsJSON>
 }
 
 export interface ValueHintsOverrideJSON extends Partial<ValueHintsJSON> {}
@@ -21,7 +21,7 @@ export interface IValueHints extends ISerializable {
     pattern?: string
     values?: IValueHintsValue[]
     defaultValue?: string | number | boolean
-    subHints?: IValueHints[]
+    subHints?: Record<string, IValueHints>
 }
 
 export interface IValueHintsOverride extends Partial<IValueHints> {}
@@ -54,19 +54,41 @@ export class ValueHints extends Serializable implements IValueHints {
 
     @serialize({ type: ValueHints })
     @validate({ nullable: true })
-    public subHints: ValueHints[] = []
+    public subHints: Record<string, ValueHints> = {}
 
     public static from(value: IValueHints | ValueHintsJSON): ValueHints {
         return this.fromAny(value)
     }
 
+    public static override postFrom<T extends Serializable>(value: T): T {
+        if (!(value instanceof ValueHints)) throw new Error("this should never happen")
+
+        value.subHints = Object.entries(value.subHints)
+            .map((k) => {
+                return { [k[0]]: ValueHints.from(k[1]) }
+            })
+            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+
+        return value
+    }
+
     public override toJSON(): ValueHintsJSON {
-        return super.toJSON() as ValueHintsJSON
+        const json = super.toJSON() as ValueHintsJSON
+
+        json.subHints = Object.entries(this.subHints)
+            .map((k) => {
+                return { [k[0]]: k[1].toJSON() }
+            })
+            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+
+        return json
     }
 
     public copyWith(override?: Partial<IValueHintsOverride | ValueHintsOverrideJSON | ValueHintsOverride>): ValueHints {
-        const overrideJson = override && override instanceof Serializable ? override.toJSON() : override
-        return ValueHints.from({ ...this.toJSON(), ...overrideJson })
+        const overrideJson = override && override instanceof ValueHintsOverride ? override.toJSON() : override
+
+        const subHints = { ...this.toJSON().subHints, ...overrideJson?.subHints }
+        return ValueHints.from({ ...this.toJSON(), ...overrideJson, subHints })
     }
 }
 
@@ -96,11 +118,36 @@ export class ValueHintsOverride extends Serializable implements IValueHintsOverr
     @validate({ nullable: true })
     public defaultValue?: boolean | number | string
 
+    @serialize({ type: ValueHints })
+    @validate({ nullable: true })
+    public subHints?: Record<string, ValueHints>
+
     public static from(value: IValueHintsOverride | ValueHintsOverrideJSON): ValueHintsOverride {
         return this.fromAny(value)
     }
 
+    public static override postFrom<T extends Serializable>(value: T): T {
+        const valueAsAny = value as any
+        if (typeof valueAsAny.subHints === "undefined") return value
+
+        valueAsAny.subHints = Object.entries(valueAsAny.subHints)
+            .map((k) => {
+                return { [k[0]]: ValueHints.from(k[1] as IValueHints) }
+            })
+            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+
+        return valueAsAny
+    }
+
     public override toJSON(): ValueHintsOverrideJSON {
-        return super.toJSON()
+        const json = super.toJSON() as ValueHintsOverrideJSON
+
+        json.subHints = Object.entries(this.subHints ?? {})
+            .map((k) => {
+                return { [k[0]]: k[1].toJSON() }
+            })
+            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+
+        return json
     }
 }
