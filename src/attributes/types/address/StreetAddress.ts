@@ -61,7 +61,7 @@ export class StreetAddress extends AbstractAddress implements IStreetAddress {
 
     public static get valueHints(): ValueHints {
         return ValueHints.from({
-            subHints: {
+            propertyHints: {
                 street: Street.valueHints,
                 houseNo: HouseNumber.valueHints,
                 zipCode: ZipCode.valueHints,
@@ -74,7 +74,7 @@ export class StreetAddress extends AbstractAddress implements IStreetAddress {
 
     public static override get renderHints(): RenderHints {
         return super.renderHints.copyWith({
-            subHints: {
+            propertyHints: {
                 street: Street.renderHints,
                 houseNo: HouseNumber.renderHints,
                 zipCode: ZipCode.renderHints,

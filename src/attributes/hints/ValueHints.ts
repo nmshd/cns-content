@@ -9,7 +9,7 @@ export interface ValueHintsJSON extends ContentJSON {
     pattern?: string
     values?: ValueHintsValueJSON[]
     defaultValue?: string | number | boolean
-    subHints?: Record<string, ValueHintsJSON>
+    propertyHints?: Record<string, ValueHintsJSON>
 }
 
 export interface ValueHintsOverrideJSON extends Partial<ValueHintsJSON> {}
@@ -21,7 +21,7 @@ export interface IValueHints extends ISerializable {
     pattern?: string
     values?: IValueHintsValue[]
     defaultValue?: string | number | boolean
-    subHints?: Record<string, IValueHints>
+    propertyHints?: Record<string, IValueHints>
 }
 
 export interface IValueHintsOverride extends Partial<IValueHints> {}
@@ -52,9 +52,9 @@ export class ValueHints extends Serializable implements IValueHints {
     @serialize()
     public defaultValue?: number | string | boolean
 
-    @serialize({ type: ValueHints })
+    @serialize()
     @validate({ nullable: true })
-    public subHints: Record<string, ValueHints> = {}
+    public propertyHints: Record<string, ValueHints> = {}
 
     public static from(value: IValueHints | ValueHintsJSON): ValueHints {
         return this.fromAny(value)
@@ -63,7 +63,7 @@ export class ValueHints extends Serializable implements IValueHints {
     public static override postFrom<T extends Serializable>(value: T): T {
         if (!(value instanceof ValueHints)) throw new Error("this should never happen")
 
-        value.subHints = Object.entries(value.subHints)
+        value.propertyHints = Object.entries(value.propertyHints)
             .map((k) => {
                 return { [k[0]]: ValueHints.from(k[1]) }
             })
@@ -75,7 +75,7 @@ export class ValueHints extends Serializable implements IValueHints {
     public override toJSON(): ValueHintsJSON {
         const json = super.toJSON() as ValueHintsJSON
 
-        json.subHints = Object.entries(this.subHints)
+        json.propertyHints = Object.entries(this.propertyHints)
             .map((k) => {
                 return { [k[0]]: k[1].toJSON() }
             })
@@ -87,8 +87,8 @@ export class ValueHints extends Serializable implements IValueHints {
     public copyWith(override?: Partial<IValueHintsOverride | ValueHintsOverrideJSON | ValueHintsOverride>): ValueHints {
         const overrideJson = override && override instanceof ValueHintsOverride ? override.toJSON() : override
 
-        const subHints = { ...this.toJSON().subHints, ...overrideJson?.subHints }
-        return ValueHints.from({ ...this.toJSON(), ...overrideJson, subHints })
+        const propertyHints = { ...this.toJSON().propertyHints, ...overrideJson?.propertyHints }
+        return ValueHints.from({ ...this.toJSON(), ...overrideJson, propertyHints })
     }
 }
 
@@ -118,9 +118,9 @@ export class ValueHintsOverride extends Serializable implements IValueHintsOverr
     @validate({ nullable: true })
     public defaultValue?: boolean | number | string
 
-    @serialize({ type: ValueHints })
+    @serialize()
     @validate({ nullable: true })
-    public subHints?: Record<string, ValueHints>
+    public propertyHints?: Record<string, ValueHints>
 
     public static from(value: IValueHintsOverride | ValueHintsOverrideJSON): ValueHintsOverride {
         return this.fromAny(value)
@@ -128,9 +128,9 @@ export class ValueHintsOverride extends Serializable implements IValueHintsOverr
 
     public static override postFrom<T extends Serializable>(value: T): T {
         const valueAsAny = value as any
-        if (typeof valueAsAny.subHints === "undefined") return value
+        if (typeof valueAsAny.propertyHints === "undefined") return value
 
-        valueAsAny.subHints = Object.entries(valueAsAny.subHints)
+        valueAsAny.propertyHints = Object.entries(valueAsAny.propertyHints)
             .map((k) => {
                 return { [k[0]]: ValueHints.from(k[1] as IValueHints) }
             })
@@ -142,7 +142,7 @@ export class ValueHintsOverride extends Serializable implements IValueHintsOverr
     public override toJSON(): ValueHintsOverrideJSON {
         const json = super.toJSON() as ValueHintsOverrideJSON
 
-        json.subHints = Object.entries(this.subHints ?? {})
+        json.propertyHints = Object.entries(this.propertyHints ?? {})
             .map((k) => {
                 return { [k[0]]: k[1].toJSON() }
             })

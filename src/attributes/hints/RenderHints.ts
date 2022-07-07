@@ -8,7 +8,7 @@ export interface RenderHintsJSON extends ContentJSON {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
-    subHints?: Record<string, RenderHintsJSON>
+    propertyHints?: Record<string, RenderHintsJSON>
 }
 
 export interface RenderHintsOverrideJSON extends Partial<RenderHintsJSON> {}
@@ -17,7 +17,7 @@ export interface IRenderHints extends ISerializable {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
-    subHints?: Record<string, IRenderHints>
+    propertyHints?: Record<string, IRenderHints>
 }
 
 export interface IRenderHintsOverride extends Partial<IRenderHints> {}
@@ -36,9 +36,9 @@ export class RenderHints extends Serializable implements IRenderHints {
     @validate({ nullable: true })
     public dataType?: RenderHintsDataType
 
-    @serialize({ type: RenderHints })
+    @serialize()
     @validate({ nullable: true })
-    public subHints: Record<string, RenderHints> = {}
+    public propertyHints: Record<string, RenderHints> = {}
 
     public static from(value: IRenderHints): RenderHints {
         return this.fromAny(value)
@@ -47,7 +47,7 @@ export class RenderHints extends Serializable implements IRenderHints {
     public static override postFrom<T extends Serializable>(value: T): T {
         if (!(value instanceof RenderHints)) throw new Error("this should never happen")
 
-        value.subHints = Object.entries(value.subHints)
+        value.propertyHints = Object.entries(value.propertyHints)
             .map((k) => {
                 return { [k[0]]: RenderHints.from(k[1]) }
             })
@@ -59,7 +59,7 @@ export class RenderHints extends Serializable implements IRenderHints {
     public override toJSON(): RenderHintsJSON {
         const json = super.toJSON() as RenderHintsJSON
 
-        json.subHints = Object.entries(this.subHints)
+        json.propertyHints = Object.entries(this.propertyHints)
             .map((k) => {
                 return { [k[0]]: k[1].toJSON() }
             })
@@ -73,8 +73,8 @@ export class RenderHints extends Serializable implements IRenderHints {
     ): RenderHints {
         const overrideJson = override && override instanceof RenderHintsOverride ? override.toJSON() : override
 
-        const subHints = { ...this.toJSON().subHints, ...overrideJson?.subHints }
-        return RenderHints.from({ ...this.toJSON(), ...overrideJson, subHints })
+        const propertyHints = { ...this.toJSON().propertyHints, ...overrideJson?.propertyHints }
+        return RenderHints.from({ ...this.toJSON(), ...overrideJson, propertyHints })
     }
 }
 
@@ -92,9 +92,9 @@ export class RenderHintsOverride extends Serializable implements IRenderHintsOve
     @validate({ nullable: true })
     public dataType?: RenderHintsDataType
 
-    @serialize({ type: RenderHints })
+    @serialize()
     @validate({ nullable: true })
-    public subHints?: Record<string, RenderHints>
+    public propertyHints?: Record<string, RenderHints>
 
     public static from(value: IRenderHintsOverride | RenderHintsOverrideJSON): RenderHintsOverride {
         return this.fromAny(value)
@@ -102,9 +102,9 @@ export class RenderHintsOverride extends Serializable implements IRenderHintsOve
 
     public static override postFrom<T extends Serializable>(value: T): T {
         const valueAsAny = value as any
-        if (typeof valueAsAny.subHints === "undefined") return value
+        if (typeof valueAsAny.propertyHints === "undefined") return value
 
-        valueAsAny.subHints = Object.entries(valueAsAny.subHints)
+        valueAsAny.propertyHints = Object.entries(valueAsAny.propertyHints)
             .map((k) => {
                 return { [k[0]]: RenderHints.from(k[1] as IRenderHints) }
             })
@@ -116,7 +116,7 @@ export class RenderHintsOverride extends Serializable implements IRenderHintsOve
     public override toJSON(): RenderHintsOverrideJSON {
         const json = super.toJSON() as RenderHintsOverrideJSON
 
-        json.subHints = Object.entries(this.subHints ?? {})
+        json.propertyHints = Object.entries(this.propertyHints ?? {})
             .map((k) => {
                 return { [k[0]]: k[1].toJSON() }
             })
