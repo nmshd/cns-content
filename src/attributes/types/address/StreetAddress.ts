@@ -61,14 +61,14 @@ export class StreetAddress extends AbstractAddress implements IStreetAddress {
 
     public static get valueHints(): ValueHints {
         return ValueHints.from({
-            subHints: [
-                Street.valueHints,
-                HouseNumber.valueHints,
-                ZipCode.valueHints,
-                City.valueHints,
-                Country.valueHints,
-                State.valueHints
-            ]
+            subHints: {
+                street: Street.valueHints,
+                houseNo: HouseNumber.valueHints,
+                zipCode: ZipCode.valueHints,
+                city: City.valueHints,
+                county: Country.valueHints,
+                state: State.valueHints
+            }
         })
     }
 
