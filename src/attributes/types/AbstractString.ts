@@ -23,7 +23,7 @@ export class AbstractString extends AbstractAttributeValue implements IAbstractS
     }
 
     public override toString(): string {
-        return `${this.value}`
+        return this.value
     }
 
     public static get valueHints(): ValueHints {
