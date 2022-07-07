@@ -11,12 +11,16 @@ export interface RenderHintsJSON extends ContentJSON {
     subHints?: Record<string, RenderHintsJSON>
 }
 
+export interface RenderHintsOverrideJSON extends Partial<RenderHintsJSON> {}
+
 export interface IRenderHints extends ISerializable {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
     subHints?: Record<string, IRenderHints>
 }
+
+export interface IRenderHintsOverride extends Partial<IRenderHints> {}
 
 @type("RenderHints")
 export class RenderHints extends Serializable implements IRenderHints {
@@ -72,20 +76,6 @@ export class RenderHints extends Serializable implements IRenderHints {
         const subHints = { ...this.toJSON().subHints, ...overrideJson?.subHints }
         return RenderHints.from({ ...this.toJSON(), ...overrideJson, subHints })
     }
-}
-
-export interface RenderHintsOverrideJSON {
-    technicalType?: RenderHintsTechnicalType
-    editType?: RenderHintsEditType
-    dataType?: RenderHintsDataType
-    subHints?: Record<string, RenderHintsJSON>
-}
-
-export interface IRenderHintsOverride {
-    technicalType?: RenderHintsTechnicalType
-    editType?: RenderHintsEditType
-    dataType?: RenderHintsDataType
-    subHints?: Record<string, IRenderHints>
 }
 
 @type("RenderHintsOverride")
