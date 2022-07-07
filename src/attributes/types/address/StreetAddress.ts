@@ -59,8 +59,8 @@ export class StreetAddress extends AbstractAddress implements IStreetAddress {
         return this.fromAny(value)
     }
 
-    public static get valueHints(): ValueHints {
-        return ValueHints.from({
+    public static override get valueHints(): ValueHints {
+        return super.valueHints.copyWith({
             propertyHints: {
                 street: Street.valueHints,
                 houseNo: HouseNumber.valueHints,
