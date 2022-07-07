@@ -1,7 +1,7 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { COUNTRIES_ALPHA2_TO_ENGLISH_NAME } from "../../constants"
-import { RenderHints, RenderHintsEditType, RenderHintsTechnicalType, ValueHints } from "../../hints"
+import { RenderHints, ValueHints } from "../../hints"
 import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 import { AbstractAddress, AbstractAddressJSON, IAbstractAddress } from "./AbstractAddress"
 import { City } from "./City"
@@ -72,18 +72,16 @@ export class StreetAddress extends AbstractAddress implements IStreetAddress {
         })
     }
 
-    public static get renderHints(): RenderHints {
-        return RenderHints.from({
-            technicalType: RenderHintsTechnicalType.Object,
-            editType: RenderHintsEditType.Form,
-            subHints: [
-                Street.renderHints,
-                HouseNumber.renderHints,
-                ZipCode.renderHints,
-                City.renderHints,
-                Country.renderHints,
-                State.renderHints
-            ]
+    public static override get renderHints(): RenderHints {
+        return super.renderHints.copyWith({
+            subHints: {
+                street: Street.renderHints,
+                houseNo: HouseNumber.renderHints,
+                zipCode: ZipCode.renderHints,
+                city: City.renderHints,
+                county: Country.renderHints,
+                state: State.renderHints
+            }
         })
     }
 
