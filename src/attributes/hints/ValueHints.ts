@@ -9,6 +9,7 @@ export interface ValueHintsJSON extends ContentJSON {
     pattern?: string
     values?: ValueHintsValueJSON[]
     defaultValue?: string | number | boolean
+    propertyHints?: Record<string, ValueHintsJSON>
 }
 
 export interface ValueHintsOverrideJSON extends Partial<ValueHintsJSON> {}
@@ -20,9 +21,31 @@ export interface IValueHints extends ISerializable {
     pattern?: string
     values?: IValueHintsValue[]
     defaultValue?: string | number | boolean
+    propertyHints?: Record<string, IValueHints>
 }
 
 export interface IValueHintsOverride extends Partial<IValueHints> {}
+
+function deserializePropertyHints(value: ValueHints | ValueHintsOverride): void {
+    if (typeof value.propertyHints === "undefined") return
+
+    value.propertyHints = Object.entries(value.propertyHints)
+        .map((k) => {
+            return { [k[0]]: ValueHints.fromAny(k[1]) }
+        })
+        .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+}
+
+function serializePropertyHints(
+    hints: ValueHints | ValueHintsOverride,
+    json: ValueHintsOverrideJSON | ValueHintsJSON
+): void {
+    json.propertyHints = Object.entries(hints.propertyHints ?? {})
+        .map((k) => {
+            return { [k[0]]: k[1].toJSON() }
+        })
+        .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+}
 
 @type("ValueHints")
 export class ValueHints extends Serializable implements IValueHints {
@@ -50,17 +73,33 @@ export class ValueHints extends Serializable implements IValueHints {
     @serialize()
     public defaultValue?: number | string | boolean
 
+    @serialize()
+    @validate({ nullable: true })
+    public propertyHints: Record<string, ValueHints> = {}
+
     public static from(value: IValueHints | ValueHintsJSON): ValueHints {
         return this.fromAny(value)
     }
 
+    public static override postFrom<T extends Serializable>(value: T): T {
+        if (!(value instanceof ValueHints)) throw new Error("this should never happen")
+
+        deserializePropertyHints(value)
+        return value
+    }
+
     public override toJSON(): ValueHintsJSON {
-        return super.toJSON() as ValueHintsJSON
+        const json = super.toJSON() as ValueHintsJSON
+
+        serializePropertyHints(this, json)
+        return json
     }
 
     public copyWith(override?: Partial<IValueHintsOverride | ValueHintsOverrideJSON | ValueHintsOverride>): ValueHints {
-        const overrideJson = override && override instanceof Serializable ? override.toJSON() : override
-        return ValueHints.from({ ...this.toJSON(), ...overrideJson })
+        const overrideJson = override && override instanceof ValueHintsOverride ? override.toJSON() : override
+
+        const propertyHints = { ...this.toJSON().propertyHints, ...overrideJson?.propertyHints }
+        return ValueHints.from({ ...this.toJSON(), ...overrideJson, propertyHints })
     }
 }
 
@@ -90,11 +129,23 @@ export class ValueHintsOverride extends Serializable implements IValueHintsOverr
     @validate({ nullable: true })
     public defaultValue?: boolean | number | string
 
+    @serialize()
+    @validate({ nullable: true })
+    public propertyHints?: Record<string, ValueHints>
+
     public static from(value: IValueHintsOverride | ValueHintsOverrideJSON): ValueHintsOverride {
         return this.fromAny(value)
     }
 
+    public static override postFrom<T extends Serializable>(value: T): T {
+        deserializePropertyHints(value)
+        return value
+    }
+
     public override toJSON(): ValueHintsOverrideJSON {
-        return super.toJSON()
+        const json = super.toJSON() as ValueHintsOverrideJSON
+
+        serializePropertyHints(this, json)
+        return json
     }
 }

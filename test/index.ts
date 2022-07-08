@@ -4,6 +4,7 @@ import { IdentityAttributeTest } from "./attributes/IdentityAttribute.test"
 import { IdentityAttributeQueryTest } from "./attributes/IdentityAttributeQuery.test"
 import { RelationshipAttributeTest } from "./attributes/RelationshipAttribute.test"
 import { RelationshipAttributeHintsTest } from "./attributes/RelationshipAttributeHints.test"
+import { RenderHintsTest } from "./attributes/RenderHints.test"
 import { ValueHintsTest } from "./attributes/ValueHints.test"
 import { AddressValueTests } from "./attributeValues/AddressValueTests.test"
 import { BirthValueTests } from "./attributeValues/BirthValueTests.test"
@@ -16,6 +17,7 @@ import { ResponseTest } from "./requests/Response.test"
 const loggerFactory = new SimpleLoggerFactory()
 
 new ValueHintsTest(loggerFactory).run()
+new RenderHintsTest(loggerFactory).run()
 new HintsInheritanceTest(loggerFactory).run()
 new MailTest(loggerFactory).run()
 new RequestTest(loggerFactory).run()

@@ -1,4 +1,5 @@
 import { serialize, validate } from "@js-soft/ts-serval"
+import { ValueHints, ValueHintsValue } from "../../hints"
 import { AbstractMeasurement } from "./AbstractMeasurement"
 
 export enum LengthUnit {
@@ -23,4 +24,19 @@ export class AbstractLengthMeasurement extends AbstractMeasurement {
             !Object.values(LengthUnit).includes(v) ? `must be one of: ${Object.values(LengthUnit)}` : undefined
     })
     public override unit: LengthUnit
+
+    public static override get valueHints(): ValueHints {
+        return super.valueHints.copyWith({
+            propertyHints: {
+                [this.propertyNames.unit.$path]: ValueHints.from({
+                    values: Object.entries(LengthUnit).map((v) =>
+                        ValueHintsValue.from({
+                            displayName: v[1],
+                            key: v[0]
+                        })
+                    )
+                })
+            }
+        })
+    }
 }

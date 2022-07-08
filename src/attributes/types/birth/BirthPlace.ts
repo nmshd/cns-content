@@ -1,6 +1,8 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import nameOf from "easy-tsnameof"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
+import { RenderHints, ValueHints } from "../../hints"
 import { AbstractStringJSON, IAbstractString } from "../AbstractString"
 import { BirthCity } from "./BirthCity"
 import { BirthCountry } from "./BirthCountry"
@@ -20,6 +22,8 @@ export interface IBirthPlace extends IAbstractComplexValue {
 
 @type("BirthPlace")
 export class BirthPlace extends AbstractComplexValue implements IBirthPlace {
+    public static readonly propertyNames = nameOf<BirthPlace, never>()
+
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate()
     public city: BirthCity
@@ -31,6 +35,26 @@ export class BirthPlace extends AbstractComplexValue implements IBirthPlace {
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate({ nullable: true })
     public state?: BirthState
+
+    public static get valueHints(): ValueHints {
+        return ValueHints.from({
+            propertyHints: {
+                [this.propertyNames.city.$path]: BirthCity.valueHints,
+                [this.propertyNames.country.$path]: BirthCountry.valueHints,
+                [this.propertyNames.state.$path]: BirthState.valueHints
+            }
+        })
+    }
+
+    public static override get renderHints(): RenderHints {
+        return super.renderHints.copyWith({
+            propertyHints: {
+                [this.propertyNames.city.$path]: BirthCity.renderHints,
+                [this.propertyNames.country.$path]: BirthCountry.renderHints,
+                [this.propertyNames.state.$path]: BirthState.renderHints
+            }
+        })
+    }
 
     public static from(value: IBirthPlace | BirthPlaceJSON): BirthPlace {
         return this.fromAny(value)

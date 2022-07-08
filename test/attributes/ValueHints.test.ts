@@ -1,8 +1,19 @@
-import { CommunicationLanguage, Nationality, ValueHints, ValueHintsJSON, ValueHintsValue } from "@nmshd/content"
+import { type } from "@js-soft/ts-serval"
+import {
+    AbstractLengthMeasurement,
+    CommunicationLanguage,
+    Nationality,
+    StreetAddress,
+    ValueHints,
+    ValueHintsJSON,
+    ValueHintsValue
+} from "@nmshd/content"
 import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
 import { expectThrows } from "../testUtils"
 
+@type("TestLengthMeasurement")
+export class TestLenghtMeasurement extends AbstractLengthMeasurement {}
 export class ValueHintsTest extends AbstractTest {
     public run(): void {
         describe("ValueHints", function () {
@@ -27,7 +38,7 @@ export class ValueHintsTest extends AbstractTest {
                 }
                 const valueHints = ValueHints.from(valueHintsJSON)
                 expect(valueHints).instanceOf(ValueHints)
-                expect(valueHints.toJSON()).to.deep.equal(valueHintsJSON)
+                expect(valueHints.toJSON()).to.deep.equal({ ...valueHintsJSON, propertyHints: {} })
             })
 
             it("serialize and deserialize filled ValueHints (int)", function () {
@@ -51,7 +62,7 @@ export class ValueHintsTest extends AbstractTest {
                 }
                 const valueHints = ValueHints.from(valueHintsJSON)
                 expect(valueHints).instanceOf(ValueHints)
-                expect(valueHints.toJSON()).to.deep.equal(valueHintsJSON)
+                expect(valueHints.toJSON()).to.deep.equal({ ...valueHintsJSON, propertyHints: {} })
             })
 
             it("gets languages out of Language", function () {
@@ -114,6 +125,19 @@ export class ValueHintsTest extends AbstractTest {
                         }),
                     ".*Value is not an allowed type"
                 )
+            })
+
+            it("returns propertyHints in case of complex attributes", function () {
+                const valueHints = StreetAddress.valueHints
+
+                expect(Object.keys(valueHints.propertyHints)).to.have.lengthOf(7)
+            })
+
+            it("TestLengthMeasurement ValueHints", function () {
+                const valueHints = TestLenghtMeasurement.valueHints
+
+                expect(Object.keys(valueHints.propertyHints)).to.have.lengthOf(2)
+                expect(valueHints.propertyHints.unit.values).to.have.lengthOf(12)
             })
         })
     }

@@ -1,55 +1,46 @@
 import { ISerializable, Serializable, serialize, type, validate } from "@js-soft/ts-serval"
 import { ContentJSON } from "../../ContentJSON"
-
-export enum RenderHintsTechnicalType {
-    Boolean = "Boolean",
-    Float = "Float",
-    Integer = "Integer",
-    Object = "Object",
-    String = "String"
-}
-
-export enum RenderHintsEditType {
-    InputLike = "InputLike",
-    ButtonLike = "ButtonLike",
-    RadioButtonLike = "RadioButtonLike",
-    SelectLike = "SelectLike",
-    SliderLike = "SliderLike",
-    Secret = "Secret",
-    TextArea = "TextArea",
-    Upload = "Upload"
-}
-
-export enum RenderHintsDataType {
-    Country = "Country",
-    DataURL = "DataURL",
-    EMailAddress = "EMailAddress",
-    HEXColor = "HEXColor",
-    Language = "Language",
-    PhoneNumber = "PhoneNumber",
-    URL = "URL",
-    FileReference = "FileReference",
-    Date = "Date",
-    DatePeriod = "DatePeriod",
-    DateTime = "DateTime",
-    DateTimePeriod = "DateTimePeriod",
-    Time = "Time",
-    TimePeriod = "TimePeriod",
-    Day = "Day",
-    Month = "Month",
-    Year = "Year"
-}
+import { RenderHintsDataType } from "./RenderHintsDataType"
+import { RenderHintsEditType } from "./RenderHintsEditType"
+import { RenderHintsTechnicalType } from "./RenderHintsTechnicalType"
 
 export interface RenderHintsJSON extends ContentJSON {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
+    propertyHints?: Record<string, RenderHintsJSON>
 }
+
+export interface RenderHintsOverrideJSON extends Partial<RenderHintsJSON> {}
 
 export interface IRenderHints extends ISerializable {
     technicalType: RenderHintsTechnicalType
     editType: RenderHintsEditType
     dataType?: RenderHintsDataType
+    propertyHints?: Record<string, IRenderHints>
+}
+
+export interface IRenderHintsOverride extends Partial<IRenderHints> {}
+
+function deserializePropertyHints(value: RenderHints | RenderHintsOverride): void {
+    if (typeof value.propertyHints === "undefined") return
+
+    value.propertyHints = Object.entries(value.propertyHints)
+        .map((k) => {
+            return { [k[0]]: RenderHints.fromAny(k[1]) }
+        })
+        .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+}
+
+function serializePropertyHints(
+    hints: RenderHints | RenderHintsOverride,
+    json: RenderHintsOverrideJSON | RenderHintsJSON
+): void {
+    json.propertyHints = Object.entries(hints.propertyHints ?? {})
+        .map((k) => {
+            return { [k[0]]: k[1].toJSON() }
+        })
+        .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
 }
 
 @type("RenderHints")
@@ -66,32 +57,34 @@ export class RenderHints extends Serializable implements IRenderHints {
     @validate({ nullable: true })
     public dataType?: RenderHintsDataType
 
+    @serialize()
+    @validate({ nullable: true })
+    public propertyHints: Record<string, RenderHints> = {}
+
     public static from(value: IRenderHints): RenderHints {
         return this.fromAny(value)
     }
 
+    public static override postFrom<T extends Serializable>(value: T): T {
+        deserializePropertyHints(value)
+        return value
+    }
+
     public override toJSON(): RenderHintsJSON {
-        return super.toJSON() as RenderHintsJSON
+        const json = super.toJSON() as RenderHintsJSON
+
+        serializePropertyHints(this, json)
+        return json
     }
 
     public copyWith(
         override?: Partial<IRenderHintsOverride | RenderHintsOverrideJSON | RenderHintsOverride>
     ): RenderHints {
-        const overrideJson = override && override instanceof Serializable ? override.toJSON() : override
-        return RenderHints.from({ ...this.toJSON(), ...overrideJson })
+        const overrideJson = override && override instanceof RenderHintsOverride ? override.toJSON() : override
+
+        const propertyHints = { ...this.toJSON().propertyHints, ...overrideJson?.propertyHints }
+        return RenderHints.from({ ...this.toJSON(), ...overrideJson, propertyHints })
     }
-}
-
-export interface RenderHintsOverrideJSON {
-    technicalType?: RenderHintsTechnicalType
-    editType?: RenderHintsEditType
-    dataType?: RenderHintsDataType
-}
-
-export interface IRenderHintsOverride {
-    technicalType?: RenderHintsTechnicalType
-    editType?: RenderHintsEditType
-    dataType?: RenderHintsDataType
 }
 
 @type("RenderHintsOverride")
@@ -108,11 +101,23 @@ export class RenderHintsOverride extends Serializable implements IRenderHintsOve
     @validate({ nullable: true })
     public dataType?: RenderHintsDataType
 
+    @serialize()
+    @validate({ nullable: true })
+    public propertyHints?: Record<string, RenderHints>
+
     public static from(value: IRenderHintsOverride | RenderHintsOverrideJSON): RenderHintsOverride {
         return this.fromAny(value)
     }
 
+    public static override postFrom<T extends Serializable>(value: T): T {
+        deserializePropertyHints(value)
+        return value
+    }
+
     public override toJSON(): RenderHintsOverrideJSON {
-        return super.toJSON() as RenderHintsOverrideJSON
+        const json = super.toJSON() as RenderHintsOverrideJSON
+
+        serializePropertyHints(this, json)
+        return json
     }
 }

@@ -10,6 +10,7 @@ export enum BiologicalSex {
     F = "female",
     X = "intersex"
 }
+
 @type("Sex")
 export class Sex extends AbstractString {
     @serialize()

@@ -1,6 +1,6 @@
 {
     "name": "@nmshd/content",
-    "version": "2.0.0-alpha.43",
+    "version": "2.0.0-alpha.44",
     "description": "The content library defines data structures that can be transmitted using the transport library.",
     "homepage": "https://enmeshed.eu",
     "repository": "github:nmshd/cns-content",
@@ -38,7 +38,8 @@
         "test:web:debug": "browsertest-runner-debug"
     },
     "dependencies": {
-        "@js-soft/logging-abstractions": "^1.0.0"
+        "@js-soft/logging-abstractions": "^1.0.0",
+        "easy-tsnameof": "^3.0.6"
     },
     "devDependencies": {
         "@js-soft/eslint-config-ts": "1.5.2",
