@@ -26,6 +26,27 @@ export interface IValueHints extends ISerializable {
 
 export interface IValueHintsOverride extends Partial<IValueHints> {}
 
+function deserializePropertyHints(value: ValueHints | ValueHintsOverride): void {
+    if (typeof value.propertyHints === "undefined") return
+
+    value.propertyHints = Object.entries(value.propertyHints)
+        .map((k) => {
+            return { [k[0]]: ValueHints.fromAny(k[1]) }
+        })
+        .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+}
+
+function serializePropertyHints(
+    hints: ValueHints | ValueHintsOverride,
+    json: ValueHintsOverrideJSON | ValueHintsJSON
+): void {
+    json.propertyHints = Object.entries(hints.propertyHints ?? {})
+        .map((k) => {
+            return { [k[0]]: k[1].toJSON() }
+        })
+        .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+}
+
 @type("ValueHints")
 export class ValueHints extends Serializable implements IValueHints {
     @serialize()
@@ -63,24 +84,14 @@ export class ValueHints extends Serializable implements IValueHints {
     public static override postFrom<T extends Serializable>(value: T): T {
         if (!(value instanceof ValueHints)) throw new Error("this should never happen")
 
-        value.propertyHints = Object.entries(value.propertyHints)
-            .map((k) => {
-                return { [k[0]]: ValueHints.from(k[1]) }
-            })
-            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
-
+        deserializePropertyHints(value)
         return value
     }
 
     public override toJSON(): ValueHintsJSON {
         const json = super.toJSON() as ValueHintsJSON
 
-        json.propertyHints = Object.entries(this.propertyHints)
-            .map((k) => {
-                return { [k[0]]: k[1].toJSON() }
-            })
-            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
-
+        serializePropertyHints(this, json)
         return json
     }
 
@@ -127,27 +138,14 @@ export class ValueHintsOverride extends Serializable implements IValueHintsOverr
     }
 
     public static override postFrom<T extends Serializable>(value: T): T {
-        const valueAsAny = value as any
-        if (typeof valueAsAny.propertyHints === "undefined") return value
-
-        valueAsAny.propertyHints = Object.entries(valueAsAny.propertyHints)
-            .map((k) => {
-                return { [k[0]]: ValueHints.from(k[1] as IValueHints) }
-            })
-            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
-
-        return valueAsAny
+        deserializePropertyHints(value)
+        return value
     }
 
     public override toJSON(): ValueHintsOverrideJSON {
         const json = super.toJSON() as ValueHintsOverrideJSON
 
-        json.propertyHints = Object.entries(this.propertyHints ?? {})
-            .map((k) => {
-                return { [k[0]]: k[1].toJSON() }
-            })
-            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
-
+        serializePropertyHints(this, json)
         return json
     }
 }

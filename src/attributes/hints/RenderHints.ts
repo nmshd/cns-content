@@ -22,6 +22,27 @@ export interface IRenderHints extends ISerializable {
 
 export interface IRenderHintsOverride extends Partial<IRenderHints> {}
 
+function deserializePropertyHints(value: RenderHints | RenderHintsOverride): void {
+    if (typeof value.propertyHints === "undefined") return
+
+    value.propertyHints = Object.entries(value.propertyHints)
+        .map((k) => {
+            return { [k[0]]: RenderHints.fromAny(k[1]) }
+        })
+        .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+}
+
+function serializePropertyHints(
+    hints: RenderHints | RenderHintsOverride,
+    json: RenderHintsOverrideJSON | RenderHintsJSON
+): void {
+    json.propertyHints = Object.entries(hints.propertyHints ?? {})
+        .map((k) => {
+            return { [k[0]]: k[1].toJSON() }
+        })
+        .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
+}
+
 @type("RenderHints")
 export class RenderHints extends Serializable implements IRenderHints {
     @serialize()
@@ -45,26 +66,14 @@ export class RenderHints extends Serializable implements IRenderHints {
     }
 
     public static override postFrom<T extends Serializable>(value: T): T {
-        if (!(value instanceof RenderHints)) throw new Error("this should never happen")
-
-        value.propertyHints = Object.entries(value.propertyHints)
-            .map((k) => {
-                return { [k[0]]: RenderHints.from(k[1]) }
-            })
-            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
-
+        deserializePropertyHints(value)
         return value
     }
 
     public override toJSON(): RenderHintsJSON {
         const json = super.toJSON() as RenderHintsJSON
 
-        json.propertyHints = Object.entries(this.propertyHints)
-            .map((k) => {
-                return { [k[0]]: k[1].toJSON() }
-            })
-            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
-
+        serializePropertyHints(this, json)
         return json
     }
 
@@ -101,27 +110,14 @@ export class RenderHintsOverride extends Serializable implements IRenderHintsOve
     }
 
     public static override postFrom<T extends Serializable>(value: T): T {
-        const valueAsAny = value as any
-        if (typeof valueAsAny.propertyHints === "undefined") return value
-
-        valueAsAny.propertyHints = Object.entries(valueAsAny.propertyHints)
-            .map((k) => {
-                return { [k[0]]: RenderHints.from(k[1] as IRenderHints) }
-            })
-            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
-
-        return valueAsAny
+        deserializePropertyHints(value)
+        return value
     }
 
     public override toJSON(): RenderHintsOverrideJSON {
         const json = super.toJSON() as RenderHintsOverrideJSON
 
-        json.propertyHints = Object.entries(this.propertyHints ?? {})
-            .map((k) => {
-                return { [k[0]]: k[1].toJSON() }
-            })
-            .reduce((obj, item) => Object.assign(obj, { [Object.keys(item)[0]]: Object.values(item)[0] }), {})
-
+        serializePropertyHints(this, json)
         return json
     }
 }
