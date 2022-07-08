@@ -1,4 +1,6 @@
+import { type } from "@js-soft/ts-serval"
 import {
+    AbstractLengthMeasurement,
     CommunicationLanguage,
     Nationality,
     StreetAddress,
@@ -10,6 +12,8 @@ import { expect } from "chai"
 import { AbstractTest } from "../AbstractTest"
 import { expectThrows } from "../testUtils"
 
+@type("TestLengthMeasurement")
+export class TestLenghtMeasurement extends AbstractLengthMeasurement {}
 export class ValueHintsTest extends AbstractTest {
     public run(): void {
         describe("ValueHints", function () {
@@ -127,6 +131,13 @@ export class ValueHintsTest extends AbstractTest {
                 const valueHints = StreetAddress.valueHints
 
                 expect(Object.keys(valueHints.propertyHints)).to.have.lengthOf(7)
+            })
+
+            it("TestLengthMeasurement ValueHints", function () {
+                const valueHints = TestLenghtMeasurement.valueHints
+
+                expect(Object.keys(valueHints.propertyHints)).to.have.lengthOf(2)
+                expect(valueHints.propertyHints.unit.values).to.have.lengthOf(12)
             })
         })
     }
