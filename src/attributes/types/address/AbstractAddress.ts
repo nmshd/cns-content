@@ -1,4 +1,5 @@
 import { serialize, validate } from "@js-soft/ts-serval"
+import nameOf from "easy-tsnameof"
 import { AbstractComplexValue, AbstractComplexValueJSON, IAbstractComplexValue } from "../../AbstractComplexValue"
 import { RenderHints, RenderHintsEditType, RenderHintsTechnicalType, ValueHints } from "../../hints"
 
@@ -11,6 +12,8 @@ export interface IAbstractAddress extends IAbstractComplexValue {
 }
 
 export abstract class AbstractAddress extends AbstractComplexValue implements IAbstractAddress {
+    public static readonly propertyNames = nameOf<AbstractAddress, never>()
+
     @serialize()
     @validate()
     public recipient: string
@@ -18,7 +21,7 @@ export abstract class AbstractAddress extends AbstractComplexValue implements IA
     public static get valueHints(): ValueHints {
         return ValueHints.from({
             propertyHints: {
-                recipient: ValueHints.from({})
+                [this.propertyNames.recipient.$path]: ValueHints.from({})
             }
         })
     }
@@ -26,7 +29,7 @@ export abstract class AbstractAddress extends AbstractComplexValue implements IA
     public static override get renderHints(): RenderHints {
         return super.renderHints.copyWith({
             propertyHints: {
-                recipient: RenderHints.from({
+                [this.propertyNames.recipient.$path]: RenderHints.from({
                     editType: RenderHintsEditType.InputLike,
                     technicalType: RenderHintsTechnicalType.String
                 })

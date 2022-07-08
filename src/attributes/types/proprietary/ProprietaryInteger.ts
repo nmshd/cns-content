@@ -11,11 +11,11 @@ export interface IProprietaryInteger extends IAbstractInteger {
 @type("ProprietaryInteger")
 export class ProprietaryInteger extends AbstractInteger {
     public override get valueHints(): ValueHints {
-        return ((this.constructor as any).valueHints as ValueHints).copyWith(this.valueHintsOverride?.toJSON())
+        return super.valueHints.copyWith(this.valueHintsOverride?.toJSON())
     }
 
     public override get renderHints(): RenderHints {
-        return ((this.constructor as any).renderHints as RenderHints).copyWith(this.renderHintsOverride?.toJSON())
+        return super.renderHints.copyWith(this.renderHintsOverride?.toJSON())
     }
 
     @serialize()

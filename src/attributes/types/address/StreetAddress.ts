@@ -1,4 +1,5 @@
 import { serialize, type, validate } from "@js-soft/ts-serval"
+import { nameOf as nameof } from "easy-tsnameof"
 import { AbstractAttributeValue } from "../../AbstractAttributeValue"
 import { COUNTRIES_ALPHA2_TO_ENGLISH_NAME } from "../../constants"
 import { RenderHints, ValueHints } from "../../hints"
@@ -31,6 +32,8 @@ export interface IStreetAddress extends IAbstractAddress {
 
 @type("StreetAddress")
 export class StreetAddress extends AbstractAddress implements IStreetAddress {
+    public static override readonly propertyNames = nameof<StreetAddress, never>()
+
     @serialize({ customGenerator: AbstractAttributeValue.valueGenerator })
     @validate()
     public street: Street
@@ -62,12 +65,12 @@ export class StreetAddress extends AbstractAddress implements IStreetAddress {
     public static override get valueHints(): ValueHints {
         return super.valueHints.copyWith({
             propertyHints: {
-                street: Street.valueHints,
-                houseNo: HouseNumber.valueHints,
-                zipCode: ZipCode.valueHints,
-                city: City.valueHints,
-                county: Country.valueHints,
-                state: State.valueHints
+                [this.propertyNames.street.$path]: Street.valueHints,
+                [this.propertyNames.houseNo.$path]: HouseNumber.valueHints,
+                [this.propertyNames.zipCode.$path]: ZipCode.valueHints,
+                [this.propertyNames.city.$path]: City.valueHints,
+                [this.propertyNames.country.$path]: Country.valueHints,
+                [this.propertyNames.state.$path]: State.valueHints
             }
         })
     }
@@ -75,12 +78,12 @@ export class StreetAddress extends AbstractAddress implements IStreetAddress {
     public static override get renderHints(): RenderHints {
         return super.renderHints.copyWith({
             propertyHints: {
-                street: Street.renderHints,
-                houseNo: HouseNumber.renderHints,
-                zipCode: ZipCode.renderHints,
-                city: City.renderHints,
-                county: Country.renderHints,
-                state: State.renderHints
+                [this.propertyNames.street.$path]: Street.renderHints,
+                [this.propertyNames.houseNo.$path]: HouseNumber.renderHints,
+                [this.propertyNames.zipCode.$path]: ZipCode.renderHints,
+                [this.propertyNames.city.$path]: City.renderHints,
+                [this.propertyNames.country.$path]: Country.renderHints,
+                [this.propertyNames.state.$path]: State.renderHints
             }
         })
     }
