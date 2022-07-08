@@ -38,7 +38,8 @@
         "test:web:debug": "browsertest-runner-debug"
     },
     "dependencies": {
-        "@js-soft/logging-abstractions": "^1.0.0"
+        "@js-soft/logging-abstractions": "^1.0.0",
+        "easy-tsnameof": "^3.0.6"
     },
     "devDependencies": {
         "@js-soft/eslint-config-ts": "1.5.2",
