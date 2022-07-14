@@ -2,9 +2,9 @@ import { serialize, validate } from "@js-soft/ts-serval"
 import { AbstractAttributeValue, AbstractAttributeValueJSON, IAbstractAttributeValue } from "../AbstractAttributeValue"
 import { RenderHints, RenderHintsEditType, RenderHintsTechnicalType, ValueHints } from "../hints"
 
-export type AbstractIntegerJSON = IAbstractIntegerValue | number
+export type AbstractIntegerJSON = IAbstractIntegerJSON | number
 
-export interface IAbstractIntegerValue extends AbstractAttributeValueJSON {
+export interface IAbstractIntegerJSON extends AbstractAttributeValueJSON {
     value: number
 }
 
